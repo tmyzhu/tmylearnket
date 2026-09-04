@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THINK Unit 3 Grammar Practice – Comparatives & Adverbs</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#f5f7fa;color:#1a1a2e;min-height:100vh}
+  header{background:linear-gradient(135deg,#3b5bdb,#5c7cfa);color:#fff;padding:2rem 1.5rem 1.5rem;text-align:center}
+  header h1{font-size:1.6rem;font-weight:700;margin-bottom:.4rem}
+  header p{font-size:.9rem;opacity:.85}
+  .progress-wrap{background:#fff;padding:.75rem 1.5rem;box-shadow:0 1px 4px rgba(0,0,0,.08);position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:12px}
+  .progress-label{font-size:.8rem;color:#555;white-space:nowrap}
+  .progress-bar{flex:1;height:8px;background:#e9ecef;border-radius:4px;overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,#3b5bdb,#74c0fc);border-radius:4px;transition:width .4s}
+  .progress-score{font-size:.85rem;font-weight:700;color:#3b5bdb;white-space:nowrap}
+  .tabs{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid #e9ecef;padding:0 1rem;gap:4px}
+  .tab{padding:.6rem 1rem;font-size:.85rem;font-weight:600;color:#777;border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .15s}
+  .tab:hover{color:#3b5bdb}
+  .tab.active{color:#3b5bdb;border-bottom-color:#3b5bdb}
+  .container{max-width:760px;margin:1.5rem auto;padding:0 1rem}
+  .section{display:none}
+  .section.visible{display:block}
+  .rule-box{background:#eef2ff;border-left:4px solid #3b5bdb;border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin-bottom:1.2rem;font-size:.9rem;line-height:1.7;color:#2c3e50}
+  .rule-box b{color:#3b5bdb}
+  .card{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.07);padding:1.2rem 1.4rem;margin-bottom:1rem}
+  .card-title{font-size:.75rem;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.8px;margin-bottom:1rem}
+  .q{margin-bottom:1.2rem}
+  .q-text{font-size:.95rem;color:#2c3e50;line-height:1.8}
+  .q-text .hint{font-size:.82rem;color:#888;font-style:italic}
+  .ans-tip{display:none;margin-top:7px;padding:7px 12px;background:#f0f4ff;border-left:3px solid #5c7cfa;border-radius:0 6px 6px 0;font-size:.85rem;color:#364fc7;line-height:1.65}
+  .ans-tip.show{display:block}
+  input.blank{border:none;border-bottom:2px solid #adb5bd;background:transparent;font-size:.95rem;color:#1a1a2e;padding:2px 5px;min-width:120px;outline:none;font-family:inherit;transition:border-color .15s}
+  input.blank:focus{border-bottom-color:#3b5bdb}
+  input.blank.ok{border-bottom-color:#2f9e44;color:#2f9e44;background:#ebfbee;border-radius:3px}
+  input.blank.err{border-bottom-color:#c92a2a;color:#c92a2a;background:#fff5f5;border-radius:3px}
+  .btn{display:inline-block;padding:.45rem 1.2rem;border-radius:8px;border:2px solid #3b5bdb;background:#fff;color:#3b5bdb;font-size:.88rem;font-weight:600;cursor:pointer;margin-top:.8rem;transition:all .15s}
+  .btn:hover{background:#3b5bdb;color:#fff}
+  .btn.primary{background:#3b5bdb;color:#fff}
+  .btn.primary:hover{background:#2f4ac2}
+  .feedback{margin-top:.7rem;font-size:.88rem;line-height:1.6;padding:.5rem .8rem;border-radius:6px}
+  .feedback.ok{background:#ebfbee;color:#2f9e44}
+  .feedback.mixed{background:#fff9db;color:#e67700}
+  .mc-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:.5rem}
+  .mc-btn{padding:.4rem 1rem;border:1.5px solid #ced4da;border-radius:20px;background:#fff;font-size:.88rem;cursor:pointer;transition:all .15s;font-family:inherit;color:#333}
+  .mc-btn:hover:not(:disabled){border-color:#3b5bdb;color:#3b5bdb}
+  .mc-btn.ok{background:#ebfbee;border-color:#2f9e44;color:#2f9e44;font-weight:600}
+  .mc-btn.err{background:#fff5f5;border-color:#c92a2a;color:#c92a2a}
+  .mc-btn.reveal{background:#fff9db;border-color:#f59f00;color:#e67700;font-weight:600}
+  .mc-btn:disabled{cursor:default;opacity:.85}
+  .drag-label{font-size:.82rem;color:#777;margin:.5rem 0 .3rem}
+  .word-bank{display:flex;flex-wrap:wrap;gap:8px;min-height:50px;padding:10px;background:#f8f9fa;border:1.5px dashed #ced4da;border-radius:8px;margin-bottom:.5rem}
+  .answer-zone{display:flex;flex-wrap:wrap;gap:8px;min-height:54px;padding:10px;background:#f0f4ff;border:1.5px dashed #74c0fc;border-radius:8px}
+  .chip{padding:.35rem .9rem;background:#fff;border:1.5px solid #ced4da;border-radius:20px;cursor:grab;font-size:.88rem;color:#333;user-select:none;transition:all .15s}
+  .chip:hover{border-color:#3b5bdb;color:#3b5bdb;background:#eef2ff}
+  .chip.placed{background:#eef2ff;border-color:#5c7cfa}
+  .score-card{background:linear-gradient(135deg,#3b5bdb,#5c7cfa);color:#fff;border-radius:12px;padding:1.5rem;text-align:center;margin-top:1rem}
+  .score-big{font-size:3rem;font-weight:700;margin:.5rem 0}
+  .score-msg{font-size:1rem;opacity:.9}
+  .nav-btns{display:flex;justify-content:space-between;margin-top:1.2rem}
+  @media(max-width:480px){
+    header h1{font-size:1.3rem}
+    .tab{font-size:.78rem;padding:.5rem .7rem}
+    .card{padding:1rem}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>THINK Unit 3 · Grammar Practice</h1>
+  <p>Comparative &amp; Superlative · (not) as…as · Stronger/Weaker Comparatives · Adverbs</p>
+</header>
+
+<div class="progress-wrap">
+  <span class="progress-label">进度</span>
+  <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+  <span class="progress-score" id="prog-score">0 / 0</span>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab(0)">① 比较级&最高级</button>
+  <button class="tab" onclick="switchTab(1)">② as…as 结构</button>
+  <button class="tab" onclick="switchTab(2)">③ 强调 / 减弱</button>
+  <button class="tab" onclick="switchTab(3)">④ 副词比较级</button>
+  <button class="tab" onclick="switchTab(4)">⑤ 综合挑战</button>
+</div>
+
+<div class="container">
+
+<!-- ===== SECTION 1 ===== -->
+<div class="section visible" id="sec0">
+  <div class="rule-box">
+    <b>规则速记：</b><br>
+    短形容词（1-2音节）：加 <b>-er / -est</b>（tall → taller → tallest）<br>
+    长形容词（3音节以上）：加 <b>more / the most</b>（exciting → more exciting → the most exciting）<br>
+    特殊变化：big → <b>bigger</b>（双写g）；tidy → <b>tidier</b>（y改ier）<br>
+    不规则：good → better → best；bad → worse → worst
+  </div>
+  <div class="card">
+    <div class="card-title">填写正确的比较级或最高级</div>
+
+    <div class="q">
+      <div class="q-text">1. Batman is <input class="blank" id="s1q1a" data-ans="stronger"> and <input class="blank" id="s1q1b" data-ans="taller"> than ordinary men. <span class="hint">(strong / tall)</span></div>
+      <div class="ans-tip" id="tip-s1q1">✅ <b>stronger, taller</b> — 单音节形容词直接加 -er。strong → stronger，tall → taller。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">2. At 1.75 m, he was in fact the <input class="blank" id="s1q2" data-ans="shortest"> actor to ever play Batman. <span class="hint">(short)</span></div>
+      <div class="ans-tip" id="tip-s1q2">✅ <b>shortest</b> — 最高级用 the + 形容词 + est。short → the shortest（最矮）。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">3. Dumbo has got <input class="blank" id="s1q3" data-ans="bigger"> ears than the other elephants. <span class="hint">(big)</span></div>
+      <div class="ans-tip" id="tip-s1q3">✅ <b>bigger</b> — big 是"辅音+单元音+辅音"结构，比较级双写末尾辅音再加 -er：big → bigger。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">4. This new film is <input class="blank" id="s1q4" data-ans="the most exciting"> old Disney film. <span class="hint">(exciting — 最高级)</span></div>
+      <div class="ans-tip" id="tip-s1q4">✅ <b>the most exciting</b> — exciting 是多音节词，最高级用 the most + 形容词。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">5. London is <input class="blank" id="s1q5" data-ans="more crowded"> than my hometown. <span class="hint">(crowded)</span></div>
+      <div class="ans-tip" id="tip-s1q5">✅ <b>more crowded</b> — crowded 是双音节以上形容词，比较级用 more + 形容词。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">6. My room is <input class="blank" id="s1q6" data-ans="tidier"> than yours. <span class="hint">(tidy)</span></div>
+      <div class="ans-tip" id="tip-s1q6">✅ <b>tidier</b> — 以辅音 + y 结尾的形容词，比较级把 y 改 i 再加 -er：tidy → tidier。</div>
+    </div>
+
+    <button class="btn" onclick="checkFill('sec0',
+      ['s1q1a','s1q1b','s1q2','s1q3','s1q4','s1q5','s1q6'],
+      ['tip-s1q1','tip-s1q1','tip-s1q2','tip-s1q3','tip-s1q4','tip-s1q5','tip-s1q6'])">检查答案</button>
+    <div class="feedback" id="sec0-fb"></div>
+  </div>
+  <div class="nav-btns"><span></span><button class="btn primary" onclick="switchTab(1)">下一板块 →</button></div>
+</div>
+
+<!-- ===== SECTION 2 ===== -->
+<div class="section" id="sec1">
+  <div class="rule-box">
+    <b>规则速记：</b><br>
+    两者<b>相同</b>：as + 形容词原形 + as（Tom is <b>as tall as</b> Sue. 一样高）<br>
+    两者<b>不同</b>：not as + 形容词原形 + as（Cats are <b>not as noisy as</b> dogs. 猫没有狗吵）<br>
+    ⚠️ as…as 中间用形容词<b>原形</b>，不用比较级！
+  </div>
+  <div class="card">
+    <div class="card-title">改写句子，保持意思不变</div>
+
+    <div class="q">
+      <div class="q-text">1. Travelling by train is faster than by bus.<br>→ Travelling by bus is not as <input class="blank" id="s2q1" data-ans="fast"> as travelling by train.</div>
+      <div class="ans-tip" id="tip-s2q1">✅ <b>fast</b> — "火车比巴士快" 改为 "巴士没有火车快"，用 not as fast as。注意用原形 fast，不是 faster。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">2. Tom is 1.65 m. Sue is 1.65 m, too.<br>→ Tom is as <input class="blank" id="s2q2" data-ans="tall"> as Sue.</div>
+      <div class="ans-tip" id="tip-s2q2">✅ <b>tall</b> — 两人身高相同，用 as tall as 表示"一样高"。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">3. Dogs are noisier than cats.<br>→ Cats are not as <input class="blank" id="s2q3" data-ans="noisy"> as dogs.</div>
+      <div class="ans-tip" id="tip-s2q3">✅ <b>noisy</b> — "狗比猫吵" 改为 "猫没有狗吵"，用 not as noisy as。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">4. This phone costs €225. The bicycle costs €225, too.<br>→ The phone is as <input class="blank" id="s2q4" data-ans="expensive"> as the bicycle.</div>
+      <div class="ans-tip" id="tip-s2q4">✅ <b>expensive</b> — 价格相同，用 as expensive as 表示"一样贵"。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">5. Jo thinks Geography is easier than History.<br>→ Jo thinks History is not as <input class="blank" id="s2q5" data-ans="easy"> as Geography.</div>
+      <div class="ans-tip" id="tip-s2q5">✅ <b>easy</b> — "地理比历史容易" 改为 "历史没有地理容易"，用 not as easy as。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">6. His character in the film is not as scary as Tim Burton's original drawing.<br>→ <input class="blank" id="s2q6" data-ans="Tim Burton's original drawing" style="min-width:200px"> is scarier than the character in the film.</div>
+      <div class="ans-tip" id="tip-s2q6">✅ <b>Tim Burton's original drawing</b> — "电影角色没有原画吓人" 说明原画更吓人，所以改写后主语是 Tim Burton's original drawing。</div>
+    </div>
+
+    <button class="btn" onclick="checkFill('sec1',
+      ['s2q1','s2q2','s2q3','s2q4','s2q5','s2q6'],
+      ['tip-s2q1','tip-s2q2','tip-s2q3','tip-s2q4','tip-s2q5','tip-s2q6'])">检查答案</button>
+    <div class="feedback" id="sec1-fb"></div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn" onclick="switchTab(0)">← 上一板块</button>
+    <button class="btn primary" onclick="switchTab(2)">下一板块 →</button>
+  </div>
+</div>
+
+<!-- ===== SECTION 3 ===== -->
+<div class="section" id="sec2">
+  <div class="rule-box">
+    <b>加强比较（差距很大）：</b>much / far / a lot + 比较级<br>
+    <b>减弱比较（差距很小）：</b>a bit / a little + 比较级<br>
+    例：Sharks are <b>a lot</b> more dangerous than dolphins.（危险得多）<br>
+    例：My brother is <b>a bit</b> taller than me.（高一点点）
+  </div>
+
+  <div class="card">
+    <div class="card-title">选择正确的程度词（每题只选一个）</div>
+
+    <div class="q">
+      <div class="q-text">1. The film is only <u>slightly</u> better than the book.</div>
+      <div class="mc-group" data-ans="a little" data-tipid="mc-tip-1">
+        <button class="mc-btn" onclick="doMC(this)">far</button>
+        <button class="mc-btn" onclick="doMC(this)">much</button>
+        <button class="mc-btn" onclick="doMC(this)">a little</button>
+        <button class="mc-btn" onclick="doMC(this)">a lot</button>
+      </div>
+      <div class="ans-tip" id="mc-tip-1">✅ <b>a little</b> — "slightly（轻微地）"说明差距很小，选减弱词 a little 或 a bit。far / much / a lot 表示差距很大，与 slightly 矛盾。</div>
+    </div>
+
+    <div class="q">
+      <div class="q-text">2. I'm sure climbing Everest is <u>extremely</u> more difficult than it looks.</div>
+      <div class="mc-group" data-ans="far" data-tipid="mc-tip-2">
+        <button class="mc-btn" onclick="doMC(this)">a bit</button>
+        <button class="mc-btn" onclick="doMC(this)">far</button>
+        <button class="mc-btn" onclick="doMC(this)">a little</button>
+      </div>
+      <div class="ans-tip" id="mc-tip-2">✅ <b>far</b> — "extremely（极其）"说明差距极大，选加强词 far（也可用 much / a lot）。a bit / a little 语气太弱，不符合。</div>
+    </div>
+
+    <div class="q">
+      <div class="q-text">3. Together we made the script <u>slightly</u> better.</div>
+      <div class="mc-group" data-ans="a bit" data-tipid="mc-tip-3">
+        <button class="mc-btn" onclick="doMC(this)">much</button>
+        <button class="mc-btn" onclick="doMC(this)">far</button>
+        <button class="mc-btn" onclick="doMC(this)">a bit</button>
+      </div>
+      <div class="ans-tip" id="mc-tip-3">✅ <b>a bit</b> — "slightly（稍微）"说明改进幅度很小，选减弱词 a bit 或 a little。much / far 表示大幅改进，语气过强。</div>
+    </div>
+
+    <div class="q">
+      <div class="q-text">4. Gorillas are ______ more dangerous than dolphins. <span class="hint">（大猩猩危险得多）</span></div>
+      <div class="mc-group" data-ans="a lot" data-tipid="mc-tip-4">
+        <button class="mc-btn" onclick="doMC(this)">a bit</button>
+        <button class="mc-btn" onclick="doMC(this)">a little</button>
+        <button class="mc-btn" onclick="doMC(this)">a lot</button>
+      </div>
+      <div class="ans-tip" id="mc-tip-4">✅ <b>a lot</b> — 大猩猩和海豚危险程度差别很大，选加强词 a lot（也可用 much 或 far）。a bit / a little 表示差距很小，不合适。</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">用括号中的词改写句子</div>
+
+    <div class="q">
+      <div class="q-text">1. Sharks are more dangerous than dolphins. <span class="hint">(a lot)</span><br>→ Sharks are <input class="blank" id="s3q1" data-ans="a lot more dangerous"> than dolphins.</div>
+      <div class="ans-tip" id="tip-s3q1">✅ <b>a lot more dangerous</b> — 程度词放在比较级前面：a lot + more dangerous。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">2. My brother is taller than me. <span class="hint">(a bit)</span><br>→ My brother is <input class="blank" id="s3q2" data-ans="a bit taller"> than me.</div>
+      <div class="ans-tip" id="tip-s3q2">✅ <b>a bit taller</b> — a bit 放在比较级 taller 前面，表示"高一点点"。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">3. My new phone is better than my old one. <span class="hint">(far)</span><br>→ My new phone is <input class="blank" id="s3q3" data-ans="far better"> than my old one.</div>
+      <div class="ans-tip" id="tip-s3q3">✅ <b>far better</b> — far 放在不规则比较级 better 前面，表示"好得多"。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">4. Her hair is longer than yours. <span class="hint">(a little)</span><br>→ Her hair is <input class="blank" id="s3q4" data-ans="a little longer"> than yours.</div>
+      <div class="ans-tip" id="tip-s3q4">✅ <b>a little longer</b> — a little 放在比较级 longer 前面，表示"长一点点"。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">5. The film is more exciting than the book. <span class="hint">(much)</span><br>→ The film is <input class="blank" id="s3q5" data-ans="much more exciting"> than the book.</div>
+      <div class="ans-tip" id="tip-s3q5">✅ <b>much more exciting</b> — much 放在 more exciting 前面，表示"精彩得多"。</div>
+    </div>
+
+    <button class="btn" onclick="checkFill('sec2',
+      ['s3q1','s3q2','s3q3','s3q4','s3q5'],
+      ['tip-s3q1','tip-s3q2','tip-s3q3','tip-s3q4','tip-s3q5'])">检查答案</button>
+    <div class="feedback" id="sec2-fb"></div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn" onclick="switchTab(1)">← 上一板块</button>
+    <button class="btn primary" onclick="switchTab(3)">下一板块 →</button>
+  </div>
+</div>
+
+<!-- ===== SECTION 4 ===== -->
+<div class="section" id="sec3">
+  <div class="rule-box">
+    <b>副词构成：</b>形容词 + <b>-ly</b>（slow→slowly）；-y 结尾改 <b>-ily</b>（easy→easily）<br>
+    不规则：good → <b>well</b>；fast → <b>fast</b>（不变）；hard → <b>hard</b>（不变）<br>
+    <b>副词比较级：</b>多音节用 <b>more +</b> 副词（more carefully）；单音节加 <b>-er</b>（faster, harder）<br>
+    不规则比较级：well→<b>better</b>；badly→<b>worse</b>；early→<b>earlier</b>
+  </div>
+
+  <div class="card">
+    <div class="card-title">写出副词原形</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 20px">
+      <div class="q">
+        <div class="q-text">careful → <input class="blank" id="adv1" data-ans="carefully" style="min-width:90px"></div>
+        <div class="ans-tip" id="tip-adv1">✅ <b>carefully</b> — careful 直接加 -ly。</div>
+      </div>
+      <div class="q">
+        <div class="q-text">easy → <input class="blank" id="adv2" data-ans="easily" style="min-width:90px"></div>
+        <div class="ans-tip" id="tip-adv2">✅ <b>easily</b> — easy 以辅音+y 结尾，y 改 i 再加 -ly。</div>
+      </div>
+      <div class="q">
+        <div class="q-text">happy → <input class="blank" id="adv3" data-ans="happily" style="min-width:90px"></div>
+        <div class="ans-tip" id="tip-adv3">✅ <b>happily</b> — happy 以辅音+y 结尾，y 改 i 再加 -ly。</div>
+      </div>
+      <div class="q">
+        <div class="q-text">good → <input class="blank" id="adv4" data-ans="well" style="min-width:90px"></div>
+        <div class="ans-tip" id="tip-adv4">✅ <b>well</b> — good 的副词是不规则的 well，不是 goodly！</div>
+      </div>
+      <div class="q">
+        <div class="q-text">fast → <input class="blank" id="adv5" data-ans="fast" style="min-width:90px"></div>
+        <div class="ans-tip" id="tip-adv5">✅ <b>fast</b> — fast 既是形容词也是副词，形式不变（不是 fastly）。</div>
+      </div>
+      <div class="q">
+        <div class="q-text">bad → <input class="blank" id="adv6" data-ans="badly" style="min-width:90px"></div>
+        <div class="ans-tip" id="tip-adv6">✅ <b>badly</b> — bad 直接加 -ly 变成副词 badly。</div>
+      </div>
+    </div>
+    <button class="btn" onclick="checkFill('sec3a',
+      ['adv1','adv2','adv3','adv4','adv5','adv6'],
+      ['tip-adv1','tip-adv2','tip-adv3','tip-adv4','tip-adv5','tip-adv6'])">检查答案</button>
+    <div class="feedback" id="sec3a-fb"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">填写比较级副词形式</div>
+
+    <div class="q">
+      <div class="q-text">1. George writes <input class="blank" id="s4q1" data-ans="more clearly"> than me. <span class="hint">(clear)</span></div>
+      <div class="ans-tip" id="tip-s4q1">✅ <b>more clearly</b> — clearly 是多音节副词，比较级用 more clearly。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">2. You need to do your homework <input class="blank" id="s4q2" data-ans="more carefully"> if you want good marks. <span class="hint">(careful)</span></div>
+      <div class="ans-tip" id="tip-s4q2">✅ <b>more carefully</b> — carefully 是多音节副词，比较级用 more carefully。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">3. Can you speak <input class="blank" id="s4q3" data-ans="more slowly">, please? <span class="hint">(slow)</span></div>
+      <div class="ans-tip" id="tip-s4q3">✅ <b>more slowly</b> — slowly 是多音节副词，比较级用 more slowly。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">4. You can come <input class="blank" id="s4q4" data-ans="earlier"> if you want. <span class="hint">(early)</span></div>
+      <div class="ans-tip" id="tip-s4q4">✅ <b>earlier</b> — early 的比较级是不规则的 earlier（y 改 ier），不用 more early。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">5. You did even <input class="blank" id="s4q5" data-ans="worse"> than me! <span class="hint">(bad)</span></div>
+      <div class="ans-tip" id="tip-s4q5">✅ <b>worse</b> — badly 的比较级是不规则的 worse，不是 more badly！</div>
+    </div>
+    <div class="q">
+      <div class="q-text">6. Martina speaks English <input class="blank" id="s4q6" data-ans="better"> than I do. <span class="hint">(good)</span></div>
+      <div class="ans-tip" id="tip-s4q6">✅ <b>better</b> — well 的比较级是不规则的 better，不是 more well！</div>
+    </div>
+    <div class="q">
+      <div class="q-text">7. Isabella always works <input class="blank" id="s4q7" data-ans="harder"> than the other kids. <span class="hint">(hard)</span></div>
+      <div class="ans-tip" id="tip-s4q7">✅ <b>harder</b> — hard 是单音节副词，比较级直接加 -er：harder。</div>
+    </div>
+
+    <button class="btn" onclick="checkFill('sec3b',
+      ['s4q1','s4q2','s4q3','s4q4','s4q5','s4q6','s4q7'],
+      ['tip-s4q1','tip-s4q2','tip-s4q3','tip-s4q4','tip-s4q5','tip-s4q6','tip-s4q7'])">检查答案</button>
+    <div class="feedback" id="sec3b-fb"></div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn" onclick="switchTab(2)">← 上一板块</button>
+    <button class="btn primary" onclick="switchTab(4)">综合挑战 →</button>
+  </div>
+</div>
+
+<!-- ===== SECTION 5 ===== -->
+<div class="section" id="sec4">
+  <div class="rule-box"><b>综合挑战：</b>拖拽词块拼出正确句子，然后完成混合填空！</div>
+
+  <div class="card">
+    <div class="card-title">拖拽排列 — 句子1</div>
+    <div class="drag-label">词库（拖到答题区）：</div>
+    <div class="word-bank" id="bank1">
+      <span class="chip" draggable="true">Our</span>
+      <span class="chip" draggable="true">generation</span>
+      <span class="chip" draggable="true">is watching</span>
+      <span class="chip" draggable="true">TV</span>
+      <span class="chip" draggable="true">more frequently</span>
+      <span class="chip" draggable="true">than</span>
+      <span class="chip" draggable="true">any other generation</span>
+    </div>
+    <div class="drag-label">答题区 ↓</div>
+    <div class="answer-zone" id="ans1"></div>
+    <button class="btn" onclick="checkDrag('ans1','Our generation is watching TV more frequently than any other generation','drag1-fb','drag1-tip')">检查句子</button>
+    <div class="feedback" id="drag1-fb"></div>
+    <div class="ans-tip" id="drag1-tip">✅ <b>Our generation is watching TV more frequently than any other generation.</b><br>— frequently 是多音节副词，比较级用 more frequently。句型：主语 + 谓语 + 宾语 + 副词比较级 + than + 比较对象。</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">拖拽排列 — 句子2</div>
+    <div class="word-bank" id="bank2">
+      <span class="chip" draggable="true">Drama</span>
+      <span class="chip" draggable="true">series</span>
+      <span class="chip" draggable="true">became</span>
+      <span class="chip" draggable="true">more</span>
+      <span class="chip" draggable="true">like</span>
+      <span class="chip" draggable="true">one</span>
+      <span class="chip" draggable="true">long</span>
+      <span class="chip" draggable="true">film</span>
+    </div>
+    <div class="drag-label">答题区 ↓</div>
+    <div class="answer-zone" id="ans2"></div>
+    <button class="btn" onclick="checkDrag('ans2','Drama series became more like one long film','drag2-fb','drag2-tip')">检查句子</button>
+    <div class="feedback" id="drag2-fb"></div>
+    <div class="ans-tip" id="drag2-tip">✅ <b>Drama series became more like one long film.</b><br>— "more like" 表示"更像"，连续剧变得越来越像一部完整的长片。</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">综合填空 — 混合考点</div>
+
+    <div class="q">
+      <div class="q-text">1. English is <input class="blank" id="fx1" data-ans="far more difficult"> than Art for most students. <span class="hint">(difficult — 强调差距大)</span></div>
+      <div class="ans-tip" id="tip-fx1">✅ <b>far more difficult</b> — difficult 的比较级是 more difficult；用 far 加强，表示"难得多"。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">2. I only got 22%, but you did even <input class="blank" id="fx2" data-ans="worse"> than me! <span class="hint">(bad — 副词比较级)</span></div>
+      <div class="ans-tip" id="tip-fx2">✅ <b>worse</b> — badly 的不规则比较级是 worse。even 也可加强比较级，意思是"甚至更……"。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">3. Cats are not as <input class="blank" id="fx3" data-ans="noisy"> as dogs. <span class="hint">(noisy — as…as 结构)</span></div>
+      <div class="ans-tip" id="tip-fx3">✅ <b>noisy</b> — as…as 中间用形容词原形，不用比较级 noisier。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">4. TVs became <input class="blank" id="fx4" data-ans="cheaper"> after the 1980s. <span class="hint">(cheap — 比较级)</span></div>
+      <div class="ans-tip" id="tip-fx4">✅ <b>cheaper</b> — cheap 是单音节形容词，比较级加 -er：cheaper。</div>
+    </div>
+    <div class="q">
+      <div class="q-text">5. You can watch it online <input class="blank" id="fx5" data-ans="more easily"> now. <span class="hint">(easily — 副词比较级)</span></div>
+      <div class="ans-tip" id="tip-fx5">✅ <b>more easily</b> — easily 是多音节副词，比较级用 more easily。</div>
+    </div>
+
+    <button class="btn" onclick="checkFill('sec4',
+      ['fx1','fx2','fx3','fx4','fx5'],
+      ['tip-fx1','tip-fx2','tip-fx3','tip-fx4','tip-fx5'])">检查答案</button>
+    <div class="feedback" id="sec4-fb"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">查看总成绩</div>
+    <button class="btn primary" onclick="showScore()">计算总分 🎉</button>
+    <div id="score-result"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn" onclick="switchTab(3)">← 上一板块</button>
+    <span></span>
+  </div>
+</div>
+
+</div>
+
+<script>
+var sectionScores={};
+
+function norm(s){return (s||'').trim().toLowerCase().replace(/\s+/g,' ');}
+
+function checkFill(secId,ids,tipIds){
+  var c=0,t=ids.length;
+  var shownTips={};
+  ids.forEach(function(id,i){
+    var el=document.getElementById(id);
+    if(!el)return;
+    var ans=norm(el.dataset.ans);
+    var val=norm(el.value);
+    var tipId=tipIds?tipIds[i]:null;
+    if(val===ans){el.className='blank ok';c++;}
+    else{el.className='blank err';}
+    if(tipId&&!shownTips[tipId]){
+      var tip=document.getElementById(tipId);
+      if(tip)tip.classList.add('show');
+      shownTips[tipId]=true;
+    }
+  });
+  sectionScores[secId]={c:c,t:t};
+  var fb=document.getElementById(secId+'-fb');
+  if(c===t){
+    fb.className='feedback ok';fb.textContent='全对！太棒了 ✓ ('+c+'/'+t+')';
+  } else {
+    fb.className='feedback mixed';
+    fb.textContent='得分：'+c+'/'+t+'　请看各题下方的说明，修改后再试！';
+  }
+  updateProgress();
+}
+
+function doMC(btn){
+  var grp=btn.closest('.mc-group');
+  if(grp.dataset.done)return;
+  var ans=norm(grp.dataset.ans);
+  var val=norm(btn.textContent);
+  var tipId=grp.dataset.tipid;
+  grp.querySelectorAll('.mc-btn').forEach(function(b){b.disabled=true;});
+  grp.dataset.done='1';
+  if(val===ans){
+    btn.className='mc-btn ok';
+    var sid=btn.closest('.section').id;
+    if(!sectionScores['mc_'+sid])sectionScores['mc_'+sid]={c:0,t:0};
+    sectionScores['mc_'+sid].c++;sectionScores['mc_'+sid].t++;
+  } else {
+    btn.className='mc-btn err';
+    grp.querySelectorAll('.mc-btn').forEach(function(b){
+      if(norm(b.textContent)===ans)b.className='mc-btn reveal';
+    });
+    var sid=btn.closest('.section').id;
+    if(!sectionScores['mc_'+sid])sectionScores['mc_'+sid]={c:0,t:0};
+    sectionScores['mc_'+sid].t++;
+  }
+  if(tipId){var tip=document.getElementById(tipId);if(tip)tip.classList.add('show');}
+  updateProgress();
+}
+
+var dragged=null;
+document.addEventListener('dragstart',function(e){
+  if(e.target.classList.contains('chip')){dragged=e.target;setTimeout(function(){dragged.style.opacity='.4';},0);}
+});
+document.addEventListener('dragend',function(){if(dragged)dragged.style.opacity='';dragged=null;});
+document.addEventListener('dragover',function(e){
+  if(e.target.classList.contains('answer-zone')||e.target.classList.contains('word-bank')||e.target.classList.contains('chip'))e.preventDefault();
+});
+document.addEventListener('drop',function(e){
+  e.preventDefault();
+  if(!dragged)return;
+  var t=e.target;
+  if(t.classList.contains('answer-zone')){t.appendChild(dragged);dragged.classList.add('placed');}
+  else if(t.classList.contains('word-bank')){t.appendChild(dragged);dragged.classList.remove('placed');}
+  else if(t.classList.contains('chip')){
+    var zone=t.closest('.answer-zone')||t.closest('.word-bank');
+    if(zone){zone.insertBefore(dragged,t);if(zone.classList.contains('answer-zone'))dragged.classList.add('placed');else dragged.classList.remove('placed');}
+  }
+});
+
+function checkDrag(zoneId,expected,fbId,tipId){
+  var zone=document.getElementById(zoneId);
+  var sentence=Array.from(zone.querySelectorAll('.chip')).map(function(c){return c.textContent.trim();}).join(' ');
+  var fb=document.getElementById(fbId);
+  var tip=document.getElementById(tipId);
+  if(norm(sentence)===norm(expected)){
+    fb.className='feedback ok';fb.textContent='正确！句子拼对了 ✓';
+    sectionScores[zoneId]={c:1,t:1};
+  } else {
+    fb.className='feedback mixed';
+    fb.innerHTML='还不对！你的答案：'+sentence;
+    sectionScores[zoneId]={c:0,t:1};
+  }
+  if(tip)tip.classList.add('show');
+  updateProgress();
+}
+
+function updateProgress(){
+  var tc=0,tt=0;
+  Object.values(sectionScores).forEach(function(s){tc+=s.c;tt+=s.t;});
+  var pct=tt>0?Math.round(tc/tt*100):0;
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-score').textContent=tc+' / '+tt;
+}
+
+function showScore(){
+  var tc=0,tt=0;
+  Object.values(sectionScores).forEach(function(s){tc+=s.c;tt+=s.t;});
+  if(tt===0){document.getElementById('score-result').innerHTML='<p style="color:#888;margin-top:.8rem">请先完成各板块练习！</p>';return;}
+  var pct=Math.round(tc/tt*100);
+  var msg='',star='';
+  if(pct>=90){msg='优秀！你已经掌握Unit 3语法了！';star='⭐⭐⭐';}
+  else if(pct>=75){msg='良好！再复习一下错题就完美了。';star='⭐⭐';}
+  else if(pct>=60){msg='继续加油！多练习几遍吧。';star='⭐';}
+  else{msg='别灰心，回顾规则后再试一次！';star='💪';}
+  document.getElementById('score-result').innerHTML=
+    '<div class="score-card" style="margin-top:1rem">'+
+    '<div style="font-size:1rem;opacity:.85">总得分</div>'+
+    '<div class="score-big">'+pct+'<span style="font-size:1.2rem">%</span></div>'+
+    '<div style="font-size:1.5rem;margin:.3rem 0">'+star+'</div>'+
+    '<div class="score-msg">'+tc+' / '+tt+' 题正确　'+msg+'</div>'+
+    '</div>';
+}
+
+function switchTab(idx){
+  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('visible');});
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
+  document.getElementById('sec'+idx).classList.add('visible');
+  document.querySelectorAll('.tab')[idx].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
