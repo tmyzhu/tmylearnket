@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KET Unit 1 语法练习</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F5F4EF;--surface:#FFF;--border:rgba(0,0,0,.09);
+  --text:#1C1C1A;--muted:#9A9A92;--sub:#5C5C58;
+  --teal:#1D9E75;--teal-l:#E1F5EE;--teal-m:#9FE1CB;--teal-d:#085041;
+  --coral:#D85A30;--coral-l:#FAECE7;
+  --amber:#BA7517;--amber-l:#FAEEDA;--amber-m:#FAC775;
+  --blue-l:#E6F1FB;--blue-m:#85B7EB;--blue-d:#0C447C;
+  --green:#3B6D11;--green-l:#EAF3DE;
+  --red:#A32D2D;--red-l:#FCEBEB;--red-m:#F09595;
+  --purple:#534AB7;--purple-l:#EEEDFE;
+  --r:13px;--rs:9px;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.page{max-width:640px;margin:0 auto;padding:2rem 1.25rem 6rem;}
+
+/* header */
+.hdr{margin-bottom:1.75rem;}
+.hdr-unit{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.hdr-title{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.2;}
+.hdr-sub{font-size:13px;color:var(--sub);margin-top:5px;}
+
+/* progress */
+.prog-wrap{margin-bottom:1.4rem;}
+.prog-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}
+.prog-lbl{font-size:12px;font-weight:700;color:var(--muted);}
+.score-pill{background:var(--teal-l);color:var(--teal);padding:3px 11px;border-radius:99px;font-size:12px;font-weight:800;}
+.prog-track{height:6px;background:rgba(0,0,0,.08);border-radius:99px;overflow:hidden;}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--teal),#5DCAA5);border-radius:99px;transition:width .4s ease;}
+
+/* timer chip */
+.timer-chip{display:inline-flex;align-items:center;gap:5px;background:var(--purple-l);color:var(--purple);padding:3px 11px;border-radius:99px;font-size:12px;font-weight:800;}
+
+/* section badge */
+.sec-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:99px;font-size:12px;font-weight:800;margin-bottom:1rem;letter-spacing:.02em;}
+.sec-badge::before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0;}
+.sec-badge.coral{background:var(--coral-l);color:var(--coral);}
+.sec-badge.teal{background:var(--teal-l);color:var(--teal);}
+
+/* card */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.35rem 1.5rem 1.5rem;margin-bottom:.85rem;}
+.row-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:7px;}
+
+/* answer zone */
+.answer-zone{min-height:54px;border:2px dashed rgba(29,158,117,.28);border-radius:var(--rs);padding:8px 10px;display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:1.1rem;background:rgba(29,158,117,.025);}
+.answer-zone.filled{border-style:solid;border-color:rgba(29,158,117,.45);}
+.zone-hint{font-size:13px;color:var(--muted);pointer-events:none;}
+
+/* word bank */
+.bank-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:9px;}
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;min-height:40px;}
+
+/* chips */
+.chip{display:inline-flex;align-items:center;padding:8px 15px;border-radius:var(--rs);font-size:15px;font-weight:700;cursor:pointer;border:1.5px solid;user-select:none;line-height:1;transition:transform .1s;}
+.chip:hover{transform:translateY(-2px);}
+.chip:active{transform:scale(.93);}
+.chip.bank{background:var(--blue-l);border-color:var(--blue-m);color:var(--blue-d);}
+.chip.placed{background:var(--teal-l);border-color:var(--teal-m);color:var(--teal-d);}
+
+/* buttons */
+.ctrls{display:flex;gap:8px;margin-bottom:.85rem;}
+.btn{padding:10px 22px;border-radius:var(--rs);font-size:14px;font-weight:800;cursor:pointer;border:1.5px solid transparent;transition:background .15s;font-family:inherit;}
+.btn-primary{background:var(--teal);color:#fff;border-color:var(--teal);}
+.btn-primary:hover{background:#0F6E56;}
+.btn-primary:disabled{opacity:.35;cursor:default;}
+.btn-ghost{background:transparent;border-color:var(--border);color:var(--sub);}
+.btn-ghost:hover{background:var(--bg);}
+
+/* feedback */
+.feedback{border-radius:var(--rs);padding:12px 16px;margin-bottom:.85rem;display:none;}
+.feedback.ok{display:block;background:var(--green-l);border:1px solid #97C459;}
+.feedback.err{display:block;background:var(--red-l);border:1px solid var(--red-m);}
+.fb-title{font-size:14px;font-weight:800;margin-bottom:3px;}
+.feedback.ok .fb-title{color:var(--green);}
+.feedback.err .fb-title{color:var(--red);}
+.fb-body{font-size:13px;line-height:1.65;}
+.feedback.ok .fb-body{color:#3B6D11;}
+.feedback.err .fb-body{color:var(--red);}
+
+/* tip */
+.tip{background:var(--amber-l);border:1px solid var(--amber-m);border-left:3px solid var(--amber);border-radius:0 var(--rs) var(--rs) 0;padding:10px 14px;margin-bottom:.85rem;display:none;}
+.tip.show{display:block;}
+.tip-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--amber);margin-bottom:3px;}
+.tip-body{font-size:13px;color:#5a3800;line-height:1.6;}
+
+.btn-next{width:100%;padding:13px;border-radius:var(--rs);font-size:15px;font-weight:800;cursor:pointer;background:var(--teal);color:#fff;border:none;display:none;transition:background .15s;font-family:inherit;margin-top:.25rem;}
+.btn-next:hover{background:#0F6E56;}
+
+/* ── final score screen ── */
+.final{display:none;text-align:center;padding:2rem 0 1rem;}
+.final-icon{font-size:52px;margin-bottom:.6rem;}
+.final-score{font-size:66px;font-weight:800;color:var(--teal);line-height:1;letter-spacing:-.04em;margin-bottom:4px;}
+.final-of{font-size:15px;color:var(--muted);margin-bottom:1rem;}
+.final-msg{font-size:15px;color:var(--sub);margin-bottom:1.5rem;line-height:1.6;}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.5rem;}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:.8rem .4rem;text-align:center;}
+.stat-n{font-size:22px;font-weight:800;line-height:1;margin-bottom:3px;}
+.stat-n.g{color:var(--green);}.stat-n.r{color:var(--red);}.stat-n.a{color:var(--amber);}.stat-n.p{color:var(--purple);}
+.stat-l{font-size:10px;color:var(--muted);font-weight:700;}
+
+/* wrong list */
+.wrong-list{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.25rem;margin-bottom:1.25rem;text-align:left;}
+.wrong-list-title{font-size:12px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.65rem;}
+.wrong-item{font-size:13px;color:var(--sub);padding:5px 0;border-bottom:1px solid var(--border);line-height:1.5;}
+.wrong-item:last-child{border-bottom:none;}
+.wrong-item b{color:var(--text);}
+
+/* submit card */
+.submit-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem 1.5rem;margin-bottom:1rem;text-align:left;}
+.submit-title{font-size:15px;font-weight:800;margin-bottom:.3rem;}
+.submit-sub{font-size:13px;color:var(--sub);margin-bottom:1rem;}
+.name-input{width:100%;padding:10px 14px;border-radius:var(--rs);border:1.5px solid var(--border);font-size:15px;font-family:inherit;background:var(--bg);color:var(--text);outline:none;transition:border-color .2s;margin-bottom:1rem;}
+.name-input:focus{border-color:var(--teal);}
+.name-input::placeholder{color:var(--muted);}
+.btn-submit{width:100%;padding:13px;border-radius:var(--rs);font-size:15px;font-weight:800;cursor:pointer;background:var(--teal);color:#fff;border:none;transition:background .15s;font-family:inherit;}
+.btn-submit:hover{background:#0F6E56;}
+.btn-submit:disabled{opacity:.4;cursor:default;}
+
+/* submitted */
+.submitted{display:none;text-align:center;padding:2rem 0 3rem;}
+.submitted-icon{font-size:52px;margin-bottom:.75rem;}
+.submitted-title{font-size:20px;font-weight:800;margin-bottom:.5rem;}
+.submitted-sub{font-size:14px;color:var(--sub);line-height:1.6;margin-bottom:1.5rem;}
+.btn-restart{padding:12px 40px;border-radius:var(--rs);font-size:14px;font-weight:800;cursor:pointer;background:transparent;color:var(--teal);border:1.5px solid var(--teal);font-family:inherit;}
+.btn-restart:hover{background:var(--teal-l);}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hdr">
+    <div class="hdr-unit">KET Unit 1 语法练习</div>
+    <div class="hdr-title">一般现在时 &amp; 频率副词</div>
+    <div class="hdr-sub">看词卡，点击拼出正确的英文句子</div>
+  </div>
+
+  <!-- ── Quiz ── -->
+  <div id="quiz">
+    <div class="prog-wrap">
+      <div class="prog-meta">
+        <span class="prog-lbl" id="q-label">第 1 题 / 共 19 题</span>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span class="timer-chip" id="timer-chip">⏱ 0:00</span>
+          <span class="score-pill" id="score-pill">得分 0</span>
+        </div>
+      </div>
+      <div class="prog-track"><div class="prog-bar" id="prog-bar" style="width:0%"></div></div>
+    </div>
+
+    <span class="sec-badge coral" id="sec-badge">一般现在时</span>
+
+    <div class="card">
+      <div class="row-lbl">把词卡排成正确的句子</div>
+      <div class="answer-zone" id="answer-zone">
+        <span class="zone-hint">点击下方词卡放入这里</span>
+      </div>
+      <div class="bank-lbl">词 库</div>
+      <div class="word-bank" id="word-bank"></div>
+    </div>
+
+    <div class="ctrls">
+      <button class="btn btn-primary" id="btn-check">检查答案</button>
+      <button class="btn btn-ghost" id="btn-reset">重置</button>
+    </div>
+
+    <div class="feedback" id="feedback">
+      <div class="fb-title" id="fb-title"></div>
+      <div class="fb-body" id="fb-body"></div>
+    </div>
+    <div class="tip" id="tip">
+      <div class="tip-lbl">语法提示</div>
+      <div class="tip-body" id="tip-body"></div>
+    </div>
+    <button class="btn-next" id="btn-next">下一题 →</button>
+  </div>
+
+  <!-- ── Final + Submit ── -->
+  <div class="final" id="final">
+    <div class="final-icon" id="f-icon">🎉</div>
+    <div class="final-score" id="f-score"></div>
+    <div class="final-of" id="f-of"></div>
+    <div class="final-msg" id="f-msg"></div>
+
+    <div class="stat-row">
+      <div class="stat"><div class="stat-n g" id="f-ok"></div><div class="stat-l">答对</div></div>
+      <div class="stat"><div class="stat-n r" id="f-err"></div><div class="stat-l">答错</div></div>
+      <div class="stat"><div class="stat-n a" id="f-pct"></div><div class="stat-l">正确率</div></div>
+      <div class="stat"><div class="stat-n p" id="f-time"></div><div class="stat-l">用时</div></div>
+    </div>
+
+    <div class="wrong-list" id="wrong-list" style="display:none;">
+      <div class="wrong-list-title">答错的题目</div>
+      <div id="wrong-items"></div>
+    </div>
+
+    <div class="submit-card">
+      <div class="submit-title">把成绩提交给老师</div>
+      <div class="submit-sub">填写你的姓名，然后点击提交</div>
+      <input class="name-input" id="name-input" type="text" placeholder="请输入你的姓名" maxlength="30" />
+      <button class="btn-submit" id="btn-submit">提交成绩 →</button>
+    </div>
+
+    <button class="btn-restart" id="btn-restart">再练一次 ↺</button>
+  </div>
+
+  <!-- ── Submitted ── -->
+  <div class="submitted" id="submitted">
+    <div class="submitted-icon">✅</div>
+    <div class="submitted-title" id="sub-title"></div>
+    <div class="submitted-sub" id="sub-sub"></div>
+    <button class="btn-restart" id="btn-restart2">再练一次 ↺</button>
+  </div>
+
+  <!-- Netlify hidden form (必须保留，Netlify 部署时扫描此表单) -->
+  <form name="ket-results" data-netlify="true" netlify-honeypot="bot-field" style="display:none">
+    <input type="hidden" name="form-name" value="ket-results" />
+    <input type="hidden" name="bot-field" />
+    <input type="text"   name="姓名" />
+    <input type="text"   name="得分" />
+    <input type="text"   name="正确率" />
+    <input type="text"   name="用时" />
+    <input type="text"   name="答错题目" />
+    <input type="text"   name="练习时间" />
+  </form>
+</div>
+
+<script>
+var QS = [
+  {sec:"一般现在时",style:"coral",words:["He","doesn't","like","sport","."],tip:"第三人称单数（he/she/it）否定句用 doesn't + 动词原形"},
+  {sec:"一般现在时",style:"coral",words:["Does","she","like","music","?"],tip:"疑问句用 Does + 主语 + 动词原形（Does 已表示三单，动词不加 -s）"},
+  {sec:"一般现在时",style:"coral",words:["She","has","a","dog","."],tip:"have 在第三人称单数时变为 has（不规则变化）"},
+  {sec:"一般现在时",style:"coral",words:["My","dad","works","in","London","."],tip:"主语是第三人称单数时，动词加 -s：work → works"},
+  {sec:"一般现在时",style:"coral",words:["He","goes","to","school","by","bus","."],tip:"go 在第三人称单数时加 -es，拼写为 goes"},
+  {sec:"频率副词",style:"teal",words:["I","always","get","up","at","7","o'clock","."],tip:"always 等频率副词放在行为动词（get）前面"},
+  {sec:"频率副词",style:"teal",words:["She","usually","does","her","homework","in","the","evening","."],tip:"usually 放在行为动词（does）前面"},
+  {sec:"频率副词",style:"teal",words:["My","parents","often","go","shopping","on","Saturdays","."],tip:"often 放在行为动词（go）前面，不放在后面"},
+  {sec:"频率副词",style:"teal",words:["He","is","sometimes","late","for","school","."],tip:"be 动词（is）后面紧跟频率副词：is sometimes"},
+  {sec:"频率副词",style:"teal",words:["We","never","go","to","school","on","Sundays","."],tip:"never 放在行为动词（go）前面"},
+  {sec:"频率副词",style:"teal",words:["I","often","stay","at","the","beach","."],tip:"often 放在行为动词（stay）前，不放在后面"},
+  {sec:"频率副词",style:"teal",words:["I","can","usually","go","out","."],tip:"有情态动词（can）时，频率副词插在情态动词之后：can usually go"},
+  {sec:"频率副词",style:"teal",words:["Our","teacher","never","forgets","homework","."],tip:"never 放在行为动词（forgets）前面"},
+  {sec:"频率副词",style:"teal",words:["My","dad","often","goes","to","work","by","bus","."],tip:"goes 是行为动词，often 放在它前面：often goes"},
+  {sec:"频率副词",style:"teal",words:["I","am","usually","a","good","student","."],tip:"am 是 be 动词，频率副词紧跟其后：am usually"},
+  {sec:"频率副词",style:"teal",words:["She","always","does","her","homework","."],tip:"always 放在行为动词（does）前面"},
+  {sec:"频率副词",style:"teal",words:["He","is","never","at","home","on","Mondays","."],tip:"is 是 be 动词，never 放在 is 后面：is never"},
+  {sec:"频率副词",style:"teal",words:["I","can","sometimes","stay","up","late","."],tip:"情态动词（can）后面插入频率副词：can sometimes stay"},
+  {sec:"频率副词",style:"teal",words:["They","never","eat","vegetables","."],tip:"never 本身是否定，不要和 don't 同时使用（双重否定）"}
+];
+
+var cur=0, score=0, placed=[], bank=[], locked=false;
+var wrongList=[], startTime=Date.now(), timerInterval=null;
+
+/* ── timer ── */
+function startTimer(){
+  startTime=Date.now();
+  timerInterval=setInterval(function(){
+    var secs=Math.floor((Date.now()-startTime)/1000);
+    var m=Math.floor(secs/60), s=secs%60;
+    document.getElementById('timer-chip').textContent='⏱ '+m+':'+(s<10?'0':'')+s;
+  },1000);
+}
+function stopTimer(){
+  clearInterval(timerInterval);
+  var secs=Math.floor((Date.now()-startTime)/1000);
+  var m=Math.floor(secs/60), s=secs%60;
+  return m+':'+(s<10?'0':'')+s;
+}
+
+/* ── shuffle ── */
+function shuffle(a){
+  var b=a.slice();
+  for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}
+  return b;
+}
+
+/* ── load question ── */
+function loadQ(){
+  locked=false;
+  var q=QS[cur];
+  placed=[];
+  bank=shuffle(q.words);
+
+  document.getElementById('prog-bar').style.width=(cur/QS.length*100)+'%';
+  document.getElementById('q-label').textContent='第 '+(cur+1)+' 题 / 共 '+QS.length+' 题';
+  document.getElementById('score-pill').textContent='得分 '+score;
+
+  var b=document.getElementById('sec-badge');
+  b.textContent=q.sec; b.className='sec-badge '+q.style;
+
+  document.getElementById('feedback').className='feedback';
+  document.getElementById('tip').className='tip';
+  document.getElementById('btn-next').style.display='none';
+  document.getElementById('btn-check').disabled=false;
+
+  renderBank(); renderZone();
+}
+
+function renderBank(){
+  var el=document.getElementById('word-bank');
+  el.innerHTML='';
+  for(var i=0;i<bank.length;i++){
+    (function(idx){
+      var c=document.createElement('div');
+      c.className='chip bank'; c.textContent=bank[idx];
+      c.addEventListener('click',function(){placeWord(idx);});
+      el.appendChild(c);
+    })(i);
+  }
+}
+
+function renderZone(){
+  var el=document.getElementById('answer-zone');
+  el.innerHTML='';
+  if(!placed.length){
+    el.className='answer-zone';
+    var h=document.createElement('span');
+    h.className='zone-hint'; h.textContent='点击下方词卡放入这里';
+    el.appendChild(h); return;
+  }
+  el.className='answer-zone filled';
+  for(var i=0;i<placed.length;i++){
+    (function(idx){
+      var c=document.createElement('div');
+      c.className='chip placed'; c.textContent=placed[idx];
+      if(!locked) c.addEventListener('click',function(){removeWord(idx);});
+      el.appendChild(c);
+    })(i);
+  }
+}
+
+function placeWord(i){if(locked)return;placed.push(bank[i]);bank.splice(i,1);renderBank();renderZone();}
+function removeWord(i){if(locked)return;bank.push(placed[i]);placed.splice(i,1);renderBank();renderZone();}
+
+function check(){
+  var q=QS[cur];
+  if(placed.length<q.words.length){
+    document.getElementById('fb-title').textContent='还没放完哦！';
+    document.getElementById('fb-body').textContent='把所有词卡都放进句子再检查。';
+    document.getElementById('feedback').className='feedback err'; return;
+  }
+  locked=true; renderZone();
+  var ok=(placed.join(' ')===q.words.join(' '));
+  if(ok){score++;}
+  else{wrongList.push({n:cur+1, correct:q.words.join(' ')});}
+  document.getElementById('score-pill').textContent='得分 '+score;
+
+  var fb=document.getElementById('feedback');
+  if(ok){
+    document.getElementById('fb-title').textContent='✓ 完全正确！';
+    document.getElementById('fb-body').textContent='';
+    fb.className='feedback ok';
+  } else {
+    document.getElementById('fb-title').textContent='✗ 还差一点…';
+    document.getElementById('fb-body').innerHTML='正确答案：<b>'+q.words.join(' ')+'</b>';
+    fb.className='feedback err';
+  }
+  document.getElementById('tip-body').textContent=q.tip;
+  document.getElementById('tip').className='tip show';
+  document.getElementById('btn-check').disabled=true;
+
+  if(cur<QS.length-1){
+    document.getElementById('btn-next').style.display='block';
+  } else {
+    setTimeout(showFinal,900);
+  }
+}
+
+function resetQ(){loadQ();}
+function next(){cur++;loadQ();}
+
+function showFinal(){
+  var elapsed=stopTimer();
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('final').style.display='block';
+
+  var wrong=QS.length-score;
+  var pct=Math.round(score/QS.length*100);
+
+  document.getElementById('f-score').textContent=score;
+  document.getElementById('f-of').textContent='/ '+QS.length+' 题';
+  document.getElementById('f-ok').textContent=score;
+  document.getElementById('f-err').textContent=wrong;
+  document.getElementById('f-pct').textContent=pct+'%';
+  document.getElementById('f-time').textContent=elapsed;
+
+  var icon='🎉',msg='';
+  if(pct>=90){icon='🏆';msg='出色！你已经掌握了 Unit 1 的核心语法！';}
+  else if(pct>=70){icon='👏';msg='做得很好！再练一次就能全对！';}
+  else if(pct>=50){icon='💪';msg='继续加油，每次练习都有进步！';}
+  else{icon='📖';msg='别灰心，多练几次你一定能掌握！';}
+  document.getElementById('f-icon').textContent=icon;
+  document.getElementById('f-msg').textContent=msg;
+
+  /* wrong list */
+  if(wrongList.length>0){
+    var wl=document.getElementById('wrong-list');
+    var wi=document.getElementById('wrong-items');
+    wi.innerHTML='';
+    for(var i=0;i<wrongList.length;i++){
+      var d=document.createElement('div');
+      d.className='wrong-item';
+      d.innerHTML='第 <b>'+wrongList[i].n+'</b> 题：'+wrongList[i].correct;
+      wi.appendChild(d);
+    }
+    wl.style.display='block';
+  }
+
+  /* store for submit */
+  window._resultData={
+    elapsed:elapsed,
+    score:score+'/'+QS.length,
+    pct:pct+'%',
+    wrongStr:wrongList.length>0?wrongList.map(function(w){return '第'+w.n+'题: '+w.correct;}).join(' | '):'全部正确'
+  };
+}
+
+/* ── submit to Netlify ── */
+document.getElementById('btn-submit').addEventListener('click',function(){
+  var name=document.getElementById('name-input').value.trim();
+  if(!name){
+    document.getElementById('name-input').focus();
+    document.getElementById('name-input').style.borderColor='var(--red)';
+    return;
+  }
+  document.getElementById('btn-submit').disabled=true;
+  document.getElementById('btn-submit').textContent='提交中…';
+
+  var now=new Date();
+  var ts=now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+' '+now.getHours()+':'+String(now.getMinutes()).padStart(2,'0');
+
+  var body=new URLSearchParams();
+  body.append('form-name','ket-results');
+  body.append('姓名',name);
+  body.append('得分',window._resultData.score);
+  body.append('正确率',window._resultData.pct);
+  body.append('用时',window._resultData.elapsed);
+  body.append('答错题目',window._resultData.wrongStr);
+  body.append('练习时间',ts);
+
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body.toString()})
+    .then(function(){showSubmitted(name);})
+    .catch(function(){showSubmitted(name);});
+});
+
+function showSubmitted(name){
+  document.getElementById('final').style.display='none';
+  document.getElementById('submitted').style.display='block';
+  document.getElementById('sub-title').textContent=name+' 的成绩已提交！';
+  document.getElementById('sub-sub').textContent='老师会看到你的得分和答错的题目。\n做得很棒，继续加油！';
+}
+
+function doRestart(){
+  cur=0; score=0; wrongList=[];
+  document.getElementById('quiz').style.display='block';
+  document.getElementById('final').style.display='none';
+  document.getElementById('submitted').style.display='none';
+  document.getElementById('name-input').value='';
+  document.getElementById('name-input').style.borderColor='';
+  startTimer(); loadQ();
+}
+
+document.getElementById('btn-check').addEventListener('click',check);
+document.getElementById('btn-reset').addEventListener('click',resetQ);
+document.getElementById('btn-next').addEventListener('click',next);
+document.getElementById('btn-restart').addEventListener('click',doRestart);
+document.getElementById('btn-restart2').addEventListener('click',doRestart);
+
+startTimer();
+loadQ();
+</script>
+</body>
+</html>
