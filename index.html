@@ -995,66 +995,6 @@ loadQ();
 </script>
 
 <!-- 新增：五步流程绑定到真实内容的交互函数 -->
-<script>
-// 步骤 2：根据当前打开的绘本设置核心词汇
-function completeStep2(btn) {
-  btn.textContent = '✅ 已学习当前绘本词汇'; btn.disabled = true; btn.style.background = '#43a047';
-  // 提取当前绘本的核心词汇并显示在词汇打卡区域
-  var bookName = document.getElementById('mTitle') ? document.getElementById('mTitle').textContent : '当前绘本';
-  document.getElementById('step2-words').innerHTML = '<p style="font-size:.85rem;color:#777;margin-bottom:.4rem;">当前绘本：<b style="color:var(--c1);">' + bookName + '</b></p><div style="display:flex;flex-wrap:wrap;gap:.4rem;">' +
-    '<span style="background:var(--c3);padding:.2rem .5rem;border-radius:6px;font-weight:700;font-size:.85rem;color:#3a2e00;">apple</span>' +
-    '<span style="background:var(--c3);padding:.2rem .5rem;border-radius:6px;font-weight:700;font-size:.85rem;color:#3a2e00;">book</span>' +
-    '<span style="background:var(--c3);padding:.2rem .5rem;border-radius:6px;font-weight:700;font-size:.85rem;color:#3a2e00;">sun</span>' +
-    '<span style="background:var(--c3);padding:.2rem .5rem;border-radius:6px;font-weight:700;font-size:.85rem;color:#3a2e00;">rain</span>' +
-    '<span style="background:var(--c3);padding:.2rem .5rem;border-radius:6px;font-weight:700;font-size:.85rem;color:#3a2e00;">friend</span>' +
-    '</div>';
-}
 
-// 步骤 3：播放当前绘本的真实朗读音频
-function playCurrentBookAudio(btn) {
-  btn.textContent = '🔊 正在播放标准发音...'; btn.disabled = true;
-  var currentSlug = (currentBook && currentBook.slug) ? currentBook.slug : 'dan-the-flying-man';
-  var audioUrl = 'https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/audio-standard/' + currentSlug + '/listen.mp3';
-  var audio = new Audio(audioUrl);
-  audio.play().catch(function() {
-    document.getElementById('step3-audio-status').textContent = '❌ 音频暂不可用，已使用浏览器合成音频作为备选';
-    if('speechSynthesis' in window) {
-      var utter = new SpeechSynthesisUtterance('This is the story of ' + (currentBook ? currentBook.title : 'the book'));
-      utter.lang = 'en-GB'; utter.rate = 0.9; window.speechSynthesis.speak(utter);
-    }
-  });
-  audio.onended = function() { btn.textContent = '✅ 已播放完成'; btn.style.background = '#43a047'; };
-  audio.onerror = function() { btn.textContent = '❌ 音频暂不可用'; btn.disabled = false; };
-  document.getElementById('step3-audio-status').textContent = '🔊 正在播放真实标准朗读音频...';
-}
-function completeStep3(btn) {
-  btn.textContent = '✅ 已练习发音'; btn.disabled = true; btn.style.background = '#43a047';
-}
-
-// 步骤 4：拼写练习（使用当前绘本核心词）
-var currentSpellingTarget = 'apple';
-function checkSpelling() {
-  var input = document.getElementById('step4-spell-input');
-  var value = input.value.trim().toLowerCase();
-  var fb = document.getElementById('step4-feedback');
-  if(value === currentSpellingTarget.toLowerCase()) {
-    fb.innerHTML = '<b>✅ 拼写正确！</b> 你已正确拼出了当前绘本核心词：' + currentSpellingTarget;
-    fb.style.display = 'block'; fb.style.background = '#e8f5e9'; fb.style.color = '#2e7d32'; fb.style.borderLeft = '4px solid #43a047';
-  } else {
-    fb.innerHTML = '<b>❌ 还差一点。</b> 正确拼写是：<b style="color:var(--c1);font-size:1.1rem;">' + currentSpellingTarget + '</b>。再试一次！';
-    fb.style.display = 'block'; fb.style.background = '#fff5f5'; fb.style.color = '#c62828'; fb.style.borderLeft = '4px solid #e53935';
-  }
-}
-function completeStep4(btn) {
-  btn.textContent = '✅ 已完成拼写练习'; btn.disabled = true; btn.style.background = '#43a047';
-}
-
-// 步骤 5：跳转到打卡并预填当前绘本核心词
-function scrollToVocabAndHighlight() {
-  document.getElementById('vocabArea').scrollIntoView({behavior: 'smooth'});
-  // 高亮当前绘本核心词（简化：显示提示信息）
-  document.getElementById('vTabs').innerHTML += '<span style="margin-left:1rem;font-size:.75rem;color:var(--c1);font-weight:700;background:#fff3e0;padding:.15rem .5rem;border-radius:6px;">💡 当前绘本核心词已预选到打卡区域</span>';
-}
-</script>
 </body>
 </html>
