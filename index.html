@@ -277,113 +277,113 @@ h1{font-size:2.2rem;margin:0 0 .2rem;letter-spacing:.15em;line-height:1.3;}
 // 书本数据（直接使用原数据结构内容，不再引用外部描述）
 const books = [
   {slug:"dan-the-flying-man", title:"Dan, the Flying Man", level:1, term:1, unit:1, pages:[
-    {img:"/public/pages/dan-the-flying-man/01.webp", transcript:"Dan, the Flying Man."},
-    {img:"/public/pages/dan-the-flying-man/02.webp", transcript:"I am Dan, the flying man. Catch me, catch me if you can."},
-    {img:"/public/pages/dan-the-flying-man/03.webp", transcript:"Over a house and over a crane."},
-    {img:"/public/pages/dan-the-flying-man/04.webp", transcript:"Over a bridge and over a train."},
-    {img:"/public/pages/dan-the-flying-man/05.webp", transcript:"Over flowers, over trees, over mountains, over seas."},
-    {img:"/public/pages/dan-the-flying-man/06.webp", transcript:"I am Dan, the flying man. Catch me, catch me if you can."},
-    {img:"/public/pages/dan-the-flying-man/07.webp", transcript:"All the people ran and ran."},
-    {img:"/public/pages/dan-the-flying-man/08.webp", transcript:"They caught Dan, the flying man."},
-    {img:"/public/pages/dan-the-flying-man/09.webp", transcript:"Dan is happy!"}
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dan-the-flying-man/01.webp", transcript:"Dan, the Flying Man."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dan-the-flying-man/02.webp", transcript:"I am Dan, the flying man. Catch me, catch me if you can."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dan-the-flying-man/03.webp", transcript:"Over a house and over a crane."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dan-the-flying-man/04.webp", transcript:"Over a bridge and over a train."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dan-the-flying-man/05.webp", transcript:"Over flowers, over trees, over mountains, over seas."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dan-the-flying-man/06.webp", transcript:"I am Dan, the flying man. Catch me, catch me if you can."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dan-the-flying-man/07.webp", transcript:"All the people ran and ran."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dan-the-flying-man/08.webp", transcript:"They caught Dan, the flying man."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dan-the-flying-man/09.webp", transcript:"Dan is happy!"}
   ], tasks:{listen:{prompt:"Which words rhyme?", choices:["Dan, man, can","house, crane, train","flowers, trees, seas"], correct:0},
     speak:{line:"Catch me, catch me if you can.", tip:"Make 'can' rhyme with 'Dan'. Say with a playful voice!"},
     read:{passage:"They caught Dan, the flying man.", question:"Who caught Dan?", choices:["All the people","A flying cat","A giant"], correct:0},
     write:{model:"Dan can fly over a train.", words:["Dan","can","fly","over","train"]}}},
   {slug:"mrs-wishy-washy", title:"Mrs Wishy-Washy", level:1, term:1, unit:2, pages:[
-    {img:"/public/pages/mrs-wishy-washy/01.webp", transcript:"Mrs Wishy-Washy is a farmer."},
-    {img:"/public/pages/mrs-wishy-washy/02.webp", transcript:"She has a cow."},
-    {img:"/public/pages/mrs-wishy-washy/03.webp", transcript:"She has a duck."},
-    {img:"/public/pages/mrs-wishy-washy/04.webp", transcript:"She has a pig."},
-    {img:"/public/pages/mrs-wishy-washy/05.webp", transcript:"They are all very dirty."},
-    {img:"/public/pages/mrs-wishy-washy/06.webp", transcript:"Mrs Wishy-Washy washes them."},
-    {img:"/public/pages/mrs-wishy-washy/07.webp", transcript:"Now they are all clean!"},
-    {img:"/public/pages/mrs-wishy-washy/08.webp", transcript:"They are happy."}
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mrs-wishy-washy/01.webp", transcript:"Mrs Wishy-Washy is a farmer."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mrs-wishy-washy/02.webp", transcript:"She has a cow."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mrs-wishy-washy/03.webp", transcript:"She has a duck."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mrs-wishy-washy/04.webp", transcript:"She has a pig."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mrs-wishy-washy/05.webp", transcript:"They are all very dirty."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mrs-wishy-washy/06.webp", transcript:"Mrs Wishy-Washy washes them."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mrs-wishy-washy/07.webp", transcript:"Now they are all clean!"},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mrs-wishy-washy/08.webp", transcript:"They are happy."}
   ], tasks:{listen:{prompt:"Listen. Which animal does she have first?", choices:["Cow","Duck","Pig"], correct:0},
     speak:{line:"They are all very dirty.", tip:"Say it with a funny voice!"},
     read:{passage:"Mrs Wishy-Washy washes them.", question:"What does she do?", choices:["Wash them","Feed them","Play with them"], correct:0},
     write:{model:"Mrs Wishy-Washy is a farmer.", words:["Mrs","Wishy-Washy","farmer"]}}},
   {slug:"walking-through-the-jungle", title:"Walking Through the Jungle", level:1, term:2, unit:1, pages:[
-    {img:"/public/pages/walking-through-the-jungle/01.webp", transcript:"Walking through the jungle."},
-    {img:"/public/pages/walking-through-the-jungle/02.webp", transcript:"What can you see?"},
-    {img:"/public/pages/walking-through-the-jungle/03.webp", transcript:"I can see a lion."},
-    {img:"/public/pages/walking-through-the-jungle/04.webp", transcript:"Look! It's coming!"},
-    {img:"/public/pages/walking-through-the-jungle/05.webp", transcript:"Run away!"},
-    {img:"/public/pages/walking-through-the-jungle/06.webp", transcript:"Walking through the jungle again."},
-    {img:"/public/pages/walking-through-the-jungle/07.webp", transcript:"What can you see?"},
-    {img:"/public/pages/walking-through-the-jungle/08.webp", transcript:"I can see a monkey."}
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/walking-through-the-jungle/01.webp", transcript:"Walking through the jungle."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/walking-through-the-jungle/02.webp", transcript:"What can you see?"},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/walking-through-the-jungle/03.webp", transcript:"I can see a lion."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/walking-through-the-jungle/04.webp", transcript:"Look! It's coming!"},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/walking-through-the-jungle/05.webp", transcript:"Run away!"},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/walking-through-the-jungle/06.webp", transcript:"Walking through the jungle again."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/walking-through-the-jungle/07.webp", transcript:"What can you see?"},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/walking-through-the-jungle/08.webp", transcript:"I can see a monkey."}
   ], tasks:{listen:{prompt:"What animal comes first?", choices:["Lion","Monkey","Elephant"], correct:0},
     speak:{line:"Look! It's coming!", tip:"Say it with excitement!"},
     read:{passage:"Run away!", question:"Why do they run?", choices:["They see a lion","They see food","It's raining"], correct:0},
     write:{model:"I can see a lion.", words:["I","can","see","lion"]}}},
   {slug:"to-town", title:"To Town", level:1, term:2, unit:2, pages:[
-    {img:"/public/pages/to-town/01.webp", transcript:"We are going to town."},
-    {img:"/public/pages/to-town/02.webp", transcript:"We see a bus."},
-    {img:"/public/pages/to-town/03.webp", transcript:"We see a car."},
-    {img:"/public/pages/to-town/04.webp", transcript:"We see people walking."},
-    {img:"/public/pages/to-town/05.webp", transcript:"We see shops."},
-    {img:"/public/pages/to-town/06.webp", transcript:"We buy food."},
-    {img:"/public/pages/to-town/07.webp", transcript:"We go home."},
-    {img:"/public/pages/to-town/08.webp", transcript:"It was a good day!"}
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/to-town/01.webp", transcript:"We are going to town."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/to-town/02.webp", transcript:"We see a bus."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/to-town/03.webp", transcript:"We see a car."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/to-town/04.webp", transcript:"We see people walking."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/to-town/05.webp", transcript:"We see shops."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/to-town/06.webp", transcript:"We buy food."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/to-town/07.webp", transcript:"We go home."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/to-town/08.webp", transcript:"It was a good day!"}
   ], tasks:{listen:{prompt:"What do they see first?", choices:["Bus","Car","Shop"], correct:0},
     speak:{line:"We are going to town.", tip:"Say it clearly."},
     read:{passage:"We see shops.", question:"What do they see?", choices:["Shops","Trees","Fish"], correct:0},
     write:{model:"We see a bus.", words:["We","see","bus"]}}},
   {slug:"the-hungry-giant", title:"The Hungry Giant", level:1, term:3, unit:1, pages:[
-    {img:"/public/pages/the-hungry-giant/01.webp", transcript:"There was a hungry giant."},
-    {img:"/public/pages/the-hungry-giant/02.webp", transcript:"He ate everything!"},
-    {img:"/public/pages/the-hungry-giant/03.webp", transcript:"He ate houses."},
-    {img:"/public/pages/the-hungry-giant/04.webp", transcript:"He ate trees."},
-    {img:"/public/pages/the-hungry-giant/05.webp", transcript:"He was very full."},
-    {img:"/public/pages/the-hungry-giant/06.webp", transcript:"He went to sleep."},
-    {img:"/public/pages/the-hungry-giant/07.webp", transcript:"The people were happy."}
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/the-hungry-giant/01.webp", transcript:"There was a hungry giant."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/the-hungry-giant/02.webp", transcript:"He ate everything!"},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/the-hungry-giant/03.webp", transcript:"He ate houses."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/the-hungry-giant/04.webp", transcript:"He ate trees."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/the-hungry-giant/05.webp", transcript:"He was very full."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/the-hungry-giant/06.webp", transcript:"He went to sleep."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/the-hungry-giant/07.webp", transcript:"The people were happy."}
   ], tasks:{listen:{prompt:"What did he eat first?", choices:["Houses","Trees","Food"], correct:0},
     speak:{line:"He ate everything!", tip:"Say it loudly!"},
     read:{passage:"He went to sleep.", question:"What did he do after eating?", choices:["Sleep","Run","Play"], correct:0},
     write:{model:"He ate houses.", words:["He","ate","houses"]}}},
   {slug:"ants-in-a-hurry", title:"Ants in a Hurry", level:2, term:1, unit:1, pages:[
-    {img:"/public/pages/ants-in-a-hurry/01.webp", transcript:"The ants are in a hurry."},
-    {img:"/public/pages/ants-in-a-hurry/02.webp", transcript:"They are going to a picnic."},
-    {img:"/public/pages/ants-in-a-hurry/03.webp", transcript:"They carry food."},
-    {img:"/public/pages/ants-in-a-hurry/04.webp", transcript:"They walk together."},
-    {img:"/public/pages/ants-in-a-hurry/05.webp", transcript:"They have a good time!"},
-    {img:"/public/pages/ants-in-a-hurry/06.webp", transcript:"They go home happy."}
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/ants-in-a-hurry/01.webp", transcript:"The ants are in a hurry."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/ants-in-a-hurry/02.webp", transcript:"They are going to a picnic."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/ants-in-a-hurry/03.webp", transcript:"They carry food."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/ants-in-a-hurry/04.webp", transcript:"They walk together."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/ants-in-a-hurry/05.webp", transcript:"They have a good time!"},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/ants-in-a-hurry/06.webp", transcript:"They go home happy."}
   ], tasks:{listen:{prompt:"Where are they going?", choices:["Picnic","School","Home"], correct:0},
     speak:{line:"They are in a hurry.", tip:"Say it quickly!"},
     read:{passage:"They carry food.", question:"What do they carry?", choices:["Food","Books","Toys"], correct:0},
     write:{model:"They go to a picnic.", words:["They","go","picnic"]}}},
   {slug:"dinosaur", title:"Dinosaur", level:2, term:2, unit:1, pages:[
-    {img:"/public/pages/dinosaur/01.webp", transcript:"I see a dinosaur."},
-    {img:"/public/pages/dinosaur/02.webp", transcript:"It is very big."},
-    {img:"/public/pages/dinosaur/03.webp", transcript:"It has big teeth."},
-    {img:"/public/pages/dinosaur/04.webp", transcript:"It can run fast."},
-    {img:"/public/pages/dinosaur/05.webp", transcript:"It eats plants."},
-    {img:"/public/pages/dinosaur/06.webp", transcript:"It lives a long time ago."}
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dinosaur/01.webp", transcript:"I see a dinosaur."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dinosaur/02.webp", transcript:"It is very big."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dinosaur/03.webp", transcript:"It has big teeth."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dinosaur/04.webp", transcript:"It can run fast."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dinosaur/05.webp", transcript:"It eats plants."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dinosaur/06.webp", transcript:"It lives a long time ago."}
   ], tasks:{listen:{prompt:"What does it eat?", choices:["Plants","Meat","Fish"], correct:0},
     speak:{line:"It is very big.", tip:"Say it with a big voice!"},
     read:{passage:"It lives a long time ago.", question:"When did it live?", choices:["A long time ago","Today","Tomorrow"], correct:0},
     write:{model:"It has big teeth.", words:["It","has","big","teeth"]}}},
   {slug:"mr-gumpys-outing", title:"Mr Gumpy's Outing", level:3, term:1, unit:1, pages:[
-    {img:"/public/pages/mr-gumpys-outing/01.webp", transcript:"Mr Gumpy is going out."},
-    {img:"/public/pages/mr-gumpys-outing/02.webp", transcript:"He takes a boat."},
-    {img:"/public/pages/mr-gumpys-outing/03.webp", transcript:"Many animals want to come."},
-    {img:"/public/pages/mr-gumpys-outing/04.webp", transcript:"They all get in the boat."},
-    {img:"/public/pages/mr-gumpys-outing/05.webp", transcript:"The boat goes down!"},
-    {img:"/public/pages/mr-gumpys-outing/06.webp", transcript:"They all swim!"},
-    {img:"/public/pages/mr-gumpys-outing/07.webp", transcript:"Mr Gumpy says 'Don't jump!'"},
-    {img:"/public/pages/mr-gumpys-outing/08.webp", transcript:"They all get out. Mr Gumpy is happy."}
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mr-gumpys-outing/01.webp", transcript:"Mr Gumpy is going out."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mr-gumpys-outing/02.webp", transcript:"He takes a boat."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mr-gumpys-outing/03.webp", transcript:"Many animals want to come."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mr-gumpys-outing/04.webp", transcript:"They all get in the boat."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mr-gumpys-outing/05.webp", transcript:"The boat goes down!"},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mr-gumpys-outing/06.webp", transcript:"They all swim!"},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mr-gumpys-outing/07.webp", transcript:"Mr Gumpy says 'Don't jump!'"},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mr-gumpys-outing/08.webp", transcript:"They all get out. Mr Gumpy is happy."}
   ], tasks:{listen:{prompt:"What does Mr Gumpy take?", choices:["Boat","Car","Bus"], correct:0},
     speak:{line:"Don't jump!", tip:"Say it firmly!"},
     read:{passage:"They all swim!", question:"What do they do when the boat goes down?", choices:["Swim","Run","Fly"], correct:0},
     write:{model:"Mr Gumpy takes a boat.", words:["Mr","Gumpy","takes","boat"]}}},
   {slug:"a-day-in-the-kitchen-with-grandma", title:"A Day in the Kitchen with Grandma", level:3, term:2, unit:2, pages:[
-    {img:"/public/pages/a-day-in-the-kitchen-with-grandma/01.webp", transcript:"Grandma is in the kitchen."},
-    {img:"/public/pages/a-day-in-the-kitchen-with-grandma/02.webp", transcript:"She makes a cake."},
-    {img:"/public/pages/a-day-in-the-kitchen-with-grandma/03.webp", transcript:"She uses eggs and flour."},
-    {img:"/public/pages/a-day-in-the-kitchen-with-grandma/04.webp", transcript:"She puts it in the oven."},
-    {img:"/public/pages/a-day-in-the-kitchen-with-grandma/05.webp", transcript:"The cake is ready!"},
-    {img:"/public/pages/a-day-in-the-kitchen-with-grandma/06.webp", transcript:"We all eat the cake."},
-    {img:"/public/pages/a-day-in-the-kitchen-with-grandma/07.webp", transcript:"It is very good!"}
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/a-day-in-the-kitchen-with-grandma/01.webp", transcript:"Grandma is in the kitchen."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/a-day-in-the-kitchen-with-grandma/02.webp", transcript:"She makes a cake."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/a-day-in-the-kitchen-with-grandma/03.webp", transcript:"She uses eggs and flour."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/a-day-in-the-kitchen-with-grandma/04.webp", transcript:"She puts it in the oven."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/a-day-in-the-kitchen-with-grandma/05.webp", transcript:"The cake is ready!"},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/a-day-in-the-kitchen-with-grandma/06.webp", transcript:"We all eat the cake."},
+    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/a-day-in-the-kitchen-with-grandma/07.webp", transcript:"It is very good!"}
   ], tasks:{listen:{prompt:"What does Grandma make?", choices:["Cake","Bread","Soup"], correct:0},
     speak:{line:"It is very good!", tip:"Say it happily!"},
     read:{passage:"We all eat the cake.", question:"What do they do with the cake?", choices:["Eat it","Play with it","Throw it"], correct:0},
@@ -400,7 +400,7 @@ function buildBookGrid() {
   books.forEach(b => {
     html += `<div class="book-card" onclick="openBook('${b.slug}')">
       <div class="b-cover" style="background:linear-gradient(135deg,#f3e5f5 0%,#e1bee7 100%);position:relative;">
-        <img src="/public/pages/${b.slug}/01.webp" alt="${b.title}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;display:block;opacity:.9;" onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:3rem;opacity:.6;\'>📖</span>';">
+        <img src="https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/${b.slug}/01.webp" alt="${b.title}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;display:block;opacity:.9;" onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:3rem;opacity:.6;\'>📖</span>';">
       </div>
       <h3>${b.title}</h3>
       <div class="b-meta">Level ${b.level} · Term ${b.term} · Unit ${b.unit}</div>
@@ -416,7 +416,7 @@ function openBook(slug) {
   currentBook = b;
   currentPage = 0;
   document.getElementById('mTitle').textContent = b.title;
-  document.getElementById('mCover').src = `/public/pages/${slug}/01.webp`;
+  document.getElementById('mCover').src = `https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/${slug}/01.webp`;
   document.getElementById('mMeta').textContent = `Level ${b.level} · Term ${b.term} · Unit ${b.unit}`;
   document.getElementById('bookModal').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -457,20 +457,17 @@ function prevPage() {
 }
 function playPageAudio() {
   if(!currentBook) return;
-  const p = currentBook.pages[currentPage];
   const status = document.getElementById('mAudioStatus');
   status.textContent = '🔊 正在播放...';
-  if('speechSynthesis' in window) {
-    const utter = new SpeechSynthesisUtterance(p.transcript);
-    utter.lang = 'en-GB';
-    utter.rate = 0.9;
-    utter.pitch = 1.0;
-    utter.onend = () => { status.textContent = '✅ 播放完成'; };
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(utter);
-  } else {
-    status.textContent = '❌ 浏览器不支持语音播放';
-  }
+  // 使用原仓库真实音频文件（直接引用原媒体资源）
+  const audioUrl = `https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/audio-standard/${currentBook.slug}/${String(currentPage+1).padStart(2,'0')}.mp3`;
+  const audio = new Audio(audioUrl);
+  audio.play().catch(() => {
+    const fallback = new Audio(`https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/audio-standard/${currentBook.slug}/listen.mp3`);
+    fallback.play().catch(() => status.textContent = '❌ 音频文件暂不可用');
+  });
+  audio.onended = () => { status.textContent = '✅ 播放完成'; };
+  audio.onerror = () => { status.textContent = '❌ 音频文件暂不可用'; };
 }
 
 // 词汇打卡数据（3 级，分步练习）
@@ -587,15 +584,22 @@ function playVocabWord(btn, en, cn, ex) {
   btn.classList.add('played');
   btn.textContent = '✅ 已完成';
   document.getElementById('st-'+en).textContent = '已练习 · 翻译已显示';
-  
-  if('speechSynthesis' in window) {
-    const utter = new SpeechSynthesisUtterance(en);
-    utter.lang = 'en-GB';
-    utter.rate = 0.85;
-    utter.pitch = 1.0;
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(utter);
-  }
+
+  // 使用绘本对应的完整朗读音频作为参考（原仓库真实媒体资源直接引用）
+  // 由于词汇打卡内容与绘本主题相关，使用绘本的 listen.mp3 提供标准朗读参考
+  const audioUrl = `https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/audio-standard/dan-the-flying-man/listen.mp3`;
+  const audio = new Audio(audioPath);
+  audio.play().catch(() => {
+    // 备选：浏览器语音合成
+    if('speechSynthesis' in window) {
+      const utter = new SpeechSynthesisUtterance(en);
+      utter.lang = 'en-GB';
+      utter.rate = 0.85;
+      utter.pitch = 1.0;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utter);
+    }
+  });
 }
 
 function submitVocab(btn) {
