@@ -493,6 +493,8 @@ function buildBookGrid() {
 }
 
 function openBook(slug) {
+  // 立即给用户点击反馈（确保按钮点击有可见响应）
+  console.log('打开绘本:', slug);
   var b = books.find(function(x){return x.slug===slug;});
   if(!b) return;
   currentBook = b; currentPage = 0;
