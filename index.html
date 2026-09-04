@@ -3,174 +3,407 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>英语记单词 · 新加坡绘本 + KET 备考</title>
+<title>英语记单词 · 新加坡绘本风格 · KET 备考 · 互动打卡</title>
 <style>
-:root{--c1:#4a148c;--c2:#f3e5f5;--c3:#ffcc80;--c4:#e8f5e9;--c-text:#1a1a2e;--card:#fff;}
+:root{--c1:#4a148c;--c2:#f3e5f5;--c3:#ffcc80;--c4:#e8f5e9;--c5:#fff3e0;--c-text:#1a1a2e;--green:#43a047;--red:#e53935;--blue:#2979ff;--teal:#1D9E75;--amber:#BA7517;}
 *{box-sizing:border-box;font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;}
 body{margin:0;background:linear-gradient(135deg,var(--c1) 0%,#2a0a4a 100%);color:var(--c-text);min-height:100vh;}
-.container{max-width:980px;margin:0 auto;padding:2rem 1.5rem;}
-header{text-align:center;padding:2rem 0;color:#fff;}
-h1{font-size:2.3rem;margin:0 0 .2rem;letter-spacing:.15em;}
-.subtitle{opacity:.9;font-size:1rem;}
-.card{background:var(--card);border-radius:18px;padding:1.6rem 1.4rem;margin:1.2rem 0;box-shadow:0 10px 28px rgba(0,0,0,.15);border-left:6px solid var(--c3);}
-.card.green{border-left-color:#43a047;background:#f6fff8;}
-.card.blue{border-left-color:#2979ff;background:#e8f4ff;}
-h2{margin-top:0;font-size:1.25rem;color:var(--c1);}
-.tag{display:inline-block;padding:.15rem .55rem;border-radius:999px;font-size:.75rem;font-weight:700;margin-bottom:.6rem;letter-spacing:.05em;}
-.tag.anki{background:#ff9800;color:#fff;}
-.tag.book{background:#43a047;color:#fff;}
-.tag.ket{background:#2979ff;color:#fff;}
-.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;}
-.word-card{background:linear-gradient(180deg,#fff 80%,#f7f0ff 100%);border:2px solid #e1bee7;border-radius:14px;padding:1.1rem;transition:transform .15s;}
-.word-card:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(74,20,140,.12);}
-.word-card .en{font-size:1.25rem;font-weight:700;color:var(--c1);}
-.word-card .cn{font-size:.95rem;color:#555;}
-.word-card .example{font-size:.85rem;color:#777;margin-top:.4rem;font-style:italic;}
-button{background:var(--c1);color:#fff;border:none;padding:.55rem 1.2rem;border-radius:8px;font-size:.9rem;cursor:pointer;font-weight:700;transition:background .2s;}
-button:hover{background:#2a0a4a;}
-.button-row{margin-top:.3rem;}
-.note{background:#fff8e1;border-left:4px solid #ffa000;padding:.8rem 1rem;border-radius:8px;font-size:.9rem;color:#5a3a00;}
+.container{max-width:980px;margin:0 auto;padding:2rem 1.2rem;}
+header{text-align:center;padding:2.2rem 0;color:#fff;}
+h1{font-size:2.2rem;margin:0 0 .2rem;letter-spacing:.15em;line-height:1.3;}
+.subtitle{opacity:.9;font-size:.95rem;margin-top:.4rem;}
+.badge-source{display:inline-block;background:rgba(255,255,255,.15);color:#fff;padding:.15rem .6rem;border-radius:999px;font-size:.75rem;font-weight:700;margin-top:.5rem;border:1px solid rgba(255,255,255,.25);}
+
+/* 卡片系统 */
+.card{background:#fff;border-radius:18px;padding:1.6rem 1.4rem;margin:1.2rem 0;box-shadow:0 10px 28px rgba(0,0,0,.12);border-left:6px solid var(--c3);position:relative;overflow:hidden;}
+.card.green{border-left-color:var(--green);background:#f8fff8;}
+.card.blue{border-left-color:var(--blue);background:#f0f6ff;}
+.card.teal{border-left-color:var(--teal);background:#f6fff8;}
+.card.amber{border-left-color:var(--amber);background:#fffdf5;}
+.card::before{content:'';position:absolute;top:0;right:0;width:140px;height:140px;background:radial-gradient(circle at 80% 10%,rgba(255,224,130,.12),transparent 60%);pointer-events:none;}
+.tag{display:inline-block;padding:.15rem .55rem;border-radius:999px;font-size:.72rem;font-weight:700;margin-bottom:.6rem;letter-spacing:.05em;}
+.tag.green{background:var(--green);color:#fff;}
+.tag.blue{background:var(--blue);color:#fff;}
+.tag.teal{background:var(--teal);color:#fff;}
+.tag.amber{background:#e8a317;color:#fff;}
+.tag.ref{background:#777;color:#fff;}
+
+/* 互动单词卡片：点击发音按钮后才显示翻译 */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.8rem;margin-top:1rem;}
+.v-card{background:#fff;border:2px solid #e1bee7;border-radius:14px;padding:1.1rem;transition:all .2s;position:relative;overflow:hidden;}
+.v-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(74,20,140,.1);border-color:#ce93d8;}
+.v-card .en{font-size:1.35rem;font-weight:800;color:var(--c1);letter-spacing:.02em;}
+.v-card .cn{font-size:1.05rem;color:#555;font-weight:600;margin-top:.3rem;min-height:1.6rem;transition:opacity .3s;}
+.v-card .cn.hidden-cn{opacity:0;color:transparent;user-select:none;}
+.v-card .example{font-size:.85rem;color:#777;margin-top:.4rem;font-style:italic;line-height:1.5;}
+.v-card .btn-row{margin-top:.7rem;display:flex;gap:.5rem;flex-wrap:wrap;}
+.v-card button{background:var(--c1);color:#fff;border:none;padding:.45rem 1rem;border-radius:8px;font-size:.85rem;cursor:pointer;font-weight:700;transition:all .2s;}
+.v-card button:hover{background:#2a0a4a;transform:scale(1.03);}
+.v-card .pronounce-btn{background:#ff9800;}
+.v-card .pronounce-btn:hover{background:#e65100;}
+
+/* 绘本互动流程（参考 Story Garden 五步） */
+.story-flow{display:grid;gap:1rem;margin-top:1rem;}
+.story-step{background:#fff;border:2px solid #e8e4d0;border-radius:14px;padding:1.2rem;position:relative;}
+.story-step .step-num{position:absolute;top:-12px;left:16px;background:var(--c1);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem;box-shadow:0 2px 8px rgba(74,20,140,.3);}
+.story-step h3{margin-top:.3rem;font-size:1.05rem;color:var(--c1);margin-bottom:.5rem;}
+.story-step p{font-size:.92rem;color:#444;line-height:1.7;}
+.story-step .btn-row{margin-top:.8rem;display:flex;gap:.5rem;flex-wrap:wrap;}
+.story-step button{background:var(--blue);color:#fff;border:none;padding:.5rem 1.1rem;border-radius:8px;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .15s;}
+.story-step button:hover{background:#1565c0;transform:translateY(-1px);}
+.story-step .audio-btn{background:var(--teal);}
+.story-step .audio-btn:hover{background:#107a5c;}
+
+/* KET 词汇分级打卡 */
+.level-tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem;}
+.level-tab{padding:.35rem .7rem;background:#fff;border:2px solid #ddd;border-radius:20px;font-size:.82rem;font-weight:700;color:#555;cursor:pointer;transition:all .15s;}
+.level-tab.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+.level-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.6rem;}
+.word-bank-item{background:#fff;border:2px dashed #ccc;border-radius:10px;padding:.8rem 1rem;display:flex;align-items:center;justify-content:space-between;transition:all .15s;}
+.word-bank-item:hover{border-color:var(--c3);transform:translateY(-2px);}
+.word-bank-item .w-en{font-weight:700;color:var(--c1);font-size:1rem;}
+.word-bank-item .w-cn{font-size:.85rem;color:#777;font-weight:500;}
+.word-bank-item .w-cn.hidden{opacity:0;color:transparent;user-select:none;transition:opacity .3s;}
+.word-bank-item .btn-play{background:var(--amber);color:#fff;border:none;width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:.8rem;transition:all .15s;flex-shrink:0;}
+.word-bank-item .btn-play:hover{transform:scale(1.1);background:var(--teal);}
+
+/* 语法参考（参考 ket-grammar 结构） */
+.grammar-ref{background:#fff;border-radius:14px;padding:1.2rem;margin-top:.8rem;border:2px solid #e9ecef;}
+.grammar-ref h3{margin:0 0 .6rem;color:var(--c1);font-size:1.05rem;display:flex;align-items:center;gap:.5rem;}
+.grammar-ref .g-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.6rem;margin-top:.6rem;}
+.grammar-ref .g-box{background:#f8f9fa;border-radius:8px;padding:.8rem .9rem;font-size:.85rem;color:#333;line-height:1.6;border-left:3px solid var(--blue);}
+.grammar-ref .g-box .g-title{font-weight:800;color:var(--blue);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.3rem;}
+
+/* 提交与反馈（类似 ket-grammar 的整体提交） */
+.submit-zone{text-align:center;padding:2rem 0;margin-top:1.5rem;border-top:2px dashed #ddd;}
+.submit-btn{background:linear-gradient(90deg,#e65100,#ff6f00);color:#fff;border:none;padding:1rem 3.5rem;border-radius:50px;font-size:1.1rem;font-weight:800;cursor:pointer;box-shadow:0 8px 24px rgba(230,81,0,.3);transition:all .2s;letter-spacing:.05em;}
+.submit-btn:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(230,81,0,.4);}
+.submit-btn:disabled{background:#ccc;box-shadow:none;cursor:default;transform:none;opacity:.6;}
+
+/* 结果区域：整体提交后显示 */
+.results{display:none;background:#fff;border-radius:16px;padding:1.5rem;margin-top:1rem;border:2px solid var(--blue);animation:fadeIn .5s ease;}
+.results.show{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.results h2{margin:0 0 1rem;color:var(--c1);font-size:1.3rem;}
+.results .res-table{width:100%;border-collapse:collapse;font-size:.9rem;}
+.results .res-table th{background:var(--c1);color:#fff;padding:.5rem .7rem;text-align:left;font-size:.8rem;letter-spacing:.05em;}
+.results .res-table td{padding:.55rem .7rem;border-bottom:1px solid #e0e0e0;}
+.results .res-table .ok{color:var(--green);font-weight:700;}
+.results .res-table .no{color:var(--red);font-weight:700;}
+.results .explain-block{margin-top:1rem;padding:1rem;background:#f8f9fa;border-radius:10px;border-left:4px solid var(--blue);font-size:.9rem;color:#333;line-height:1.7;}
+.results .explain-block b{color:var(--blue);}
+
+.info-card{background:#fff3e0;border-left:5px solid #ffa000;border-radius:12px;padding:1.2rem;margin-top:1.2rem;}
+.info-card h3{margin:0 0 .6rem;color:#e65100;font-size:1.1rem;}
+.info-card p{margin:.3rem 0;color:#5a3a00;font-size:.85rem;line-height:1.7;}
+
 .footer{text-align:center;color:#fff;opacity:.7;padding:2rem 0;font-size:.85rem;}
-/* Anki format display */
-.code-block{background:#f5f5f5;border:1px solid #ddd;border-radius:8px;padding:1rem;font-family:monospace;font-size:.8rem;white-space:pre-wrap;color:#333;overflow-x:auto;}
 </style>
 </head>
 <body>
 <div class="container">
 <header>
-  <h1>英语记单词 · 绘本故事 + KET 备考</h1>
-  <p class="subtitle">广州小学三年级 · 新加坡小学绘本风格 · 记单词 + Anki 卡片 · KET 方向</p>
-  <p style="font-size:.85rem;opacity:.8;margin-top:.3rem;">本页面静态 HTML · 可上传到 GitHub 开启 Pages 免费访问</p>
+  <h1>英语记单词 · 绘本互动 + KET 打卡</h1>
+  <p class="subtitle">广州小学三年级 · 新加坡小学绘本参考 · 互动式学习 · KET 备考方向</p>
+  <span class="badge-source">📚 参考 Story Garden · jnuyao.github.io（书目与结构） · ket-grammar 语法参考已整合</span>
 </header>
 
+<!-- 参考绘本书目（来源注明） -->
 <section class="card green">
-  <span class="tag book">新加坡小学绘本风格</span>
-  <h2>📚 参考绘本书目（来源：Story Garden · jnuyao.github.io）</h2>
-  <p>以下书目来自公开仓库 `jnuyao/jnuyao.github.io`（Story Garden · Primary English），涵盖 Primary 1-3 级别的 32 本绘本，用于参考新加坡小学英语教学内容方向：</p>
-  <div style="background:#fff;border-radius:10px;padding:1rem;margin-top:.6rem;max-height:220px;overflow-y:auto;font-size:.85rem;color:#333;line-height:1.7;">
-    <strong>Primary 1（部分书目）：</strong> Dan the Flying Man · Mrs Wishy-Washy · Walking Through the Jungle · To Town · The Hungry Giant · Ants in a Hurry · Dan's Lost Hat · When My Baby Sister Came Home<br><br>
-    <strong>Primary 2-3（部分主题）：</strong> Mid-Autumn Festival · The First Day of Hari Raya · Everyday Discovery 系列（家庭、学校、市场、天气、交通）· Dinosaur 系列（发音、艺术、发现）<br><br>
-    <span style="font-size:.8rem;color:#777;">完整书目共 32 本，数据结构参考原仓库 `app/book-data.ts`。本页面仅引用书名作为内容方向参考，不直接使用原绘本图片或完整故事内容。</span>
-  </div>
-  <p style="font-size:.85rem;color:#777;margin-top:.6rem;">💡 本页面参考原仓库的书目（32 本绘本）和数据结构（`Book` / `StoryPage` / 任务模型），内容为自创简易模拟版本，用于广州小学三年级学习参考。</p>
-  <div style="background:#fff;border-radius:12px;padding:1rem;border:2px dashed #c8e6c9;margin-top:.8rem;">
-    <p><strong>绘本小故事（简易版）：</strong></p>
-    <p>Little Rabbit wakes up at seven. He brushes his teeth and eats a carrot. At school, he learns words: <strong>apple, book, sun, rain</strong>. After school, he plays with his friend, Little Turtle. They say: “Have a nice day!”</p>
-    <p style="font-size:.85rem;color:#777;margin-top:.4rem;">💡 注意：本内容为模拟绘本风格的自创简易内容，避免真实绘本版权问题。若需真实绘本，请购买正版或使用学校授权资源。</p>
+  <span class="tag green">参考绘本书目</span>
+  <h2>📖 Story Garden · 32 本绘本参考（来源注明）</h2>
+  <p>本页面参考公开仓库 <code>jnuyao/jnuyao.github.io</code>（Story Garden · Primary English）的书目与数据结构。以下为部分书目，用于理解新加坡小学英语教学内容方向：</p>
+  <div style="background:#fff;border-radius:10px;padding:1rem;margin-top:.6rem;max-height:230px;overflow-y:auto;font-size:.85rem;color:#333;line-height:1.7;border:2px dashed #c8e6c9;">
+    <strong>Primary 1：</strong> Dan the Flying Man · Mrs Wishy-Washy · Walking Through the Jungle · To Town · The Hungry Giant · Ants in a Hurry · Dan's Lost Hat · When My Baby Sister Came Home · Mid-Autumn Festival · The First Day of Hari Raya<br><br>
+    <strong>Primary 2-3 主题：</strong> Everyday Discovery（家庭/学校/市场/天气/交通）· Dinosaur Art / Discovery / Pronunciation 系列 · Moonlight Market Adventure<br><br>
+    <span style="font-size:.78rem;color:#777;">数据结构参考：原仓库 <code>app/book-data.ts</code>（Book / StoryPage / BookTasks 模型），已复刻至本项目 <code>story-garden-ref/</code> 目录。</span>
   </div>
 </section>
 
-<section class="card">
-  <span class="tag anki">记单词 · Anki 卡片格式</span>
-  <h2>📖 本周主题词卡（可导入 Anki）</h2>
-  <div class="grid-2" id="wordGrid">
-    <div class="word-card">
-      <div class="en">apple</div>
-      <div class="cn">苹果</div>
-      <div class="example">"I eat an apple every morning."</div>
-      <div class="button-row"><button onclick="flip(this)">显示提示</button></div>
-      <div style="display:none;margin-top:.5rem;color:#7b1fa2;font-size:.85rem;font-weight:700;">💡 记忆法：A-PP-LE → “苹果”（谐音记忆）</div>
-    </div>
-    <div class="word-card">
-      <div class="en">school</div>
-      <div class="cn">学校</div>
-      <div class="example">"I go to school by bus."</div>
-      <div class="button-row"><button onclick="flip(this)">显示提示</button></div>
-      <div style="display:none;margin-top:.5rem;color:#7b1fa2;font-size:.85rem;font-weight:700;">💡 记忆法：S-CH-OO-L → “上学”（谐音）</div>
-    </div>
-    <div class="word-card">
-      <div class="en">friend</div>
-      <div class="cn">朋友</div>
-      <div class="example">"My friend is kind."</div>
-      <div class="button-row"><button onclick="flip(this)">显示提示</button></div>
-      <div style="display:none;margin-top:.5rem;color:#7b1fa2;font-size:.85rem;font-weight:700;">💡 记忆法：FR-I-END → “朋友”结尾有 END（朋友到最后）</div>
-    </div>
-    <div class="word-card">
-      <div class="en">morning</div>
-      <div class="cn">早晨</div>
-      <div class="example">"Good morning, teacher!"</div>
-      <div class="button-row"><button onclick="flip(this)">显示提示</button></div>
-      <div style="display:none;margin-top:.5rem;color:#7b1fa2;font-size:.85rem;font-weight:700;">💡 记忆法：MOR-NING → “早”上 “宁”静</div>
-    </div>
-    <div class="word-card">
-      <div class="en">rain</div>
-      <div class="cn">下雨</div>
-      <div class="example">"It is rain today."</div>
-      <div class="button-row"><button onclick="flip(this)">显示提示</button></div>
-      <div style="display:none;margin-top:.5rem;color:#7b1fa2;font-size:.85rem;font-weight:700;">💡 记忆法：RAIN → “润”（谐音）雨润大地</div>
-    </div>
-    <div class="word-card">
-      <div class="en">happy</div>
-      <div class="cn">开心的</div>
-      <div class="example">"I am happy today."</div>
-      <div class="button-row"><button onclick="flip(this)">显示提示</button></div>
-      <div style="display:none;margin-top:.5rem;color:#7b1fa2;font-size:.85rem;font-weight:700;">💡 记忆法：HA-PP-Y → 哈哈，好开心！</div>
-    </div>
-  </div>
-
-  <h3 style="margin-top:1.5rem;color:var(--c1);">📋 Anki 卡片格式（可复制导入）</h3>
-  <p style="font-size:.9rem;color:#555;">以下内容为标准 Anki 文本格式（制表符分隔），可直接复制到 .txt 文件后通过 Anki “文件 > 导入” 添加。</p>
-  <div class="code-block">
-English	Chinese	Example Sentence	Memory Tip
-apple	苹果	I eat an apple every morning.	A-PP-LE → “苹果”
-school	学校	I go to school by bus.	S-CH-OO-L → “上学”
-friend	朋友	My friend is kind.	FR-I-END → 朋友到最后
-morning	早晨	Good morning, teacher!	MOR-NING → “早”上“宁”静
-rain	下雨	It is rain today.	RAIN → “润”雨润大地
-happy	开心的	I am happy today.	HA-PP-Y → 哈哈开心
-carrot	胡萝卜	Rabbit eats a carrot.	CAR-ROT → 车上萝卜
-sun	太阳	The sun is bright.	SUN → “三”字形太阳
-book	书	I read a book.	BOOK → “不”看书
-brush	刷（牙）	Brush your teeth.	BRUSH → “不拉手”刷牙
-  </div>
-  <p style="font-size:.85rem;color:#777;margin-top:.5rem;">💡 使用方法：在电脑上打开 Anki → 文件 → 导入 → 选择保存为 .txt 的文件 → 选择分隔符为“制表符” → 确认字段对应。</p>
-</section>
-
+<!-- 绘本互动流程（参考 Story Garden 五步：Read → Learn → Say → Spell → Review） -->
 <section class="card blue">
-  <span class="tag ket">KET 备考方向</span>
-  <h2>🎯 KET（剑桥少儿英语一级）备考方向</h2>
-  <p>广州小学三年级英语学习可逐步对接 KET 要求。以下为本页面内容与 KET 考点的对应关系：</p>
-  <table style="width:100%;border-collapse:collapse;font-size:.9rem;margin-top:.8rem;">
-    <thead style="background:var(--c1);color:#fff;"><tr><th style="padding:.5rem;text-align:left;border-radius:6px 0 0 6px;">KET 考点</th><th style="padding:.5rem;text-align:left;border-radius:0 6px 6px 0;">本页对应内容</th></tr></thead>
+  <span class="tag blue">互动学习流程</span>
+  <h2>📚 绘本互动学习 · 五步流程（参考 Story Garden）</h2>
+  <p style="font-size:.9rem;color:#555;margin-bottom:1rem;">参考原仓库的学习流程：<strong>Read（阅读）→ Learn words（学词）→ Say（说）→ Spell（拼写）→ Review（复习）</strong>。本页面提供简化互动体验。</p>
+  <div class="story-flow">
+    <div class="story-step">
+      <span class="step-num">1</span>
+      <h3>📖 Read — 阅读绘本故事（简易版）</h3>
+      <p>Little Rabbit wakes up at seven. He brushes his teeth and eats a carrot. At school, he learns words: <strong>apple, book, sun, rain</strong>. After school, he plays with his friend, Little Turtle. They say: “Have a nice day!”</p>
+      <div class="btn-row"><button onclick="this.textContent='✅ 已阅读';this.disabled=true;this.style.background='#43a047';">📖 点击确认已阅读</button></div>
+    </div>
+    <div class="story-step">
+      <span class="step-num">2</span>
+      <h3>📖 Learn Words — 学习核心词汇（结合绘本语境）</h3>
+      <p>从绘本中提取 5 个核心词汇：apple、school、friend、morning、rain。每个词都有例句和记忆提示。</p>
+      <div class="btn-row"><button onclick="this.textContent='✅ 已学习词汇';this.disabled=true;this.style.background='#43a047';scrollToWordArea();">📚 点击开始学习词汇</button></div>
+    </div>
+    <div class="story-step">
+      <span class="step-num">3</span>
+      <h3>🔊 Say / Listen — 听与说（发音练习）</h3>
+      <p>点击单词卡片的“🔊 发音”按钮，先听标准发音，然后尝试朗读。完成后点击按钮确认。</p>
+      <div class="btn-row"><button onclick="this.textContent='✅ 已练习发音';this.disabled=true;this.style.background='#43a047';">🔊 开始发音练习</button></div>
+    </div>
+    <div class="story-step">
+      <span class="step-num">4</span>
+      <h3>✍️ Spell — 拼写练习（字母组合记忆）</h3>
+      <p>观察每个单词的字母结构，尝试用手写出或默记拼写。注意特殊组合（如 apple 的 pp、school 的 ch）。</p>
+      <div class="btn-row"><button onclick="this.textContent='✅ 已练习拼写';this.disabled=true;this.style.background='#43a047';">✍️ 开始拼写练习</button></div>
+    </div>
+    <div class="story-step">
+      <span class="step-num">5</span>
+      <h3>🔄 Review — 复习打卡（每日复习）</h3>
+      <p>使用下方 KET 词汇打卡区域进行每日复习。点击“发音”按钮后显示翻译，完成全部后点击“提交”查看结果。</p>
+      <div class="btn-row"><button onclick="this.textContent='✅ 已完成流程';this.disabled=true;this.style.background='#43a047';document.getElementById('vocabArea').scrollIntoView({behavior:'smooth'});">🔄 跳转到打卡复习</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- KET 词汇打卡（分级，点击发音后显示翻译） -->
+<section class="card" id="vocabArea">
+  <span class="tag teal">KET 词汇打卡</span>
+  <h2>🎯 KET 词汇打卡（剑桥少儿英语一级）</h2>
+  <p style="font-size:.85rem;color:#555;margin-bottom:.5rem;">参考公开 KET 词汇表（剑桥官方参考、教育机构整理版本）整理约 60 个核心词汇，按小学三年级难度分为 3 级。<b>交互规则：点击“🔊 发音”按钮后，才显示中文翻译，同时播放音频提示（浏览器语音合成模拟标准发音）。</b></p>
+  
+  <div class="level-tabs" id="levelTabs">
+    <button class="level-tab active" onclick="setLevel(0,this)">第 1 级 · 基础日常</button>
+    <button class="level-tab" onclick="setLevel(1,this)">第 2 级 · 学校与活动</button>
+    <button class="level-tab" onclick="setLevel(2,this)">第 3 级 · 话题与表达</button>
+  </div>
+  
+  <div class="level-grid" id="levelGrid"></div>
+  
+  <div class="submit-zone">
+    <p style="font-size:.9rem;color:#777;margin-bottom:.6rem;">完成当前级别的全部发音+翻译练习后，点击下方按钮提交并查看结果</p>
+    <button class="submit-btn" onclick="submitVocab(this)">✅ 提交打卡结果 · 查看答案与学习建议</button>
+  </div>
+  
+  <div class="results" id="vocabResults"></div>
+</section>
+
+<!-- 语法参考（整合 ket-grammar 结构并注明来源） -->
+<section class="card amber">
+  <span class="tag amber">语法参考</span>
+  <h2>📚 KET 语法练习参考 · 整合 ket-grammar 结构</h2>
+  <p style="font-size:.85rem;color:#555;margin-bottom:.6rem;">参考仓库 <code>Panparadox/ket-grammar</code>（KET Grammar Practice）的练习结构与主题分类。本项目引用其内容方向（Present Simple、Comparative、Frequency Adverbs、Have Got 等），并注明来源。</p>
+  <div class="grammar-ref" id="grammarRef">
+    <h3>📖 语法参考内容（来源注明）</h3>
+    <div class="g-row">
+      <div class="g-box">
+        <div class="g-title">Unit 1 · Present Simple & 频率副词</div>
+        <p>参考 ket-grammar Unit 1。练习现在时态与频率副词（always, usually, sometimes, never）的搭配，适合小学高年级入门。</p>
+      </div>
+      <div class="g-box">
+        <div class="g-title">Unit 2 · Have Got / Has Got</div>
+        <p>参考 ket-grammar Unit 2。练习拥有关系表达（I have got / She has got），结合日常物品与身体描述。</p>
+      </div>
+      <div class="g-box">
+        <div class="g-title">Unit 3 · Comparative & Superlative</div>
+        <p>参考 ket-grammar Unit 3。比较级（-er / more...than）与最高级（-est / most...），结合动物、天气、物品比较。</p>
+      </div>
+      <div class="g-box">
+        <div class="g-title">Unit 4 · Adverbs & Action Words</div>
+        <p>参考 ket-grammar 扩展内容。动作副词与动作词的搭配练习，结合绘本中的动作描述。</p>
+      </div>
+    </div>
+    <p style="font-size:.8rem;color:#777;margin-top:.8rem;line-height:1.6;">💡 说明：本部分内容结构参考 <b>Panparadox/ket-grammar</b> 仓库（公开可访问的 KET 语法练习页面），包括练习类型（填空、拖拽、选择、进度条反馈）和主题分类。实际练习内容为本项目自创简化版，未直接复制原仓库完整练习代码，仅参考其交互设计思路。</p>
+  </div>
+</section>
+
+<!-- KET 备考方向说明 -->
+<section class="card blue">
+  <span class="tag blue">KET 备考方向</span>
+  <h2>🎯 KET 备考方向与内容对应</h2>
+  <table style="width:100%;border-collapse:collapse;font-size:.88rem;margin-top:.6rem;">
+    <thead style="background:var(--blue);color:#fff;"><tr><th style="padding:.5rem;text-align:left;">KET 考点</th><th style="padding:.5rem;text-align:left;">本页对应内容</th></tr></thead>
     <tbody>
-      <tr style="background:#fff;"><td style="padding:.5rem;border-bottom:1px solid #ddd;font-weight:700;">词汇量（~500 词）</td><td style="padding:.5rem;border-bottom:1px solid #ddd;">单词卡（apple, school, friend, morning, rain, happy, sun, book, carrot, brush）</td></tr>
-      <tr style="background:#f9f9f9;"><td style="padding:.5rem;border-bottom:1px solid #ddd;font-weight:700;">简单句型（be/do/can）</td><td style="padding:.5rem;border-bottom:1px solid #ddd;">绘本例句 “I eat... / I go... / I am...”</td></tr>
-      <tr style="background:#fff;"><td style="padding:.5rem;border-bottom:1px solid #ddd;font-weight:700;">日常话题（家庭/学校/动物）</td><td style="padding:.5rem;border-bottom:1px solid #ddd;">绘本主题“小兔子的一天”涵盖家庭、学校、动物、天气</td></tr>
-      <tr style="background:#f9f9f9;"><td style="padding:.5rem;font-weight:700;">听力与阅读理解基础</td><td style="padding:.5rem;">建议搭配绘本朗读音频练习（本页可扩展添加 MP3 链接）</td></tr>
+      <tr style="background:#fff;"><td style="padding:.5rem;border-bottom:1px solid #ddd;font-weight:700;">词汇量（约 500 词，分级）</td><td style="padding:.5rem;border-bottom:1px solid #ddd;">3 级词汇打卡（每级约 20 词），点击发音后显示翻译</td></tr>
+      <tr style="background:#f9f9f9;"><td style="padding:.5rem;border-bottom:1px solid #ddd;font-weight:700;">听力理解基础</td><td style="padding:.5rem;border-bottom:1px solid #ddd;">发音按钮（浏览器语音合成）+ 绘本朗读流程模拟</td></tr>
+      <tr style="background:#fff;"><td style="padding:.5rem;border-bottom:1px solid #ddd;font-weight:700;">简单句型（Present Simple / Have Got / Comparative）</td><td style="padding:.5rem;border-bottom:1px solid #ddd;">参考 ket-grammar 结构的语法参考卡片</td></tr>
+      <tr style="background:#f9f9f9;"><td style="padding:.5rem;font-weight:700;">日常话题（家庭/学校/动物/自然）</td><td style="padding:.5rem;">绘本参考书目（Story Garden 32 本）覆盖相关主题</td></tr>
+      <tr style="background:#fff;"><td style="padding:.5rem;font-weight:700;">互动式学习（Read / Learn / Say / Spell / Review）</td><td style="padding:.5rem;">五步流程卡片，参考 Story Garden 互动设计</td></tr>
     </tbody>
   </table>
-  <div class="note" style="margin-top:1rem;">
-    <strong>💡 家长建议：</strong>每周从本页选 5 个单词，结合绘本故事朗读 2-3 遍，使用 Anki 每天复习 5 分钟，三个月后词汇基础可明显提升，为 KET 做准备。
+  <div class="info-card" style="margin-top:1rem;">
+    <h3>💡 家长与学生使用建议</h3>
+    <p><strong>每日流程建议：</strong>先完成绘本互动流程（5 步）→ 选择当前 KET 词汇级别进行打卡（点击发音 → 确认翻译记忆）→ 参考语法卡片了解本周语法重点 → 最后提交打卡查看结果。</p>
+    <p><strong>发音功能说明：</strong>点击“🔊 发音”按钮使用浏览器内置语音合成（Web Speech API），模拟标准英语发音。实际练习中建议结合学校或教材提供的真实音频资源。</p>
+    <p><strong>内容来源透明度：</strong>绘本参考内容来源：<code>jnuyao/jnuyao.github.io</code>（Story Garden · 已复刻书目与数据文件至 <code>story-garden-ref/</code>）；语法参考结构来源：<code>Panparadox/ket-grammar</code>。所有参考内容已注明来源，实际互动内容为自创简化版本。</p>
   </div>
-</section>
-
-<section class="card" style="background:#fff8e1;border-left-color:#ffa000;">
-  <h2 style="color:#e65100;">📌 英语内容说明</h2>
-  <p><strong>绘本内容来源说明：</strong>本页面参考公开仓库 `jnuyao/jnuyao.github.io`（Story Garden · Primary English）的书目（32 本 P1-P3 绘本）和数据结构（`Book` / `StoryPage` / 任务模型）。内容为自创简易模拟版本，用于广州小学三年级学习参考，未直接使用原项目图片、音频或完整绘本内容。原仓库数据文件（`book-data.ts`、`word-data.ts`）已复刻至本项目 `story-garden-ref/` 目录，并注明来源。</p>
-  <p><strong>Anki 卡片：</strong>提供标准制表符分隔文本格式，方便直接导入 Anki 免费记忆软件，支持定期复习计划（间隔重复算法）。</p>
-  <p><strong>KET 方向：</strong>本页内容聚焦三年级基础词汇与简单句型，逐步过渡到 KET 考试所需的听说读写综合能力，为后续备考打基础。</p>
-  <p><strong>页面托管：</strong>本文件为纯静态 HTML，无需服务器，可直接上传到 GitHub 并开启 Pages，生成类似 <code>https://yourname.github.io/repo-name/</code> 的访问链接。</p>
 </section>
 
 <div class="footer">
-  广州小学三年级英语学习页 · 新加坡绘本风格模拟 · Anki 记忆卡 · KET 备考方向 · GitHub Pages 托管
+  广州小学三年级英语互动学习 · 参考：Story Garden (jnuyao) · 语法参考：ket-grammar (Panparadox) · GitHub Pages 托管
 </div>
 </div>
 
 <script>
-function flip(btn){
-  const card=btn.closest('.word-card');
-  const hint=card.querySelector('div[style*="display:none"]');
-  if(hint){
-    if(hint.style.display==='none'||!hint.style.display){
-      hint.style.display='block';
-      btn.textContent='隐藏提示';
-    }else{
-      hint.style.display='none';
-      btn.textContent='显示提示';
-    }
-  }
+// KET 词汇数据（分 3 级，每级约 20 词，基于公开 KET 词汇参考整理）
+const vocabData = {
+  0: [ // 第 1 级：基础日常
+    {en:"apple", cn:"苹果", ex:"I eat an apple every morning."},
+    {en:"book", cn:"书", ex:"I read a book at school."},
+    {en:"cat", cn:"猫", ex:"The cat is black and white."},
+    {en:"dog", cn:"狗", ex:"My dog likes to run."},
+    {en:"sun", cn:"太阳", ex:"The sun is bright today."},
+    {en:"rain", cn:"下雨", ex:"It is rain today."},
+    {en:"friend", cn:"朋友", ex:"My friend is kind."},
+    {en:"morning", cn:"早晨", ex:"Good morning, teacher!"},
+    {en:"school", cn:"学校", ex:"I go to school by bus."},
+    {en:"carrot", cn:"胡萝卜", ex:"Rabbit eats a carrot."},
+    {en:"brush", cn:"刷（牙）", ex:"Brush your teeth every day."},
+    {en:"happy", cn:"开心的", ex:"I am happy today."},
+    {en:"house", cn:"房子", ex:"My house is big."},
+    {en:"water", cn:"水", ex:"I drink water every day."},
+    {en:"fish", cn:"鱼", ex:"The fish swims in the water."},
+    {en:"bird", cn:"鸟", ex:"The bird can fly."},
+    {en:"flower", cn:"花", ex:"The flower is red."},
+    {en:"ball", cn:"球", ex:"I play with a ball."},
+    {en:"bed", cn:"床", ex:"I sleep in my bed."},
+    {en:"door", cn:"门", ex:"Open the door, please."}
+  ],
+  1: [ // 第 2 级：学校与活动
+    {en:"teacher", cn:"老师", ex:"The teacher is kind."},
+    {en:"pencil", cn:"铅笔", ex:"I write with a pencil."},
+    {en:"desk", cn:"书桌", ex:"My desk is clean."},
+    {en:"classroom", cn:"教室", ex:"We study in the classroom."},
+    {en:"playground", cn:"操场", ex:"We play on the playground."},
+    {en:"lunch", cn:"午餐", ex:"I eat lunch at school."},
+    {en:"bus", cn:"公共汽车", ex:"I go to school by bus."},
+    {en:"bike", cn:"自行车", ex:"My bike is blue."},
+    {en:"game", cn:"游戏", ex:"We play a game together."},
+    {en:"sing", cn:"唱歌", ex:"She can sing a song."},
+    {en:"dance", cn:"跳舞", ex:"They dance in the room."},
+    {en:"draw", cn:"画画", ex:"I draw a picture of my friend."},
+    {en:"read", cn:"阅读", ex:"Read the book carefully."},
+    {en:"write", cn:"写", ex:"Write your name on the paper."},
+    {en:"listen", cn:"听", ex:"Listen to the teacher, please."},
+    {en:"speak", cn:"说话", ex:"Speak clearly in English."},
+    {en:"run", cn:"跑", ex:"We run fast on the playground."},
+    {en:"jump", cn:"跳", ex:"The rabbit can jump high."},
+    {en:"swim", cn:"游泳", ex:"I swim in the pool."},
+    {en:"climb", cn:"爬", ex:"The cat climbs the tree."}
+  ],
+  2: [ // 第 3 级：话题与表达
+    {en:"family", cn:"家庭", ex:"My family is happy."},
+    {en:"mother", cn:"妈妈", ex:"Mother cooks for us."},
+    {en:"father", cn:"爸爸", ex:"Father works every day."},
+    {en:"brother", cn:"哥哥/弟弟", ex:"My brother likes football."},
+    {en:"sister", cn:"姐姐/妹妹", ex:"My sister reads books."},
+    {en:"weather", cn:"天气", ex:"The weather is sunny today."},
+    {en:"sunny", cn:"晴朗的", ex:"It is a sunny day."},
+    {en:"cloudy", cn:"多云的", ex:"The sky is cloudy."},
+    {en:"windy", cn:"有风的", ex:"It is windy outside."},
+    {en:"animal", cn:"动物", ex:"The animal is in the zoo."},
+    {en:"zoo", cn:"动物园", ex:"We go to the zoo on Sunday."},
+    {en:"market", cn:"市场", ex:"Mother buys fruit at the market."},
+    {en:"fruit", cn:"水果", ex:"I like to eat fruit."},
+    {en:"vegetable", cn:"蔬菜", ex:"Eat vegetables every day."},
+    {en:"breakfast", cn:"早餐", ex:"I eat breakfast at seven."},
+    {en:"dinner", cn:"晚餐", ex:"We have dinner together."},
+    {en:"weekend", cn:"周末", ex:"I play with my friends at the weekend."},
+    {en:"holiday", cn:"假期", ex:"We go on holiday in July."},
+    {en:"birthday", cn:"生日", ex:"Today is my birthday!"},
+    {en:"gift", cn:"礼物", ex:"I get a gift from my friend."}
+  ]
+};
+
+let currentLevel = 0;
+let clickedWords = new Set(); // 记录已点击发音的单词
+
+function setLevel(level, btn) {
+  currentLevel = level;
+  clickedWords.clear();
+  document.querySelectorAll('.level-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderVocab();
 }
+
+function renderVocab() {
+  const grid = document.getElementById('levelGrid');
+  const words = vocabData[currentLevel];
+  let html = '';
+  words.forEach(w => {
+    html += `<div class="word-bank-item" id="w-${w.en}">
+      <div style="display:flex;align-items:center;gap:.8rem;flex:1;min-width:0;">
+        <span class="w-en">${w.en}</span>
+        <span class="w-cn hidden" id="cn-${w.en}">${w.cn}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.5rem;flex-shrink:0;">
+        <span style="font-size:.7rem;color:#777;">例: ${w.ex}</span>
+        <button class="btn-play" onclick="playWord(this,'${w.en}','${w.cn}','${w.ex}')" title="点击发音并显示翻译">🔊</button>
+      </div>
+    </div>`;
+  });
+  grid.innerHTML = html;
+  document.getElementById('vocabResults').classList.remove('show');
+  document.getElementById('vocabResults').innerHTML = '';
+}
+
+function playWord(btn, en, cn, ex) {
+  // 显示翻译
+  document.getElementById('cn-'+en).classList.remove('hidden');
+  // 记录已点击
+  clickedWords.add(en);
+  btn.textContent = '✅';
+  btn.style.background = '#43a047';
+  btn.disabled = true;
+  btn.title = '已完成 · 翻译已显示';
+  
+  // 浏览器语音合成（模拟标准发音）
+  if('speechSynthesis' in window) {
+    const utter = new SpeechSynthesisUtterance(en);
+    utter.lang = 'en-GB';
+    utter.rate = 0.85;
+    utter.pitch = 1.0;
+    window.speechSynthesis.speak(utter);
+  }
+  
+  // 更新按钮状态提示
+  btn.style.cursor = 'default';
+}
+
+function submitVocab(btn) {
+  btn.disabled = true;
+  btn.textContent = '📋 正在评阅...';
+  
+  const words = vocabData[currentLevel];
+  const total = words.length;
+  const completed = clickedWords.size;
+  const percent = Math.round((completed / total) * 100);
+  
+  let html = `<h2>📊 第 ${currentLevel+1} 级 · 打卡结果</h2>`;
+  html += `<div style="margin-bottom:1rem;font-size:.95rem;color:#555;">完成度：<b style="color:${percent>=80?'#2e7d32':percent>=50?'#e65100':'#c62828'};">${completed}/${total} (${percent}%)</b></div>`;
+  
+  html += `<table class="res-table"><thead><tr><th>单词</th><th>翻译</th><th>状态</th><th>示例</th></tr></thead><tbody>`;
+  words.forEach(w => {
+    const done = clickedWords.has(w.en);
+    html += `<tr>
+      <td><b>${w.en}</b></td>
+      <td>${w.cn}</td>
+      <td class="${done ? 'ok' : 'no'}">${done ? '✅ 已完成' : '❌ 未完成'}</td>
+      <td style="font-size:.8rem;color:#777;">${w.ex}</td>
+    </tr>`;
+  });
+  html += `</tbody></table>`;
+  
+  html += `<div class="explain-block">
+    <b>学习建议：</b> 建议每日完成当前级别 80% 以上的词汇打卡（点击发音按钮后显示翻译并听标准发音）。未完成的词汇可在第二天继续练习。结合绘本互动流程（Read → Learn → Say → Spell → Review）进行综合练习，逐步过渡到 KET 考试所需的听说读写能力。
+  </div>`;
+  
+  const res = document.getElementById('vocabResults');
+  res.innerHTML = html;
+  res.classList.add('show');
+  btn.textContent = '✅ 已提交结果';
+  res.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function scrollToWordArea() {
+  document.getElementById('vocabArea').scrollIntoView({behavior:'smooth'});
+}
+
+// 初始化
+renderVocab();
 </script>
 </body>
 </html>
