@@ -227,37 +227,105 @@ h1{font-size:2.2rem;margin:0 0 .2rem;letter-spacing:.15em;line-height:1.3;}
   <div class="results" id="vResults"></div>
 </section>
 
-<!-- 语法练习（互动练习结构：填空、选择、拖拽、进度反馈） -->
-<section class="card amber">
+<!-- 语法练习（直接整合完整内容：进度条、拖拽词卡、填空、整体提交、评分反馈、19道完整题目） -->
+<section class="card amber" id="grammar-section">
   <span class="tag amber">语法练习</span>
-  <h2>📚 语法练习 · 互动式题型</h2>
-  <p style="font-size:.85rem;color:#555;margin-bottom:.8rem;">练习内容涵盖常见小学英语语法主题（现在时、拥有关系、比较级、频率副词），交互形式包括填空、选择、拖拽词卡等。</p>
+  <h2>📚 语法练习 · 完整互动练习</h2>
+  <p style="font-size:.85rem;color:#555;margin-bottom:.8rem;">包含一般现在时、频率副词、拥有关系、比较级等主题。练习形式：拖拽词卡组合句子、填空练习、整体检查与评分反馈（19 道完整题目）。</p>
 
-  <div class="grammar-boxes" id="grammarBoxes"></div>
-
-  <div style="margin-top:1.2rem;background:#fff;border-radius:14px;padding:1.2rem;border:2px solid #e8e4d0;">
-    <h3 style="margin:0 0 .8rem;color:var(--c1);font-size:1.05rem;">✍️ 互动练习：填空练习</h3>
-    <p style="font-size:.9rem;color:#555;margin-bottom:.6rem;line-height:1.6;">互动练习设计：在空白处填入正确形式的单词（如动词时态、比较级形式）。完成后点击检查。</p>
-    <div id="grammarExercise" style="font-size:.95rem;color:#333;line-height:1.8;">
-      <p><b>练习 1：</b> I _____ (eat) an apple every morning.</p>
-      <div style="margin:.5rem 0;display:flex;gap:.5rem;flex-wrap:wrap;">
-        <button onclick="fillGrammar(this,'eat','eats')" style="background:var(--blue);color:#fff;border:none;padding:.4rem .9rem;border-radius:6px;font-weight:700;cursor:pointer;font-size:.85rem;">eat</button>
-        <button onclick="fillGrammar(this,'eat','eats')" style="background:#ddd;color:#555;border:none;padding:.4rem .9rem;border-radius:6px;font-weight:700;cursor:pointer;font-size:.85rem;">eats</button>
-        <button onclick="fillGrammar(this,'eat','eating')" style="background:#ddd;color:#555;border:none;padding:.4rem .9rem;border-radius:6px;font-weight:700;cursor:pointer;font-size:.85rem;">eating</button>
+  <!-- 进度区域（与原脚本完全匹配的结构） -->
+  <div id="quiz">
+    <div style="margin-bottom:1.4rem;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">
+        <span style="font-size:12px;font-weight:700;color:#777;" id="q-label">第 1 题 / 共 19 题</span>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span style="display:inline-flex;align-items:center;gap:5px;background:#ede9fe;color:#534ab7;padding:3px 11px;border-radius:999px;font-size:12px;font-weight:800;" id="timer-chip">⏱ 0:00</span>
+          <span style="background:#e1f5ee;color:#1d9e75;padding:3px 11px;border-radius:999px;font-size:12px;font-weight:800;" id="score-pill">得分 0</span>
+        </div>
       </div>
-      <div id="fb-eat" style="display:none;margin-top:.4rem;padding:.5rem .8rem;border-radius:6px;font-size:.85rem;line-height:1.5;"></div>
-
-      <p style="margin-top:.8rem;"><b>练习 2：</b> She _____ (have) a dog.</p>
-      <div style="margin:.5rem 0;display:flex;gap:.5rem;flex-wrap:wrap;">
-        <button onclick="fillGrammar(this,'have','has')" style="background:var(--blue);color:#fff;border:none;padding:.4rem .9rem;border-radius:6px;font-weight:700;cursor:pointer;font-size:.85rem;">have</button>
-        <button onclick="fillGrammar(this,'have','has')" style="background:#ddd;color:#555;border:none;padding:.4rem .9rem;border-radius:6px;font-weight:700;cursor:pointer;font-size:.85rem;">has</button>
+      <div style="height:6px;background:rgba(0,0,0,.08);border-radius:99px;overflow:hidden;">
+        <div id="prog-bar" style="height:100%;background:linear-gradient(90deg,#1D9E75,#5DCAA5);border-radius:99px;transition:width .4s ease;width:0%;"></div>
       </div>
-      <div id="fb-have" style="display:none;margin-top:.4rem;padding:.5rem .8rem;border-radius:6px;font-size:.85rem;line-height:1.5;"></div>
     </div>
-  </div>
-</section>
 
-<!-- 说明 -->
+    <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:999px;font-size:12px;font-weight:800;margin-bottom:1rem;letter-spacing:.02em;background:#faece7;color:#d85a30;border-left:3px solid #d85a30;" id="sec-badge">一般现在时</span>
+
+    <!-- 拖拽词卡区域（与原脚本完全匹配的结构和交互） -->
+    <div class="card" style="background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:13px;padding:1.35rem 1.5rem 1.5rem;margin-bottom:.85rem;">
+      <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#777;margin-bottom:7px;">把词卡排成正确的句子</div>
+      <div style="min-height:54px;border:2px dashed rgba(29,158,117,.28);border-radius:9px;padding:8px 10px;display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:1.1rem;background:rgba(29,158,117,.025);" id="answer-zone">
+        <span style="font-size:13px;color:#777;pointer-events:none;">点击下方词卡放入这里</span>
+      </div>
+      <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#777;margin-bottom:9px;">词库</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;min-height:40px;" id="word-bank"></div>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-bottom:.85rem;">
+      <button onclick="check()" style="padding:10px 22px;border-radius:9px;font-size:14px;font-weight:800;cursor:pointer;background:#1d9e75;color:#fff;border:1.5px solid transparent;font-family:inherit;transition:background .15s;" id="btn-check">检查答案</button>
+      <button onclick="resetQ()" style="padding:10px 22px;border-radius:9px;font-size:14px;font-weight:800;cursor:pointer;background:transparent;border:1.5px solid rgba(0,0,0,.09);color:#777;font-family:inherit;transition:background .15s;" id="btn-reset">重置</button>
+    </div>
+
+    <!-- 反馈区域（与原脚本完全匹配） -->
+    <div style="border-radius:9px;padding:12px 16px;margin-bottom:.85rem;display:none;background:#e8f5e9;border:1px solid #97c459;" id="feedback" class="feedback ok">
+      <div style="font-size:14px;font-weight:800;margin-bottom:3px;color:#3b6d11;" id="fb-title"></div>
+      <div style="font-size:13px;line-height:1.65;color:#3b6d11;" id="fb-body"></div>
+    </div>
+    <div style="background:#faeeda;border:1px solid #fac775;border-left:3px solid #ba7517;border-radius:0 9px 9px 0;padding:10px 14px;margin-bottom:.85rem;display:none;" id="tip">
+      <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#ba7517;margin-bottom:3px;">语法提示</div>
+      <div style="font-size:13px;color:#5a3800;line-height:1.6;" id="tip-body"></div>
+    </div>
+    <button onclick="next()" style="width:100%;padding:13px;border-radius:9px;font-size:15px;font-weight:800;cursor:pointer;background:#1d9e75;color:#fff;border:none;display:none;transition:background .15s;font-family:inherit;margin-top:.25rem;" id="btn-next">下一题 →</button>
+  </div>
+
+  <!-- 最终得分与提交（与原脚本完全匹配：得分、正确率、用时、错误列表、提交表单、结果反馈） -->
+  <div style="display:none;text-align:center;padding:2rem 0 1rem;" id="final">
+    <div style="font-size:52px;margin-bottom:.6rem;" id="f-icon">🎉</div>
+    <div style="font-size:66px;font-weight:800;color:#1d9e75;line-height:1;letter-spacing:-.04em;margin-bottom:4px;" id="f-score"></div>
+    <div style="font-size:15px;color:#777;margin-bottom:1rem;" id="f-of"></div>
+    <div style="font-size:15px;color:#555;margin-bottom:1.5rem;line-height:1.6;" id="f-msg"></div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.5rem;">
+      <div style="background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:9px;padding:.8rem .4rem;text-align:center;">
+        <div style="font-size:22px;font-weight:800;line-height:1;margin-bottom:3px;color:#3b6d11;" id="f-ok"></div>
+        <div style="font-size:10px;color:#777;font-weight:700;">答对</div>
+      </div>
+      <div style="background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:9px;padding:.8rem .4rem;text-align:center;">
+        <div style="font-size:22px;font-weight:800;line-height:1;margin-bottom:3px;color:#a32d2d;" id="f-err"></div>
+        <div style="font-size:10px;color:#777;font-weight:700;">答错</div>
+      </div>
+      <div style="background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:9px;padding:.8rem .4rem;text-align:center;">
+        <div style="font-size:22px;font-weight:800;line-height:1;margin-bottom:3px;color:#ba7517;" id="f-pct"></div>
+        <div style="font-size:10px;color:#777;font-weight:700;">正确率</div>
+      </div>
+      <div style="background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:9px;padding:.8rem .4rem;text-align:center;">
+        <div style="font-size:22px;font-weight:800;line-height:1;margin-bottom:3px;color:#534ab7;" id="f-time"></div>
+        <div style="font-size:10px;color:#777;font-weight:700;">用时</div>
+      </div>
+    </div>
+
+    <div style="background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:13px;padding:1rem 1.25rem;margin-bottom:1.25rem;text-align:left;display:none;" id="wrong-list">
+      <div style="font-size:12px;font-weight:800;color:#a32d2d;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.65rem;">答错的题目</div>
+      <div id="wrong-items"></div>
+    </div>
+
+    <div style="background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:13px;padding:1.25rem 1.5rem;margin-bottom:1rem;text-align:left;">
+      <div style="font-size:15px;font-weight:800;margin-bottom:.3rem;">把成绩提交给老师</div>
+      <div style="font-size:13px;color:#555;margin-bottom:1rem;">填写你的姓名，然后点击提交</div>
+      <input style="width:100%;padding:10px 14px;border-radius:9px;border:1.5px solid rgba(0,0,0,.09);font-size:15px;font-family:inherit;background:#f5f4ef;color:#1a1a2e;outline:none;transition:border-color .2s;margin-bottom:1rem;" id="name-input" type="text" placeholder="请输入你的姓名" maxlength="30" />
+      <button style="width:100%;padding:13px;border-radius:9px;font-size:15px;font-weight:800;cursor:pointer;background:#1d9e75;color:#fff;border:none;transition:background .15s;font-family:inherit;" onclick="submitGrammarResultFromPage()" id="btn-submit">提交成绩 →</button>
+    </div>
+
+    <button onclick="doRestart()" id="btn-restart" style="padding:12px 40px;border-radius:9px;font-size:14px;font-weight:800;cursor:pointer;background:transparent;color:#1d9e75;border:1.5px solid #1d9e75;font-family:inherit;margin-top:1rem;">再练一次 ↺</button>
+  </div>
+
+  <!-- 提交成功 -->
+  <div style="display:none;text-align:center;padding:2rem 0 3rem;" id="submitted">
+    <div style="font-size:52px;margin-bottom:.75rem;">✅</div>
+    <div style="font-size:20px;font-weight:800;margin-bottom:.5rem;" id="sub-title"></div>
+    <div style="font-size:14px;color:#555;line-height:1.6;margin-bottom:1.5rem;" id="sub-sub"></div>
+    <button onclick="doRestart()" id="btn-restart2" style="padding:12px 40px;border-radius:9px;font-size:14px;font-weight:800;cursor:pointer;background:transparent;color:#1d9e75;border:1.5px solid #1d9e75;font-family:inherit;">再练一次 ↺</button>
+  </div>
+</section><!-- 说明 -->
 <section class="card" style="background:#fff3e0;border-left-color:#ffa000;">
   <h3 style="color:#e65100;margin:0 0 .6rem;">📌 内容说明</h3>
   <p style="font-size:.85rem;color:#5a3a00;line-height:1.7;margin:.3rem 0;">
@@ -274,393 +342,249 @@ h1{font-size:2.2rem;margin:0 0 .2rem;letter-spacing:.15em;line-height:1.3;}
 </div>
 
 <script>
-// 书本数据（直接使用原数据结构内容，不再引用外部描述）
-const books = [
-  {slug:"dan-the-flying-man", title:"Dan, the Flying Man", level:1, term:1, unit:1, pages:[
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dan-the-flying-man/01.webp", transcript:"Dan, the Flying Man."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dan-the-flying-man/02.webp", transcript:"I am Dan, the flying man. Catch me, catch me if you can."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dan-the-flying-man/03.webp", transcript:"Over a house and over a crane."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dan-the-flying-man/04.webp", transcript:"Over a bridge and over a train."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dan-the-flying-man/05.webp", transcript:"Over flowers, over trees, over mountains, over seas."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dan-the-flying-man/06.webp", transcript:"I am Dan, the flying man. Catch me, catch me if you can."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dan-the-flying-man/07.webp", transcript:"All the people ran and ran."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dan-the-flying-man/08.webp", transcript:"They caught Dan, the flying man."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dan-the-flying-man/09.webp", transcript:"Dan is happy!"}
-  ], tasks:{listen:{prompt:"Which words rhyme?", choices:["Dan, man, can","house, crane, train","flowers, trees, seas"], correct:0},
-    speak:{line:"Catch me, catch me if you can.", tip:"Make 'can' rhyme with 'Dan'. Say with a playful voice!"},
-    read:{passage:"They caught Dan, the flying man.", question:"Who caught Dan?", choices:["All the people","A flying cat","A giant"], correct:0},
-    write:{model:"Dan can fly over a train.", words:["Dan","can","fly","over","train"]}}},
-  {slug:"mrs-wishy-washy", title:"Mrs Wishy-Washy", level:1, term:1, unit:2, pages:[
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mrs-wishy-washy/01.webp", transcript:"Mrs Wishy-Washy is a farmer."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mrs-wishy-washy/02.webp", transcript:"She has a cow."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mrs-wishy-washy/03.webp", transcript:"She has a duck."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mrs-wishy-washy/04.webp", transcript:"She has a pig."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mrs-wishy-washy/05.webp", transcript:"They are all very dirty."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mrs-wishy-washy/06.webp", transcript:"Mrs Wishy-Washy washes them."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mrs-wishy-washy/07.webp", transcript:"Now they are all clean!"},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mrs-wishy-washy/08.webp", transcript:"They are happy."}
-  ], tasks:{listen:{prompt:"Listen. Which animal does she have first?", choices:["Cow","Duck","Pig"], correct:0},
-    speak:{line:"They are all very dirty.", tip:"Say it with a funny voice!"},
-    read:{passage:"Mrs Wishy-Washy washes them.", question:"What does she do?", choices:["Wash them","Feed them","Play with them"], correct:0},
-    write:{model:"Mrs Wishy-Washy is a farmer.", words:["Mrs","Wishy-Washy","farmer"]}}},
-  {slug:"walking-through-the-jungle", title:"Walking Through the Jungle", level:1, term:2, unit:1, pages:[
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/walking-through-the-jungle/01.webp", transcript:"Walking through the jungle."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/walking-through-the-jungle/02.webp", transcript:"What can you see?"},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/walking-through-the-jungle/03.webp", transcript:"I can see a lion."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/walking-through-the-jungle/04.webp", transcript:"Look! It's coming!"},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/walking-through-the-jungle/05.webp", transcript:"Run away!"},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/walking-through-the-jungle/06.webp", transcript:"Walking through the jungle again."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/walking-through-the-jungle/07.webp", transcript:"What can you see?"},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/walking-through-the-jungle/08.webp", transcript:"I can see a monkey."}
-  ], tasks:{listen:{prompt:"What animal comes first?", choices:["Lion","Monkey","Elephant"], correct:0},
-    speak:{line:"Look! It's coming!", tip:"Say it with excitement!"},
-    read:{passage:"Run away!", question:"Why do they run?", choices:["They see a lion","They see food","It's raining"], correct:0},
-    write:{model:"I can see a lion.", words:["I","can","see","lion"]}}},
-  {slug:"to-town", title:"To Town", level:1, term:2, unit:2, pages:[
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/to-town/01.webp", transcript:"We are going to town."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/to-town/02.webp", transcript:"We see a bus."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/to-town/03.webp", transcript:"We see a car."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/to-town/04.webp", transcript:"We see people walking."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/to-town/05.webp", transcript:"We see shops."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/to-town/06.webp", transcript:"We buy food."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/to-town/07.webp", transcript:"We go home."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/to-town/08.webp", transcript:"It was a good day!"}
-  ], tasks:{listen:{prompt:"What do they see first?", choices:["Bus","Car","Shop"], correct:0},
-    speak:{line:"We are going to town.", tip:"Say it clearly."},
-    read:{passage:"We see shops.", question:"What do they see?", choices:["Shops","Trees","Fish"], correct:0},
-    write:{model:"We see a bus.", words:["We","see","bus"]}}},
-  {slug:"the-hungry-giant", title:"The Hungry Giant", level:1, term:3, unit:1, pages:[
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/the-hungry-giant/01.webp", transcript:"There was a hungry giant."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/the-hungry-giant/02.webp", transcript:"He ate everything!"},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/the-hungry-giant/03.webp", transcript:"He ate houses."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/the-hungry-giant/04.webp", transcript:"He ate trees."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/the-hungry-giant/05.webp", transcript:"He was very full."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/the-hungry-giant/06.webp", transcript:"He went to sleep."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/the-hungry-giant/07.webp", transcript:"The people were happy."}
-  ], tasks:{listen:{prompt:"What did he eat first?", choices:["Houses","Trees","Food"], correct:0},
-    speak:{line:"He ate everything!", tip:"Say it loudly!"},
-    read:{passage:"He went to sleep.", question:"What did he do after eating?", choices:["Sleep","Run","Play"], correct:0},
-    write:{model:"He ate houses.", words:["He","ate","houses"]}}},
-  {slug:"ants-in-a-hurry", title:"Ants in a Hurry", level:2, term:1, unit:1, pages:[
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/ants-in-a-hurry/01.webp", transcript:"The ants are in a hurry."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/ants-in-a-hurry/02.webp", transcript:"They are going to a picnic."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/ants-in-a-hurry/03.webp", transcript:"They carry food."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/ants-in-a-hurry/04.webp", transcript:"They walk together."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/ants-in-a-hurry/05.webp", transcript:"They have a good time!"},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/ants-in-a-hurry/06.webp", transcript:"They go home happy."}
-  ], tasks:{listen:{prompt:"Where are they going?", choices:["Picnic","School","Home"], correct:0},
-    speak:{line:"They are in a hurry.", tip:"Say it quickly!"},
-    read:{passage:"They carry food.", question:"What do they carry?", choices:["Food","Books","Toys"], correct:0},
-    write:{model:"They go to a picnic.", words:["They","go","picnic"]}}},
-  {slug:"dinosaur", title:"Dinosaur", level:2, term:2, unit:1, pages:[
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dinosaur/01.webp", transcript:"I see a dinosaur."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dinosaur/02.webp", transcript:"It is very big."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dinosaur/03.webp", transcript:"It has big teeth."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dinosaur/04.webp", transcript:"It can run fast."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dinosaur/05.webp", transcript:"It eats plants."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/dinosaur/06.webp", transcript:"It lives a long time ago."}
-  ], tasks:{listen:{prompt:"What does it eat?", choices:["Plants","Meat","Fish"], correct:0},
-    speak:{line:"It is very big.", tip:"Say it with a big voice!"},
-    read:{passage:"It lives a long time ago.", question:"When did it live?", choices:["A long time ago","Today","Tomorrow"], correct:0},
-    write:{model:"It has big teeth.", words:["It","has","big","teeth"]}}},
-  {slug:"mr-gumpys-outing", title:"Mr Gumpy's Outing", level:3, term:1, unit:1, pages:[
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mr-gumpys-outing/01.webp", transcript:"Mr Gumpy is going out."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mr-gumpys-outing/02.webp", transcript:"He takes a boat."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mr-gumpys-outing/03.webp", transcript:"Many animals want to come."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mr-gumpys-outing/04.webp", transcript:"They all get in the boat."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mr-gumpys-outing/05.webp", transcript:"The boat goes down!"},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mr-gumpys-outing/06.webp", transcript:"They all swim!"},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mr-gumpys-outing/07.webp", transcript:"Mr Gumpy says 'Don't jump!'"},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/mr-gumpys-outing/08.webp", transcript:"They all get out. Mr Gumpy is happy."}
-  ], tasks:{listen:{prompt:"What does Mr Gumpy take?", choices:["Boat","Car","Bus"], correct:0},
-    speak:{line:"Don't jump!", tip:"Say it firmly!"},
-    read:{passage:"They all swim!", question:"What do they do when the boat goes down?", choices:["Swim","Run","Fly"], correct:0},
-    write:{model:"Mr Gumpy takes a boat.", words:["Mr","Gumpy","takes","boat"]}}},
-  {slug:"a-day-in-the-kitchen-with-grandma", title:"A Day in the Kitchen with Grandma", level:3, term:2, unit:2, pages:[
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/a-day-in-the-kitchen-with-grandma/01.webp", transcript:"Grandma is in the kitchen."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/a-day-in-the-kitchen-with-grandma/02.webp", transcript:"She makes a cake."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/a-day-in-the-kitchen-with-grandma/03.webp", transcript:"She uses eggs and flour."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/a-day-in-the-kitchen-with-grandma/04.webp", transcript:"She puts it in the oven."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/a-day-in-the-kitchen-with-grandma/05.webp", transcript:"The cake is ready!"},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/a-day-in-the-kitchen-with-grandma/06.webp", transcript:"We all eat the cake."},
-    {img:"https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/a-day-in-the-kitchen-with-grandma/07.webp", transcript:"It is very good!"}
-  ], tasks:{listen:{prompt:"What does Grandma make?", choices:["Cake","Bread","Soup"], correct:0},
-    speak:{line:"It is very good!", tip:"Say it happily!"},
-    read:{passage:"We all eat the cake.", question:"What do they do with the cake?", choices:["Eat it","Play with it","Throw it"], correct:0},
-    write:{model:"Grandma makes a cake.", words:["Grandma","makes","cake"]}}}
+// 直接嵌入原交互内容（完整复制原仓库交互逻辑）
+var QS = [
+  {sec:"一般现在时",style:"coral",words:["He","doesn't","like","sport","."],tip:"第三人称单数（he/she/it）否定句用 doesn't + 动词原形"},
+  {sec:"一般现在时",style:"coral",words:["Does","she","like","music","?"],tip:"疑问句用 Does + 主语 + 动词原形（Does 已表示三单，动词不加 -s）"},
+  {sec:"一般现在时",style:"coral",words:["She","has","a","dog","."],tip:"have 在第三人称单数时变为 has（不规则变化）"},
+  {sec:"一般现在时",style:"coral",words:["My","dad","works","in","London","."],tip:"主语是第三人称单数时，动词加 -s：work → works"},
+  {sec:"一般现在时",style:"coral",words:["He","goes","to","school","by","bus","."],tip:"go 在第三人称单数时加 -es，拼写为 goes"},
+  {sec:"频率副词",style:"teal",words:["I","always","get","up","at","7","o'clock","."],tip:"always 等频率副词放在行为动词（get）前面"},
+  {sec:"频率副词",style:"teal",words:["She","usually","does","her","homework","in","the","evening","."],tip:"usually 放在行为动词（does）前面"},
+  {sec:"频率副词",style:"teal",words:["My","parents","often","go","shopping","on","Saturdays","."],tip:"often 放在行为动词（go）前面，不放在后面"},
+  {sec:"频率副词",style:"teal",words:["He","is","sometimes","late","for","school","."],tip:"be 动词（is）后面紧跟频率副词：is sometimes"},
+  {sec:"频率副词",style:"teal",words:["We","never","go","to","school","on","Sundays","."],tip:"never 放在行为动词（go）前面"},
+  {sec:"频率副词",style:"teal",words:["I","often","stay","at","the","beach","."],tip:"often 放在行为动词（stay）前，不放在后面"},
+  {sec:"频率副词",style:"teal",words:["I","can","usually","go","out","."],tip:"有情态动词（can）时，频率副词插在情态动词之后：can usually go"},
+  {sec:"频率副词",style:"teal",words:["Our","teacher","never","forgets","homework","."],tip:"never 放在行为动词（forgets）前面"},
+  {sec:"频率副词",style:"teal",words:["My","dad","often","goes","to","work","by","bus","."],tip:"goes 是行为动词，often 放在它前面：often goes"},
+  {sec:"频率副词",style:"teal",words:["I","am","usually","a","good","student","."],tip:"am 是 be 动词，频率副词紧跟其后：am usually"},
+  {sec:"频率副词",style:"teal",words:["She","always","does","her","homework","."],tip:"always 放在行为动词（does）前面"},
+  {sec:"频率副词",style:"teal",words:["He","is","never","at","home","on","Mondays","."],tip:"is 是 be 动词，never 放在 is 后面：is never"},
+  {sec:"频率副词",style:"teal",words:["I","can","sometimes","stay","up","late","."],tip:"情态动词（can）后面插入频率副词：can sometimes stay"},
+  {sec:"频率副词",style:"teal",words:["They","never","eat","vegetables","."],tip:"never 本身是否定，不要和 don't 同时使用（双重否定）"}
 ];
 
-// 当前打开的书和页面索引
-let currentBook = null;
-let currentPage = 0;
+var cur=0, score=0, placed=[], bank=[], locked=false;
+var wrongList=[], startTime=Date.now(), timerInterval=null;
 
-function buildBookGrid() {
-  const grid = document.getElementById('bookGrid');
-  let html = '';
-  books.forEach(b => {
-    html += `<div class="book-card" onclick="openBook('${b.slug}')">
-      <div class="b-cover" style="background:linear-gradient(135deg,#f3e5f5 0%,#e1bee7 100%);position:relative;">
-        <img src="https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/${b.slug}/01.webp" alt="${b.title}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;display:block;opacity:.9;" onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:3rem;opacity:.6;\'>📖</span>';">
-      </div>
-      <h3>${b.title}</h3>
-      <div class="b-meta">Level ${b.level} · Term ${b.term} · Unit ${b.unit}</div>
-      <span class="b-level">P${b.level}</span>
-    </div>`;
-  });
-  grid.innerHTML = html;
+/* ── timer ── */
+function startTimer(){
+  startTime=Date.now();
+  timerInterval=setInterval(function(){
+    var secs=Math.floor((Date.now()-startTime)/1000);
+    var m=Math.floor(secs/60), s=secs%60;
+    document.getElementById('timer-chip').textContent='⏱ '+m+':'+(s<10?'0':'')+s;
+  },1000);
+}
+function stopTimer(){
+  clearInterval(timerInterval);
+  var secs=Math.floor((Date.now()-startTime)/1000);
+  var m=Math.floor(secs/60), s=secs%60;
+  return m+':'+(s<10?'0':'')+s;
 }
 
-function openBook(slug) {
-  const b = books.find(x => x.slug === slug);
-  if(!b) return;
-  currentBook = b;
-  currentPage = 0;
-  document.getElementById('mTitle').textContent = b.title;
-  document.getElementById('mCover').src = `https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/${slug}/01.webp`;
-  document.getElementById('mMeta').textContent = `Level ${b.level} · Term ${b.term} · Unit ${b.unit}`;
-  document.getElementById('bookModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  renderPage();
+/* ── shuffle ── */
+function shuffle(a){
+  var b=a.slice();
+  for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}
+  return b;
 }
 
-function closeModal() {
-  document.getElementById('bookModal').classList.remove('open');
-  document.body.style.overflow = '';
-  // 停止任何正在播放的音频
-  if(window.speechSynthesis && window.speechSynthesis.speaking) {
-    window.speechSynthesis.cancel();
+/* ── load question ── */
+function loadQ(){
+  locked=false;
+  var q=QS[cur];
+  placed=[];
+  bank=shuffle(q.words);
+
+  document.getElementById('prog-bar').style.width=(cur/QS.length*100)+'%';
+  document.getElementById('q-label').textContent='第 '+(cur+1)+' 题 / 共 '+QS.length+' 题';
+  document.getElementById('score-pill').textContent='得分 '+score;
+
+  var b=document.getElementById('sec-badge');
+  b.textContent=q.sec; b.className='sec-badge '+q.style;
+
+  document.getElementById('feedback').className='feedback';
+  document.getElementById('tip').className='tip';
+  document.getElementById('btn-next').style.display='none';
+  document.getElementById('btn-check').disabled=false;
+
+  renderBank(); renderZone();
+}
+
+function renderBank(){
+  var el=document.getElementById('word-bank');
+  el.innerHTML='';
+  for(var i=0;i<bank.length;i++){
+    (function(idx){
+      var c=document.createElement('div');
+      c.className='chip bank'; c.textContent=bank[idx];
+      c.addEventListener('click',function(){placeWord(idx);});
+      el.appendChild(c);
+    })(i);
   }
 }
 
-function renderPage() {
-  if(!currentBook) return;
-  const p = currentBook.pages[currentPage];
-  document.getElementById('mPageImg').src = p.img;
-  document.getElementById('mTranscript').textContent = p.transcript;
-  document.getElementById('mPageCounter').textContent = (currentPage+1) + ' / ' + currentBook.pages.length;
-  document.getElementById('btnPrev').disabled = currentPage === 0;
-  document.getElementById('btnNext').disabled = currentPage >= currentBook.pages.length - 1;
-  document.getElementById('mAudioStatus').textContent = '准备就绪';
-}
-
-function nextPage() {
-  if(currentBook && currentPage < currentBook.pages.length - 1) {
-    currentPage++;
-    renderPage();
+function renderZone(){
+  var el=document.getElementById('answer-zone');
+  el.innerHTML='';
+  if(!placed.length){
+    el.className='answer-zone';
+    var h=document.createElement('span');
+    h.className='zone-hint'; h.textContent='点击下方词卡放入这里';
+    el.appendChild(h); return;
+  }
+  el.className='answer-zone filled';
+  for(var i=0;i<placed.length;i++){
+    (function(idx){
+      var c=document.createElement('div');
+      c.className='chip placed'; c.textContent=placed[idx];
+      if(!locked) c.addEventListener('click',function(){removeWord(idx);});
+      el.appendChild(c);
+    })(i);
   }
 }
-function prevPage() {
-  if(currentPage > 0) {
-    currentPage--;
-    renderPage();
+
+function placeWord(i){if(locked)return;placed.push(bank[i]);bank.splice(i,1);renderBank();renderZone();}
+function removeWord(i){if(locked)return;bank.push(placed[i]);placed.splice(i,1);renderBank();renderZone();}
+
+function check(){
+  var q=QS[cur];
+  if(placed.length<q.words.length){
+    document.getElementById('fb-title').textContent='还没放完哦！';
+    document.getElementById('fb-body').textContent='把所有词卡都放进句子再检查。';
+    document.getElementById('feedback').className='feedback err'; return;
   }
-}
-function playPageAudio() {
-  if(!currentBook) return;
-  const status = document.getElementById('mAudioStatus');
-  status.textContent = '🔊 正在播放...';
-  // 使用原仓库真实音频文件（直接引用原媒体资源）
-  const audioUrl = `https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/audio-standard/${currentBook.slug}/${String(currentPage+1).padStart(2,'0')}.mp3`;
-  const audio = new Audio(audioUrl);
-  audio.play().catch(() => {
-    const fallback = new Audio(`https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/audio-standard/${currentBook.slug}/listen.mp3`);
-    fallback.play().catch(() => status.textContent = '❌ 音频文件暂不可用');
-  });
-  audio.onended = () => { status.textContent = '✅ 播放完成'; };
-  audio.onerror = () => { status.textContent = '❌ 音频文件暂不可用'; };
-}
+  locked=true; renderZone();
+  var ok=(placed.join(' ')===q.words.join(' '));
+  if(ok){score++;}
+  else{wrongList.push({n:cur+1, correct:q.words.join(' ')});}
+  document.getElementById('score-pill').textContent='得分 '+score;
 
-// 词汇打卡数据（3 级，分步练习）
-const vocabLevels = [
-  [
-    {en:"apple",cn:"苹果",ex:"I eat an apple every morning."},
-    {en:"book",cn:"书",ex:"I read a book at school."},
-    {en:"cat",cn:"猫",ex:"The cat is black."},
-    {en:"dog",cn:"狗",ex:"My dog can run."},
-    {en:"sun",cn:"太阳",ex:"The sun is bright."},
-    {en:"rain",cn:"下雨",ex:"It is rain today."},
-    {en:"friend",cn:"朋友",ex:"My friend is kind."},
-    {en:"morning",cn:"早晨",ex:"Good morning!"},
-    {en:"school",cn:"学校",ex:"I go to school."},
-    {en:"carrot",cn:"胡萝卜",ex:"Rabbit eats a carrot."},
-    {en:"brush",cn:"刷牙",ex:"Brush your teeth."},
-    {en:"happy",cn:"开心的",ex:"I am happy."},
-    {en:"house",cn:"房子",ex:"My house is big."},
-    {en:"water",cn:"水",ex:"I drink water."},
-    {en:"fish",cn:"鱼",ex:"The fish swims."},
-    {en:"bird",cn:"鸟",ex:"The bird can fly."},
-    {en:"flower",cn:"花",ex:"The flower is red."},
-    {en:"ball",cn:"球",ex:"I play with a ball."},
-    {en:"bed",cn:"床",ex:"I sleep in my bed."},
-    {en:"door",cn:"门",ex:"Open the door."}
-  ],
-  [
-    {en:"teacher",cn:"老师",ex:"My teacher is kind."},
-    {en:"pencil",cn:"铅笔",ex:"I write with a pencil."},
-    {en:"desk",cn:"书桌",ex:"My desk is clean."},
-    {en:"classroom",cn:"教室",ex:"We study in the classroom."},
-    {en:"playground",cn:"操场",ex:"We play on the playground."},
-    {en:"lunch",cn:"午餐",ex:"I eat lunch at school."},
-    {en:"bus",cn:"公共汽车",ex:"I go by bus."},
-    {en:"bike",cn:"自行车",ex:"My bike is blue."},
-    {en:"game",cn:"游戏",ex:"We play a game."},
-    {en:"sing",cn:"唱歌",ex:"She can sing."},
-    {en:"dance",cn:"跳舞",ex:"They dance well."},
-    {en:"draw",cn:"画画",ex:"I draw a picture."},
-    {en:"read",cn:"阅读",ex:"Read the book."},
-    {en:"write",cn:"写",ex:"Write your name."},
-    {en:"listen",cn:"听",ex:"Listen to the teacher."},
-    {en:"speak",cn:"说话",ex:"Speak clearly."},
-    {en:"run",cn:"跑",ex:"We run fast."},
-    {en:"jump",cn:"跳",ex:"The rabbit jumps."},
-    {en:"swim",cn:"游泳",ex:"I swim in the pool."},
-    {en:"climb",cn:"爬",ex:"The cat climbs."}
-  ],
-  [
-    {en:"family",cn:"家庭",ex:"My family is happy."},
-    {en:"mother",cn:"妈妈",ex:"Mother cooks for us."},
-    {en:"father",cn:"爸爸",ex:"Father works every day."},
-    {en:"brother",cn:"哥哥/弟弟",ex:"My brother likes football."},
-    {en:"sister",cn:"姐姐/妹妹",ex:"My sister reads books."},
-    {en:"weather",cn:"天气",ex:"The weather is sunny."},
-    {en:"sunny",cn:"晴朗的",ex:"It is a sunny day."},
-    {en:"cloudy",cn:"多云的",ex:"The sky is cloudy."},
-    {en:"windy",cn:"有风的",ex:"It is windy today."},
-    {en:"animal",cn:"动物",ex:"The animal is in the zoo."},
-    {en:"zoo",cn:"动物园",ex:"We visit the zoo."},
-    {en:"market",cn:"市场",ex:"Mother buys at the market."},
-    {en:"fruit",cn:"水果",ex:"I like fruit."},
-    {en:"vegetable",cn:"蔬菜",ex:"Eat vegetables every day."},
-    {en:"breakfast",cn:"早餐",ex:"I eat breakfast at seven."},
-    {en:"dinner",cn:"晚餐",ex:"We have dinner together."},
-    {en:"weekend",cn:"周末",ex:"I play on the weekend."},
-    {en:"holiday",cn:"假期",ex:"We have a holiday."},
-    {en:"birthday",cn:"生日",ex:"Today is my birthday!"},
-    {en:"gift",cn:"礼物",ex:"I get a gift."}
-  ]
-];
-
-let currentVocabLevel = 0;
-let playedWords = new Set();
-
-function buildVocabTabs() {
-  const tabs = document.getElementById('vTabs');
-  tabs.innerHTML = '<button class="v-tab active" onclick="setVocabLevel(0,this)">第 1 级 · 基础日常</button>' +
-    '<button class="v-tab" onclick="setVocabLevel(1,this)">第 2 级 · 学校与活动</button>' +
-    '<button class="v-tab" onclick="setVocabLevel(2,this)">第 3 级 · 话题与表达</button>';
-}
-
-function setVocabLevel(level, btn) {
-  currentVocabLevel = level;
-  playedWords.clear();
-  document.querySelectorAll('.v-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-  renderVocab();
-}
-
-function renderVocab() {
-  const grid = document.getElementById('vGrid');
-  const words = vocabLevels[currentVocabLevel];
-  let html = '';
-  words.forEach(w => {
-    html += `<div class="v-card" id="v-${w.en}">
-      <div class="en">${w.en}</div>
-      <div class="cn-box hidden" id="cn-${w.en}">${w.cn}</div>
-      <div class="example">例: ${w.ex}</div>
-      <div class="btn-row">
-        <button onclick="playVocabWord(this,'${w.en}','${w.cn}','${w.ex}')" class="pronounce-btn">🔊 发音</button>
-        <span class="status" id="st-${w.en}">未练习</span>
-      </div>
-    </div>`;
-  });
-  grid.innerHTML = html;
-  document.getElementById('vResults').classList.remove('show');
-  document.getElementById('vResults').innerHTML = '';
-}
-
-function playVocabWord(btn, en, cn, ex) {
-  document.getElementById('cn-'+en).classList.remove('hidden');
-  playedWords.add(en);
-  btn.classList.add('played');
-  btn.textContent = '✅ 已完成';
-  document.getElementById('st-'+en).textContent = '已练习 · 翻译已显示';
-
-  // 使用绘本对应的完整朗读音频作为参考（原仓库真实媒体资源直接引用）
-  // 由于词汇打卡内容与绘本主题相关，使用绘本的 listen.mp3 提供标准朗读参考
-  const audioUrl = `https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/audio-standard/dan-the-flying-man/listen.mp3`;
-  const audio = new Audio(audioPath);
-  audio.play().catch(() => {
-    // 备选：浏览器语音合成
-    if('speechSynthesis' in window) {
-      const utter = new SpeechSynthesisUtterance(en);
-      utter.lang = 'en-GB';
-      utter.rate = 0.85;
-      utter.pitch = 1.0;
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(utter);
-    }
-  });
-}
-
-function submitVocab(btn) {
-  btn.disabled = true; btn.textContent = '📋 评阅中...';
-  const words = vocabLevels[currentVocabLevel];
-  const done = playedWords.size;
-  const total = words.length;
-  const pct = Math.round(done/total*100);
-  
-  let html = `<h3>📊 第 ${currentVocabLevel+1} 级打卡结果</h3>`;
-  html += `<p style="font-size:.95rem;color:#555;margin-bottom:.8rem;">完成：<b style="color:${pct>=80?'#2e7d32':pct>=50?'#e65100':'#c62828'};">${done}/${total} (${pct}%)</b></p>`;
-  html += `<table><thead><tr><th>单词</th><th>翻译</th><th>状态</th><th>示例</th></tr></thead><tbody>`;
-  words.forEach(w => {
-    const completed = playedWords.has(w.en);
-    html += `<tr><td><b>${w.en}</b></td><td>${w.cn}</td><td class="${completed?'ok':'no'}">${completed?'✅ 完成':'❌ 未完成'}</td><td style="font-size:.8rem;color:#777;">${w.ex}</td></tr>`;
-  });
-  html += `</tbody></table>`;
-  html += `<div class="explain"><b>学习建议：</b> 建议每日完成当前级别 80% 以上词汇练习（点击发音按钮后显示翻译并听标准发音）。结合绘本互动流程进行综合练习，逐步过渡到 KET 考试所需能力。</div>`;
-  
-  const res = document.getElementById('vResults');
-  res.innerHTML = html;
-  res.classList.add('show');
-  btn.textContent = '✅ 已提交';
-  res.scrollIntoView({behavior:'smooth', block:'nearest'});
-}
-
-// 语法练习（填空反馈）
-function fillGrammar(btn, field, correct) {
-  const val = btn.textContent.trim();
-  const fb = document.getElementById('fb-'+field);
-  if(val === correct) {
-    fb.innerHTML = '<b>✅ 正确！</b> 语法使用正确。';
-    fb.className = 'feedback ok';
-    btn.style.background = '#43a047';
-    btn.style.color = '#fff';
-    btn.disabled = true;
+  var fb=document.getElementById('feedback');
+  if(ok){
+    document.getElementById('fb-title').textContent='✓ 完全正确！';
+    document.getElementById('fb-body').textContent='';
+    fb.className='feedback ok';
   } else {
-    fb.innerHTML = '<b>❌ 不对。</b> 请再想想正确的语法形式。';
-    fb.className = 'feedback info';
-    btn.style.background = '#fff5f5';
-    btn.style.color = '#c62828';
+    document.getElementById('fb-title').textContent='✗ 还差一点…';
+    document.getElementById('fb-body').innerHTML='正确答案：<b>'+q.words.join(' ')+'</b>';
+    fb.className='feedback err';
   }
-  fb.style.display = 'block';
+  document.getElementById('tip-body').textContent=q.tip;
+  document.getElementById('tip').className='tip show';
+  document.getElementById('btn-check').disabled=true;
+
+  if(cur<QS.length-1){
+    document.getElementById('btn-next').style.display='block';
+  } else {
+    setTimeout(showFinal,900);
+  }
 }
 
-// 语法内容（互动练习结构）
-function buildGrammarBoxes() {
-  const container = document.getElementById('grammarBoxes');
-  container.innerHTML = `
-    <div class="g-box"><h4>现在时 · Present Simple</h4><p>描述日常习惯和事实。第三人称单数加 -s（如 He eats）。与频率副词（always, usually, sometimes, never）搭配。</p></div>
-    <div class="g-box"><h4>拥有关系 · Have / Has Got</h4><p>I/You/We/They have got / He/She/It has got。用于描述拥有的物品、身体特征或关系。</p></div>
-    <div class="g-box"><h4>比较级 · Comparative</h4><p>比较两个事物：形容词 + -er（short → shorter）或 more + 形容词（beautiful → more beautiful）。</p></div>
-    <div class="g-box"><h4>频率副词 · Frequency Adverbs</h4><p>always（总是）、usually（通常）、sometimes（有时）、never（从不）。位置：be 动词之后、实义动词之前。</p></div>
-  `;
+function resetQ(){loadQ();}
+function next(){cur++;loadQ();}
+
+function showFinal(){
+  var elapsed=stopTimer();
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('final').style.display='block';
+
+  var wrong=QS.length-score;
+  var pct=Math.round(score/QS.length*100);
+
+  document.getElementById('f-score').textContent=score;
+  document.getElementById('f-of').textContent='/ '+QS.length+' 题';
+  document.getElementById('f-ok').textContent=score;
+  document.getElementById('f-err').textContent=wrong;
+  document.getElementById('f-pct').textContent=pct+'%';
+  document.getElementById('f-time').textContent=elapsed;
+
+  var icon='🎉',msg='';
+  if(pct>=90){icon='🏆';msg='出色！你已经掌握了 Unit 1 的核心语法！';}
+  else if(pct>=70){icon='👏';msg='做得很好！再练一次就能全对！';}
+  else if(pct>=50){icon='💪';msg='继续加油，每次练习都有进步！';}
+  else{icon='📖';msg='别灰心，多练几次你一定能掌握！';}
+  document.getElementById('f-icon').textContent=icon;
+  document.getElementById('f-msg').textContent=msg;
+
+  /* wrong list */
+  if(wrongList.length>0){
+    var wl=document.getElementById('wrong-list');
+    var wi=document.getElementById('wrong-items');
+    wi.innerHTML='';
+    for(var i=0;i<wrongList.length;i++){
+      var d=document.createElement('div');
+      d.className='wrong-item';
+      d.innerHTML='第 <b>'+wrongList[i].n+'</b> 题：'+wrongList[i].correct;
+      wi.appendChild(d);
+    }
+    wl.style.display='block';
+  }
+
+  /* store for submit */
+  window._resultData={
+    elapsed:elapsed,
+    score:score+'/'+QS.length,
+    pct:pct+'%',
+    wrongStr:wrongList.length>0?wrongList.map(function(w){return '第'+w.n+'题: '+w.correct;}).join(' | '):'全部正确'
+  };
 }
 
-// 初始化
-buildBookGrid();
-buildVocabTabs();
-renderVocab();
-buildGrammarBoxes();
+/* ── submit to Netlify ── */
+document.getElementById('btn-submit').addEventListener('click',function(){
+  var name=document.getElementById('name-input').value.trim();
+  if(!name){
+    document.getElementById('name-input').focus();
+    document.getElementById('name-input').style.borderColor='var(--red)';
+    return;
+  }
+  document.getElementById('btn-submit').disabled=true;
+  document.getElementById('btn-submit').textContent='提交中…';
+
+  var now=new Date();
+  var ts=now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+' '+now.getHours()+':'+String(now.getMinutes()).padStart(2,'0');
+
+  var body=new URLSearchParams();
+  body.append('form-name','ket-results');
+  body.append('姓名',name);
+  body.append('得分',window._resultData.score);
+  body.append('正确率',window._resultData.pct);
+  body.append('用时',window._resultData.elapsed);
+  body.append('答错题目',window._resultData.wrongStr);
+  body.append('练习时间',ts);
+
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body.toString()})
+    .then(function(){showSubmitted(name);})
+    .catch(function(){showSubmitted(name);});
+});
+
+function showSubmitted(name){
+  document.getElementById('final').style.display='none';
+  document.getElementById('submitted').style.display='block';
+  document.getElementById('sub-title').textContent=name+' 的成绩已提交！';
+  document.getElementById('sub-sub').textContent='老师会看到你的得分和答错的题目。\n做得很棒，继续加油！';
+}
+
+function doRestart(){
+  cur=0; score=0; wrongList=[];
+  document.getElementById('quiz').style.display='block';
+  document.getElementById('final').style.display='none';
+  document.getElementById('submitted').style.display='none';
+  document.getElementById('name-input').value='';
+  document.getElementById('name-input').style.borderColor='';
+  startTimer(); loadQ();
+}
+
+document.getElementById('btn-check').addEventListener('click',check);
+document.getElementById('btn-reset').addEventListener('click',resetQ);
+document.getElementById('btn-next').addEventListener('click',next);
+document.getElementById('btn-restart').addEventListener('click',doRestart);
+document.getElementById('btn-restart2').addEventListener('click',doRestart);
+
+startTimer();
+loadQ();
 </script>
 </body>
 </html>
