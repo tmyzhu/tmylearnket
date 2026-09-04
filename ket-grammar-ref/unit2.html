@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Have Got – Grammar Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #e8f5f0;
+  --teal: #0d9488;
+  --teal-light: #ccfbf1;
+  --teal-dark: #0f766e;
+  --coral: #f97316;
+  --coral-light: #fff7ed;
+  --purple: #7c3aed;
+  --purple-light: #ede9fe;
+  --gold: #d97706;
+  --gold-light: #fef9c3;
+  --green: #16a34a;
+  --red: #dc2626;
+  --text: #1e293b;
+  --muted: #64748b;
+  --card: #ffffff;
+  --radius: 20px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;
+  background-image:radial-gradient(circle at 10% 20%,#a7f3d0 0%,transparent 40%),
+                   radial-gradient(circle at 90% 80%,#fed7aa 0%,transparent 40%),
+                   radial-gradient(circle at 50% 50%,#ddd6fe 0%,transparent 60%);}
+
+/* ── HEADER ── */
+.page-header{text-align:center;padding:28px 20px 0;}
+.unit-tag{display:inline-block;background:var(--teal);color:#fff;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:50px;margin-bottom:10px;}
+.page-header h1{font-family:'Fredoka One',cursive;font-size:clamp(28px,6vw,46px);color:var(--teal-dark);line-height:1.1;margin-bottom:6px;}
+.page-header .sub{font-size:14px;color:var(--muted);font-weight:600;margin-bottom:20px;}
+
+/* ── GRAMMAR RULE BOX ── */
+.rule-box{max-width:620px;margin:0 auto 24px;background:#fff;border:2.5px solid var(--teal);border-radius:16px;padding:16px 20px;box-shadow:4px 4px 0 var(--teal-light);}
+.rule-box .rule-title{font-family:'Fredoka One',cursive;color:var(--teal);font-size:16px;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.rule-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.rule-col{background:var(--teal-light);border-radius:10px;padding:10px 12px;}
+.rule-col .rc-head{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--teal-dark);margin-bottom:6px;}
+.rule-col .rc-body{font-size:13px;line-height:1.8;color:var(--text);}
+.rc-body .hl{font-weight:900;color:var(--teal-dark);}
+.rc-body .neg{color:var(--red);font-weight:700;}
+.rc-body .qmark{color:var(--coral);font-weight:700;}
+
+/* ── TABS ── */
+.tabs{max-width:680px;margin:0 auto 20px;display:flex;gap:8px;padding:0 16px;flex-wrap:wrap;justify-content:center;}
+.tab-btn{display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:50px;border:2.5px solid transparent;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;transition:all .2s ease;background:#fff;color:var(--muted);}
+.tab-btn .tab-icon{font-size:18px;}
+.tab-btn .tab-count{background:#f1f5f9;color:var(--muted);border-radius:50px;padding:1px 8px;font-size:11px;}
+.tab-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1);}
+.tab-btn.active-1{background:var(--teal-light);border-color:var(--teal);color:var(--teal-dark);}
+.tab-btn.active-1 .tab-count{background:var(--teal);color:#fff;}
+.tab-btn.active-2{background:var(--coral-light);border-color:var(--coral);color:#c2410c;}
+.tab-btn.active-2 .tab-count{background:var(--coral);color:#fff;}
+.tab-btn.active-3{background:var(--purple-light);border-color:var(--purple);color:var(--purple);}
+.tab-btn.active-3 .tab-count{background:var(--purple);color:#fff;}
+
+/* ── ACTIVITY PANEL ── */
+.activity{display:none;max-width:680px;margin:0 auto;padding:0 16px 60px;animation:fadeIn .35s ease;}
+.activity.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── ACTIVITY HEADER ── */
+.act-header{background:#fff;border-radius:16px;padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.act-icon-big{font-size:36px;flex-shrink:0;}
+.act-header h2{font-family:'Fredoka One',cursive;font-size:20px;margin-bottom:2px;}
+.act-header p{font-size:13px;color:var(--muted);font-weight:600;}
+.act-score{margin-left:auto;text-align:center;background:var(--teal-light);border-radius:12px;padding:8px 14px;flex-shrink:0;}
+.act-score .sc-num{font-family:'Fredoka One',cursive;font-size:22px;color:var(--teal-dark);line-height:1;}
+.act-score .sc-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--teal);}
+
+/* ══════════════════════
+   ACTIVITY 1 – Choose
+   ══════════════════════ */
+.choose-card{background:#fff;border-radius:16px;padding:20px 22px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);border:2px solid transparent;transition:border-color .2s;}
+.choose-card.done-correct{border-color:#16a34a;background:#f0fdf4;}
+.choose-card.done-wrong{border-color:#dc2626;background:#fef2f2;}
+.choose-card .q-num{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--teal);margin-bottom:10px;}
+.sentence-line{font-size:16px;font-weight:700;line-height:2;margin-bottom:12px;display:flex;flex-wrap:wrap;align-items:center;gap:4px;}
+.blank-slot{display:inline-flex;align-items:center;justify-content:center;min-width:120px;height:34px;background:var(--teal-light);border:2px dashed var(--teal);border-radius:8px;padding:0 10px;font-size:14px;font-weight:800;color:var(--teal-dark);transition:all .25s;}
+.blank-slot.filled-correct{background:#dcfce7;border:2px solid var(--green);color:var(--green);}
+.blank-slot.filled-wrong{background:#fee2e2;border:2px solid var(--red);color:var(--red);}
+.choice-row{display:flex;flex-wrap:wrap;gap:8px;}
+.choice-pill{padding:7px 18px;border-radius:50px;border:2.5px solid #e2e8f0;background:#f8faff;cursor:pointer;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:var(--text);transition:all .18s;white-space:nowrap;}
+.choice-pill:hover:not(:disabled){border-color:var(--teal);background:var(--teal-light);color:var(--teal-dark);transform:scale(1.04);}
+.choice-pill.chosen-correct{background:#dcfce7;border-color:var(--green);color:var(--green);}
+.choice-pill.chosen-wrong{background:#fee2e2;border-color:var(--red);color:var(--red);}
+.choice-pill.reveal-correct{background:#dcfce7;border-color:var(--green);color:var(--green);}
+.choice-pill:disabled{cursor:default;opacity:.6;}
+.mini-feedback{font-size:12px;font-weight:700;margin-top:8px;display:none;}
+.mini-feedback.show{display:block;animation:popIn .2s ease;}
+.mini-feedback.ok{color:var(--green);}
+.mini-feedback.no{color:var(--red);}
+@keyframes popIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* ══════════════════════
+   ACTIVITY 2 – Build
+   ══════════════════════ */
+.build-card{background:#fff;border-radius:16px;padding:20px 22px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.build-card .q-num{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#c2410c;margin-bottom:10px;}
+.answer-tray{min-height:44px;background:#fff7ed;border:2px dashed #f97316;border-radius:10px;padding:8px 10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px;transition:background .2s;}
+.answer-tray.correct-tray{background:#f0fdf4;border-color:var(--green);}
+.answer-tray.wrong-tray{background:#fef2f2;border-color:var(--red);}
+.tray-placeholder{font-size:12px;color:#fb923c;font-weight:600;font-style:italic;}
+.word-chips-pool{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.word-chip{padding:7px 14px;background:#fff7ed;border:2px solid #fed7aa;border-radius:8px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:#c2410c;transition:all .18s;user-select:none;}
+.word-chip:hover:not(.used):not(:disabled){background:var(--coral-light);border-color:var(--coral);transform:scale(1.05);box-shadow:0 2px 8px rgba(249,115,22,.2);}
+.word-chip.used{opacity:.3;cursor:default;pointer-events:none;}
+.word-chip.in-tray{background:#fff7ed;border-color:var(--coral);cursor:pointer;}
+.word-chip.in-tray:hover{background:#fee2e2;border-color:var(--red);}
+.build-actions{display:flex;gap:8px;align-items:center;}
+.check-btn{padding:8px 20px;border-radius:50px;border:none;background:var(--coral);color:#fff;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:all .18s;}
+.check-btn:hover{background:#ea580c;transform:translateY(-1px);}
+.check-btn:disabled{background:#d1d5db;cursor:default;transform:none;}
+.clear-btn{padding:8px 16px;border-radius:50px;border:2px solid #fed7aa;background:#fff;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:var(--coral);cursor:pointer;transition:all .18s;}
+.clear-btn:hover{background:#fff7ed;}
+.build-feedback{font-size:12px;font-weight:700;margin-top:6px;display:none;}
+.build-feedback.show{display:block;animation:popIn .2s ease;}
+.build-feedback.ok{color:var(--green);}
+.build-feedback.no{color:var(--red);}
+.correct-ans{color:var(--green);font-size:13px;font-weight:700;margin-top:6px;display:none;}
+.correct-ans.show{display:block;}
+
+/* ══════════════════════
+   ACTIVITY 3 – Transform
+   ══════════════════════ */
+.trans-card{background:#fff;border-radius:16px;padding:20px 22px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.trans-card .q-num{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);margin-bottom:10px;}
+.original-sent{font-size:16px;font-weight:800;color:var(--text);padding:10px 14px;background:var(--purple-light);border-radius:10px;margin-bottom:14px;border-left:4px solid var(--purple);}
+.transform-tasks{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:480px){.transform-tasks{grid-template-columns:1fr;}}
+.transform-task{background:#f8f9ff;border:2px solid #e0e7ff;border-radius:12px;padding:14px;}
+.task-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.task-label.neg-lbl{color:var(--red);}
+.task-label.q-lbl{color:var(--coral);}
+.task-label .badge{padding:2px 8px;border-radius:50px;font-size:10px;font-weight:800;}
+.neg-badge{background:#fee2e2;color:var(--red);}
+.q-badge{background:#fff7ed;color:var(--coral);}
+.transform-opts{display:flex;flex-direction:column;gap:6px;}
+.trans-opt{padding:8px 12px;border-radius:8px;border:2px solid #e0e7ff;background:#fff;cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:var(--text);text-align:left;transition:all .18s;line-height:1.4;}
+.trans-opt:hover:not(:disabled){border-color:var(--purple);background:var(--purple-light);transform:translateX(3px);}
+.trans-opt.t-correct{background:#dcfce7;border-color:var(--green);color:var(--green);}
+.trans-opt.t-wrong{background:#fee2e2;border-color:var(--red);color:var(--red);}
+.trans-opt.t-reveal{background:#dcfce7;border-color:var(--green);color:var(--green);}
+.trans-opt.t-dim{background:#f1f5f9;border-color:#cbd5e1;color:#94a3b8;opacity:.6;}
+.trans-opt:disabled{cursor:default;transform:none!important;}
+.trans-feedback{font-size:11px;font-weight:700;margin-top:6px;display:none;color:var(--green);}
+.trans-feedback.show{display:block;}
+.trans-feedback.bad{color:var(--red);}
+
+/* ── RESET SECTION ── */
+.act-footer{text-align:center;margin-top:20px;}
+.reset-btn{padding:10px 28px;border-radius:50px;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;transition:all .2s;}
+.reset-btn-1{background:var(--teal);color:#fff;}
+.reset-btn-2{background:var(--coral);color:#fff;}
+.reset-btn-3{background:var(--purple);color:#fff;}
+.reset-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.15);}
+
+/* ── STARS ── */
+@keyframes sfloat{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-60px) scale(.4);opacity:0}}
+.star-pop{position:fixed;pointer-events:none;animation:sfloat .9s ease forwards;z-index:9999;font-size:20px;}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="unit-tag">📘 KET Unit 2 · Grammar</div>
+  <h1>Have Got 🏠</h1>
+  <p class="sub">3 种练习 · 3 Activities — choose / build / transform</p>
+</div>
+
+<!-- Rule Box -->
+<div style="max-width:680px;margin:0 auto;padding:0 16px;">
+<div class="rule-box">
+  <div class="rule-title">📋 语法规则 Grammar Rules — <em>have got</em></div>
+  <div class="rule-grid">
+    <div class="rule-col">
+      <div class="rc-head">✅ 肯定句 Positive</div>
+      <div class="rc-body">
+        I / you / we / they <span class="hl">'ve got</span><br>
+        he / she / it <span class="hl">has got</span>
+      </div>
+    </div>
+    <div class="rule-col">
+      <div class="rc-head">❌ 否定句 Negative</div>
+      <div class="rc-body">
+        I / you / we / they <span class="neg">haven't got</span><br>
+        he / she / it <span class="neg">hasn't got</span>
+      </div>
+    </div>
+    <div class="rule-col">
+      <div class="rc-head">❓ 疑问句 Question</div>
+      <div class="rc-body">
+        <span class="qmark">Have</span> I / you / we / they got …?<br>
+        <span class="qmark">Has</span> he / she / it got …?
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+  <button class="tab-btn active-1" onclick="showTab(1)">
+    <span class="tab-icon">🎯</span>
+    <span>选词填空 Choose</span>
+    <span class="tab-count" id="tc1">6 题</span>
+  </button>
+  <button class="tab-btn" onclick="showTab(2)">
+    <span class="tab-icon">🧩</span>
+    <span>连词成句 Build</span>
+    <span class="tab-count" id="tc2">8 题</span>
+  </button>
+  <button class="tab-btn" onclick="showTab(3)">
+    <span class="tab-icon">🔄</span>
+    <span>句型变换 Transform</span>
+    <span class="tab-count" id="tc3">6 题</span>
+  </button>
+</div>
+
+<!-- ═══════════════════════════════════
+     ACTIVITY 1 – Choose the word
+     ═══════════════════════════════════ -->
+<div class="activity active" id="act1">
+  <div class="act-header">
+    <div class="act-icon-big">🎯</div>
+    <div>
+      <h2 style="color:var(--teal-dark);">选词填空 Choose the Word</h2>
+      <p>点击正确选项填入空白 · Click the correct option to fill in the blank.</p>
+    </div>
+    <div class="act-score">
+      <div class="sc-num" id="s1">0</div>
+      <div class="sc-lbl">得分 Score</div>
+    </div>
+  </div>
+  <div id="choose-area"></div>
+  <div class="act-footer"><button class="reset-btn reset-btn-1" onclick="initChoose()">🔄 重新开始 Reset</button></div>
+</div>
+
+<!-- ═══════════════════════════════════
+     ACTIVITY 2 – Build the sentence
+     ═══════════════════════════════════ -->
+<div class="activity" id="act2">
+  <div class="act-header">
+    <div class="act-icon-big">🧩</div>
+    <div>
+      <h2 style="color:#c2410c;">连词成句 Build the Sentence</h2>
+      <p>按顺序点击单词拼出句子，再点检查 · Click words in order, then check!</p>
+    </div>
+    <div class="act-score" style="background:#fff7ed;">
+      <div class="sc-num" id="s2" style="color:#c2410c;">0</div>
+      <div class="sc-lbl" style="color:var(--coral);">得分 Score</div>
+    </div>
+  </div>
+  <div id="build-area"></div>
+  <div class="act-footer"><button class="reset-btn reset-btn-2" onclick="initBuild()">🔄 重新开始 Reset</button></div>
+</div>
+
+<!-- ═══════════════════════════════════
+     ACTIVITY 3 – Transform
+     ═══════════════════════════════════ -->
+<div class="activity" id="act3">
+  <div class="act-header">
+    <div class="act-icon-big">🔄</div>
+    <div>
+      <h2 style="color:var(--purple);">句型变换 Transform It!</h2>
+      <p>将句子改成否定句和疑问句 · Change to negative and question form.</p>
+    </div>
+    <div class="act-score" style="background:var(--purple-light);">
+      <div class="sc-num" id="s3" style="color:var(--purple);">0</div>
+      <div class="sc-lbl" style="color:var(--purple);">得分 Score</div>
+    </div>
+  </div>
+  <div id="trans-area"></div>
+  <div class="act-footer"><button class="reset-btn reset-btn-3" onclick="initTrans()">🔄 重新开始 Reset</button></div>
+</div>
+
+<script>
+/* ════════════════════════════════
+   TAB SWITCHER
+   ════════════════════════════════ */
+const tabBtns = document.querySelectorAll('.tab-btn');
+function showTab(n) {
+  document.querySelectorAll('.activity').forEach((a,i) => {
+    a.classList.toggle('active', i === n-1);
+  });
+  tabBtns.forEach((b,i) => {
+    b.className = 'tab-btn';
+    if (i === n-1) b.classList.add('active-'+n);
+  });
+}
+
+/* ════════════════════════════════
+   ACTIVITY 1 – CHOOSE
+   ════════════════════════════════ */
+const chooseQs = [
+  {
+    before: "I", blank: "have got", after: "blue eyes.",
+    choices: ["have got","has got"], correct: "have got",
+    expl: "主语是 I（我），所以用 have got。✓"
+  },
+  {
+    before: "My dad", blank: "hasn't got", after: "dark hair.",
+    choices: ["hasn't got","haven't got"], correct: "hasn't got",
+    expl: "My dad = he（他），第三人称单数用 hasn't got。✓"
+  },
+  {
+    before: "", blank: "Have", after: "you got a big bedroom? — No, I haven't.",
+    choices: ["Have","Has"], correct: "Have",
+    expl: "主语是 you（你），疑问句用 Have … got?。✓"
+  },
+  {
+    before: "I", blank: "haven't got", after: "a desk in my room.",
+    choices: ["haven't got","hasn't got"], correct: "haven't got",
+    expl: "主语是 I（我），否定句用 haven't got。✓"
+  },
+  {
+    before: "", blank: "Has", after: "your brother got a new smartphone? — Yes, he has.",
+    choices: ["Have","Has"], correct: "Has",
+    expl: "your brother = he（他），第三人称单数疑问句用 Has … got?。✓"
+  },
+  {
+    before: "This is my cat. It", blank: "has got", after: "a long tail.",
+    choices: ["has got","have got"], correct: "has got",
+    expl: "主语是 it（它），第三人称单数用 has got。✓"
+  }
+];
+let score1 = 0;
+function initChoose() {
+  score1 = 0; document.getElementById('s1').textContent = 0;
+  const area = document.getElementById('choose-area');
+  area.innerHTML = chooseQs.map((q, i) => `
+    <div class="choose-card" id="cc${i}">
+      <div class="q-num">第 ${i+1} 题 · Question ${i+1}</div>
+      <div class="sentence-line">
+        ${q.before ? `<span>${q.before}</span>` : ''}
+        <span class="blank-slot" id="bs${i}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>${q.after}</span>
+      </div>
+      <div class="choice-row">
+        ${q.choices.map(c => `<button class="choice-pill" data-val="${c.replace(/"/g,'&quot;')}" onclick="pickChoiceBtn(${i},this)">${c}</button>`).join('')}
+      </div>
+      <div class="mini-feedback" id="mf${i}"></div>
+    </div>`).join('');
+}
+function pickChoiceBtn(qi, btn) {
+  pickChoice(qi, btn.dataset.val);
+}
+function pickChoice(qi, val) {
+  const q = chooseQs[qi];
+  const card = document.getElementById('cc'+qi);
+  const slot = document.getElementById('bs'+qi);
+  const fb = document.getElementById('mf'+qi);
+  const pills = card.querySelectorAll('.choice-pill');
+  pills.forEach(p => p.disabled = true);
+  const chosen = [...pills].find(p => p.textContent === val);
+  if (val === q.correct) {
+    slot.textContent = val; slot.className = 'blank-slot filled-correct';
+    chosen.className = 'choice-pill chosen-correct';
+    card.className = 'choose-card done-correct';
+    fb.textContent = '🎉 ' + q.expl; fb.className = 'mini-feedback ok show';
+    score1++; document.getElementById('s1').textContent = score1;
+    spawnStars(chosen);
+  } else {
+    slot.textContent = val; slot.className = 'blank-slot filled-wrong';
+    chosen.className = 'choice-pill chosen-wrong';
+    const correct = [...pills].find(p => p.textContent === q.correct);
+    if (correct) correct.className = 'choice-pill reveal-correct';
+    card.className = 'choose-card done-wrong';
+    fb.textContent = '❌ 答错了！正确答案是：' + q.correct + '。' + q.expl;
+    fb.className = 'mini-feedback no show';
+  }
+}
+
+/* ════════════════════════════════
+   ACTIVITY 2 – BUILD
+   ════════════════════════════════ */
+const buildQs = [
+  { words: ["Greg","has","got","three","brothers","."], answer: "Greg has got three brothers." },
+  { words: ["I","haven't","got","your","pen","."], answer: "I haven't got your pen." },
+  { words: ["All","my","friends","have","got","laptops","."], answer: "All my friends have got laptops." },
+  { words: ["My","grandfather","hasn't","got","black","hair","."], answer: "My grandfather hasn't got black hair." },
+  { words: ["You","have","got","a","nice","room","."], answer: "You have got a nice room." },
+  { words: ["Have","you","got","my","book","?"], answer: "Have you got my book?" },
+  { words: ["We","haven't","got","a","car","."], answer: "We haven't got a car." },
+  { words: ["Has","your","sister","got","a","big","desk","?"], answer: "Has your sister got a big desk?" }
+];
+let score2 = 0;
+let buildState = [];
+function initBuild() {
+  score2 = 0; document.getElementById('s2').textContent = 0;
+  buildState = buildQs.map(q => ({
+    pool: shuffle([...q.words]),
+    tray: [],
+    done: false
+  }));
+  renderBuild();
+}
+function shuffle(arr) {
+  for (let i = arr.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]] = [arr[j],arr[i]];
+  }
+  return arr;
+}
+function renderBuild() {
+  const area = document.getElementById('build-area');
+  area.innerHTML = buildQs.map((q, i) => {
+    const st = buildState[i];
+    const poolHTML = st.pool.map((w, wi) =>
+      `<span class="word-chip${st.tray.includes(wi) ? ' used' : ''}" onclick="addWord(${i},${wi})">${w}</span>`
+    ).join('');
+    const trayHTML = st.tray.length
+      ? st.tray.map(wi => `<span class="word-chip in-tray" onclick="removeWord(${i},${wi})">${st.pool[wi]}</span>`).join('')
+      : `<span class="tray-placeholder">点击下方单词，按顺序拼成句子 …</span>`;
+    const trayClass = st.done ? (buildState[i].correct ? 'answer-tray correct-tray' : 'answer-tray wrong-tray') : 'answer-tray';
+    return `
+      <div class="build-card" id="bc${i}">
+        <div class="q-num">第 ${i+1} 句 · Sentence ${i+1}</div>
+        <div class="${trayClass}" id="bt${i}">${trayHTML}</div>
+        <div class="word-chips-pool" id="bp${i}">${poolHTML}</div>
+        <div class="build-actions">
+          <button class="check-btn" onclick="checkBuild(${i})" ${st.done?'disabled':''}>检查 Check ✓</button>
+          <button class="clear-btn" onclick="clearBuild(${i})" ${st.done?'disabled':''}>清除 Clear ✗</button>
+        </div>
+        <div class="build-feedback ${st.feedClass||''}" id="bfb${i}">${st.feedText||''}</div>
+        <div class="correct-ans ${st.showAns?'show':''}" id="ba${i}">✅ 正确答案：<strong>${q.answer}</strong></div>
+      </div>`;
+  }).join('');
+}
+function addWord(qi, wi) {
+  const st = buildState[qi];
+  if (st.done || st.tray.includes(wi)) return;
+  st.tray.push(wi);
+  renderBuild();
+}
+function removeWord(qi, wi) {
+  const st = buildState[qi];
+  if (st.done) return;
+  st.tray = st.tray.filter(x => x !== wi);
+  renderBuild();
+}
+function clearBuild(qi) {
+  buildState[qi].tray = [];
+  renderBuild();
+}
+function checkBuild(qi) {
+  const q = buildQs[qi];
+  const st = buildState[qi];
+  if (!st.tray.length) return;
+  // join words, then remove space before punctuation . ? !
+  const built = st.tray.map(wi => st.pool[wi]).join(' ').replace(/ ([.?!])/g, '$1');
+  st.done = true;
+  if (built === q.answer) {
+    st.correct = true;
+    st.feedClass = 'show ok'; st.feedText = '🎉 太棒了！完全正确！';
+    score2++; document.getElementById('s2').textContent = score2;
+    const card = document.getElementById('bc'+qi);
+    spawnStars(card);
+  } else {
+    st.correct = false;
+    st.feedClass = 'show no'; st.feedText = '❌ 顺序不对，再看看正确答案吧～';
+    st.showAns = true;
+  }
+  renderBuild();
+}
+
+/* ════════════════════════════════
+   ACTIVITY 3 – TRANSFORM
+   ════════════════════════════════ */
+const transQs = [
+  {
+    original: "I have got blue eyes.",
+    neg: { correct: "I haven't got blue eyes.", wrong: "I doesn't got blue eyes." },
+    q:   { correct: "Have you got blue eyes?", wrong: "Do you got blue eyes?" }
+  },
+  {
+    original: "She has got a big bedroom.",
+    neg: { correct: "She hasn't got a big bedroom.", wrong: "She haven't got a big bedroom." },
+    q:   { correct: "Has she got a big bedroom?", wrong: "Have she got a big bedroom?" }
+  },
+  {
+    original: "We have got a car.",
+    neg: { correct: "We haven't got a car.", wrong: "We hasn't got a car." },
+    q:   { correct: "Have we got a car?", wrong: "Has we got a car?" }
+  },
+  {
+    original: "He has got dark hair.",
+    neg: { correct: "He hasn't got dark hair.", wrong: "He haven't got dark hair." },
+    q:   { correct: "Has he got dark hair?", wrong: "Have he got dark hair?" }
+  },
+  {
+    original: "They have got laptops.",
+    neg: { correct: "They haven't got laptops.", wrong: "They doesn't got laptops." },
+    q:   { correct: "Have they got laptops?", wrong: "Has they got laptops?" }
+  },
+  {
+    original: "It has got a long tail.",
+    neg: { correct: "It hasn't got a long tail.", wrong: "It haven't got a long tail." },
+    q:   { correct: "Has it got a long tail?", wrong: "Have it got a long tail?" }
+  }
+];
+let score3 = 0;
+let transState = [];
+function initTrans() {
+  score3 = 0; document.getElementById('s3').textContent = 0;
+  transState = transQs.map(() => ({ negDone: false, qDone: false }));
+  renderTrans();
+}
+function shuffle2(a,b){ return Math.random()<0.5?[a,b]:[b,a]; }
+function renderTrans() {
+  const area = document.getElementById('trans-area');
+  area.innerHTML = transQs.map((q, i) => {
+    const st = transState[i];
+    const negOpts = shuffle2(q.neg.correct, q.neg.wrong);
+    const qOpts   = shuffle2(q.q.correct,   q.q.wrong);
+    function optClass(type, opt) {
+      if (type==='neg' && st.negDone) {
+        if (opt === q.neg.correct) return st.negCorrect ? 't-correct' : 't-reveal';
+        if (opt === st.negChosen)  return 't-wrong';
+        return 't-dim';
+      }
+      if (type==='q' && st.qDone) {
+        if (opt === q.q.correct) return st.qCorrect ? 't-correct' : 't-reveal';
+        if (opt === st.qChosen)  return 't-wrong';
+        return 't-dim';
+      }
+      return '';
+    }
+    return `
+    <div class="trans-card" id="tc${i}">
+      <div class="q-num">第 ${i+1} 题 · Question ${i+1}</div>
+      <div class="original-sent">➕ ${q.original}</div>
+      <div class="transform-tasks">
+        <div class="transform-task">
+          <div class="task-label neg-lbl"><span class="badge neg-badge">➖ 否定句 Negative</span></div>
+          <div class="transform-opts">
+            ${negOpts.map(opt=>`
+              <button class="trans-opt ${optClass('neg',opt)}" data-val="${opt.replace(/"/g,'&quot;')}" onclick="pickTransBtn(${i},'neg',this)" ${st.negDone?'disabled':''}>${opt}</button>
+            `).join('')}
+          </div>
+          <div class="trans-feedback ${st.negDone?(st.negCorrect?'show':'show bad'):''}" id="nfb${i}">
+            ${st.negDone?(st.negCorrect?'🎉 正确！':'❌ 正确答案是：'+q.neg.correct):'' }
+          </div>
+        </div>
+        <div class="transform-task">
+          <div class="task-label q-lbl"><span class="badge q-badge">❓ 疑问句 Question</span></div>
+          <div class="transform-opts">
+            ${qOpts.map(opt=>`
+              <button class="trans-opt ${optClass('q',opt)}" data-val="${opt.replace(/"/g,'&quot;')}" onclick="pickTransBtn(${i},'q',this)" ${st.qDone?'disabled':''}>${opt}</button>
+            `).join('')}
+          </div>
+          <div class="trans-feedback ${st.qDone?(st.qCorrect?'show':'show bad'):''}" id="qfb${i}">
+            ${st.qDone?(st.qCorrect?'🎉 正确！':'❌ 正确答案是：'+q.q.correct):'' }
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function pickTransBtn(qi, type, btn) {
+  pickTrans(qi, type, btn.dataset.val);
+}
+function pickTrans(qi, type, val) {
+  const q = transQs[qi];
+  const st = transState[qi];
+  const correct = type==='neg' ? q.neg.correct : q.q.correct;
+  if (type==='neg') { st.negDone=true; st.negChosen=val; st.negCorrect=(val===correct); }
+  else              { st.qDone=true;   st.qChosen=val;   st.qCorrect=(val===correct); }
+  if ((type==='neg'&&st.negCorrect)||(type==='q'&&st.qCorrect)) {
+    score3++; document.getElementById('s3').textContent = score3;
+    const card = document.getElementById('tc'+qi);
+    spawnStars(card);
+  }
+  renderTrans();
+}
+
+/* ════════════════════════════════
+   STAR FX
+   ════════════════════════════════ */
+function spawnStars(el) {
+  const r = el.getBoundingClientRect();
+  ['⭐','✨','🌟'].forEach((e,i) => {
+    const d = document.createElement('div');
+    d.className = 'star-pop'; d.textContent = e;
+    d.style.left = (r.left + r.width/2 + (Math.random()-.5)*60)+'px';
+    d.style.top  = (r.top + window.scrollY + 10)+'px';
+    d.style.animationDelay = (i*.1)+'s';
+    document.body.appendChild(d);
+    setTimeout(()=>d.remove(), 1100);
+  });
+}
+
+/* ════════════════════════════════
+   INIT ALL
+   ════════════════════════════════ */
+initChoose();
+initBuild();
+initTrans();
+</script>
+</body>
+</html>
