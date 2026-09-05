@@ -485,7 +485,7 @@ function buildBookGrid() {
     var b = books[i];
     html += '<div class="book-card" onclick="openBook(\''+b.slug+'\')">' +
       '<div class="b-cover" style="background:linear-gradient(135deg,#f3e5f5 0%,#e1bee7 100%);position:relative;">' +
-      '<img src="https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/'+b.slug+'/01.webp" alt="'+b.title+'" style="width:100%;height:100%;object-fit:cover;border-radius:10px;display:block;opacity:.9;" onerror="this.style.display=\'none\';this.parentElement.innerHTML=\'<span style=\\'font-size:3rem;opacity:.6;\\'>📖</span>\';">' +
+      '<img src="https://raw.githubusercontent.com/jnuyao/jnuyao.github.io/main/public/pages/'+b.slug+'/01.webp" alt="'+b.title+'" style="width:100%;height:100%;object-fit:cover;border-radius:10px;display:block;opacity:.9;" onerror="this.style.display=\'none\';this.parentElement.innerHTML=\'<span style=\\'\\'>📖</span>\';">' +
       '</div>' +
       '<h3>'+b.title+'</h3>' +
       '<div class="b-meta">Level '+b.level+' · Term '+b.term+' · Unit '+b.unit+'</div>' +
